@@ -35,12 +35,16 @@ public class MainWindow extends UiPart<Stage> {
     private ExerciseListPanel sortedListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ResolveWindow resolveWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private MenuItem resolveWindowMenuItem;
 
     @FXML
     private StackPane filteredListPanelPlaceholder;
@@ -66,12 +70,12 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-        primaryStage.setMaximized(true);
         primaryStage.setTitle("ExerHealth");
 
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        resolveWindow = new ResolveWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -153,6 +157,18 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.show();
         } else {
             helpWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the resolve window and blocks all events until closed
+     */
+    @FXML
+    private void handleResolve() {
+        if (resolveWindow.isShowing()) {
+            resolveWindow.focus();
+        } else {
+            resolveWindow.show();
         }
     }
 
