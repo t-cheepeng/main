@@ -166,7 +166,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleResolve() {
         String testData = "This is clearly test data. DELETE".repeat(1000);
-        resolveWindow.fillInnerParts(testData, testData);
+        resolveWindow.setLeftRightText(testData, testData);
         if (resolveWindow.isShowing()) {
             resolveWindow.focus();
         } else {
@@ -187,6 +187,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        resolveWindow.hideAndClearText();
         primaryStage.hide();
     }
 

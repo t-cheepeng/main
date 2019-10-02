@@ -8,7 +8,7 @@
 <?import javafx.stage.Stage?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11"
-         xmlns:fx="http://javafx.com/fxml/1" title = "Resolve">
+         xmlns:fx="http://javafx.com/fxml/1" title = "Resolve" onCloseRequest="#hideAndClearText">
     <scene>
         <Scene>
             <stylesheets>
@@ -19,6 +19,13 @@
                 <StackPane fx:id="commandBoxPlaceHolder" styleClass="pane-with-border" VBox.vgrow="NEVER">
                     <padding>
                         <Insets bottom = "5" left = "10" right = "10" top = "5"/>
+                    </padding>
+                </StackPane>
+
+                <StackPane fx:id="resultDisplayPlaceHolder" maxHeight="100" minHeight="100" prefHeight="100"
+                           styleClass="pane-with-border" VBox.vgrow="NEVER">
+                    <padding>
+                        <Insets bottom="5" left="10" right="10" top="5"/>
                     </padding>
                 </StackPane>
 
