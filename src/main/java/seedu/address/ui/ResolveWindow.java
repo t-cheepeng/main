@@ -54,6 +54,11 @@ public class ResolveWindow extends UiPart<Stage> {
         return getRoot().isShowing();
     }
 
+    /**
+     * Hides the window and clears the text in LeftRightPanel
+     *
+     * @see LeftRightPanel#clearAllText()
+     */
     public void hideAndClearText() {
         getRoot().hide();
         leftRightPanel.clearAllText();
@@ -93,10 +98,18 @@ public class ResolveWindow extends UiPart<Stage> {
         root.initModality(Modality.APPLICATION_MODAL);
     }
 
+    /**
+     * Executor for resolve window's command box.
+     * <p>
+     *     This executor will only allow resolve commands to be executed.
+     * </p>
+     * @param commandText user input
+     * @return Result from executing a valid command
+     */
     private CommandResult execute(String commandText) {
-        if(commandText.equals("resolve")) {
+        if (commandText.equals("resolve")) {
             hideAndClearText();
-            return new CommandResult("Resolved", false ,false);
+            return new CommandResult("Resolved", false, false);
         } else {
             CommandResult result = new CommandResult("Not resolve command", false, false);
             resultDisplay.setFeedbackToUser(result.getFeedbackToUser());
