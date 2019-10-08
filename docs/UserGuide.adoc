@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= ExerHealth - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,17 +14,28 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T09-2/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team ExerHealth`      Since: `Sep 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Wish to get the summer body that the contestants in your school’s
+beauty pageant has? Want to shed some weight that you have gained
+from stress-eating?
+
+Well wait no more! ExerHealth is a one-stop platform for students
+who wish to embark on a journey of health and fitness. This application
+is optimised for students who prefer to work with a Command Line
+Interface (CLI) while still having the benefits of a Graphical User
+Interface (GUI). If you can type fast and wish to maintain a healthy
+lifestyle, ExerHealth is that one app for you!
+
+Interested? Jump to <<Quick Start>> to get started! Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `exerhealth.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for ExerHealth.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +44,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`get t/exercise`* : gets all the exercises ExerHealth is tracking.
+* **`add`**`t/exercise n/Push ups d/1/10/2019 c/123` : adds a exercise named `Push ups` to ExerHealth.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,100 +56,378 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `stats t/CAT_NAME`,
+`CAT_NAME` is a parameter which can be used as `stats t/exercise`.
+* Words in `lower_case` are the compulsory keywords that inform ExerHealth about the category of
+information being added. e.g. `add t/exercise n/EXERCISE_NAME`, `t/exercise` is a keyword that informs ExerHealth about adding to the exercise tracker.
+* Items in square brackets are optional e.g `d/date [c/CALORIES]` can be used as `d/1/10/2019 c/123`
+or as `d/1/10/2019`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[m/MUSCLE]...`
+can be used as `{nbsp}` (i.e. 0 times), `m/glutes`, `m/glutes m/chest` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME d/DATE c/CALORIES`,
+`d/DATE c/CALORIES n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding exercise/regime information: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Adding exercise information +
 
-[TIP]
-A person can have any number of tags (including 0)
+Adds the relevant exercise information into ExerHealth.
+You can enter the following additional information for each exercise:
+
+* Calories burnt in kcal
+* Quantity of exercises completed and its units of measure
+* Muscle group(s) that are being worked out
+
+Format: `add t/exercise n/EXERCISE_NAME d/DATE [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...`
+
+****
+* Dates that are entered have to be of the form `dd/MM/yyyy`.
+* The day of each date must be between 1 and 31 inclusive.
+* The month of each date must be between 1 and 12 inclusive.
+* If the day of the month entered is within the above range but exceeds the number of days present
+in that particular month, the date will be treated as the last day of that particular month e.g. if
+`31/02/2019` is entered, it will be treated as `28/02/2019`.
+****
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add t/exercise n/Run d/19/09/2019`
+* `add t/exercise n/Swimming d/19/09/2019 c/2000`
+* `add t/exercise n/Bench press d/19/09/2019 c/500 q/50 u/reps m/Chest`
 
-=== Listing all persons : `list`
+==== Adding exercises to scheduling regime +
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Adds exercises from the exercises you have added into a new exercise regime.
+If a regime of the same name already exists, exercises will be added to the same scheduling regime.
 
-=== Editing a person : `edit`
+Format: `add t/regime [n/REGIME_NAME] [i/INDEX]...`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Example:
+
+* `add t/regime n/power sets i/1 i/2 i/3`
+
+Adds the 1st, 2nd and 3rd exercise in the list to the regime named `power sets`.
+
+* `add t/regime n/cardio i/4`
+
+Adds the 4th exercise in the list to the regime named `cardio`.
+
+=== Listing all exercises : `list`
+
+Retrieves all categories of information - Exercise and Regime - from ExerHealth.
+
+If you provide a category name, only information from that category will be shown.
+You can also include start and end dates to restrict the range of dates.
+If no dates are supplied, the most recent week of information from each category will be shown.
+
+Format: `list [t/CAT_NAME] [s/START_DATE] [e/END_DATE]`
+
+Example:
+
+* `list`
+* `list t/exercise`
+* `list t/regime`
+* `list t/exercise s/12/12/2019 e/17/12/2019`
+
+=== Edit exercise information: `edit`
+
+Edits the relevant exercise information into ExerHealth.
+You can edit all the possible information for exercises except for custom properties.
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* The date entered for this command must follow the same requirements as that of `add` command.
+* Edits the exercise at the specified `INDEX`. The index refers to the index number shown in the displayed exercise list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
-Examples:
+Format: `edit t/exercise i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Example:
 
-=== Locating persons by name: `find`
+* `edit t/exercise i/2 n/Running d/20/09/2019`
 
-Finds persons whose names contain any of the given keywords. +
+Edits the name and the date of the 2nd exercise to `Running` and `20/09/2019` respectively.
+
+* `edit t/exercise i/4 n/Swim d/21/09/2019 c/100`
+
+Edits the name, date and calories burnt of the 4th exercise to `Swim`, `21/09/2019` and `100` respectively.
+
+* `edit t/exercise i/3 n/Bench press d/22/09/2019 c/240 q/10 u/sets m/Chest`
+
+Edits the name, date, calories burnt, quantity, units and muscle group trained of the 3rd exercise to `Bench press`,
+`22/09/2019`, `240`, `10`, `sets` and `Chest` respectively.
+
+=== Locating exercises by name: `find`
+
+Finds exercises whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. e.g `run` will match `Run`
+* The order of the keywords does not matter. e.g. `Bench Press` will match `Press Bench`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched e.g. `Runs` will not match `Run`
+* Exercises matching at least one keyword will be returned (i.e. `OR` search). e.g. `Bench Press` will return `Incline Bench Press`, `Decline Bench Press`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find bench press`
+* `find run`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Delete health information : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+==== Deleting exercise information
+
+Deleting a certain exercise information from ExerHealth.
+
+Format: `delete t/exercise i/INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the exercise at the specified `INDEX`.
+* The index refers to the index number shown in the displayed exercise list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `delete t/exercise i/2`
 
-// end::delete[]
+==== Deleting exercise from scheduling regime
+
+Deletes exercises from a certain scheduling regime.
+
+Format: `delete t/exercise n/REGIME_NAME [i/INDEX]...`
+
+****
+* Deletes the exercise at the specified `INDEX`.
+* If index is not provided, the command deletes the entire scheduling regime
+* The index refers to the index number shown in the displayed regime list.
+* The index, if provided, *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `delete t/regime n/cardio i/2` +
+Deletes the exercise indexed 2 in the cardio regime
+* `delete t/regime n/legs` +
+Deletes the entire regime named legs
+
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the exercise tracker. +
 Format: `clear`
+
+=== Display statistics : `stats`
+
+Display the statistics of exercises.
+
+Format: `stats t/CAT_NAME h/CHART_TYPE [s/START_DATE] [d/END_DATE]`
+
+****
+* Supported chart types: Pie Chart, Line Chart, Bar Chart
+* If no `START_DATE` and `END_DATE` are provided, the recent 7 days of history will be used.
+* If any date is provided, both `START_DATE` and `END_DATE` dates must be there.
+****
+
+Example:
+
+* `stats t/exercise h/piechart`
+* `stats t/calories h/linechart`
+* `stats t/exercise h/barchart s/20/09/2019 e/27/09/2019`
+
+=== Undo previous command: `undo`
+
+Undo the previous command entered.
+
+[TIP]
+If there is no previous command, undo will do nothing.
+
+Format: `undo`
+
+=== Redo undo-ed command: `redo`
+
+Redo the previous command that was undo-ed by user.
+
+[TIP]
+If there is no undo history, redo command will do nothing.
+
+Format: `redo`
+
+=== Custom properties: `custom`
+
+==== Adding custom properties
+
+Adds in a custom property which you can define for the exercises.
+
+Once a new custom property is created, you can simply use the short name which you defined for the
+property to the `add` and `edit` command to include information for the new property.
+
+****
+* You must choose exactly one of the following as the parameter type for your custom property:
+`Text`, `Number`, `Date`.
+* Every word in the full name of each custom property will be changed to Start Case style, where the first letter of each
+word is capitalised with the other letters in lower case e.g. `enD DaTe` will be changed to `End Date`.
+* The date entered for the custom properties must follow the same requirements as that of `add` command.
+* You need not include the custom properties when adding a new exercise to the app.
+****
+
+Format: `custom s/SHORT_NAME f/FULL_NAME p/PARAMETER_TYPE`
+
+Example:
+
+* `custom s/a f/Ratings p/Number`
+
+Creates a `Ratings` property for each exercise.
+Information for this property can be updated for each exercise by using `a/NUMBER` in the relevant command where `NUMBER` refers to
+a number.
+
+* `custom s/b f/rEmaRk p/Text`
+
+Creates a `Remark` property for each exercise.
+Information for this property can be updated for each exercise by using `b/TEXT` in the relevant command where
+`TEXT` refers to a non-empty sentence.
+
+* `custom s/c f/End Date p/Date`
+
+Creates a `End Date` property for each exercise.
+Information for this property can be updated for each exercise by using `s/DATE` in the relevant command where
+`DATE` refers to a date.
+
+Using `Ratings` as an example, you can now perform the following actions after adding it:
+
+* `add t/exercise n/Run d/01/10/2019 a/5`
+
+Adds an exercise with the name `Run`, date `01/10/2019` and ratings `5` into the app.
+
+* `edit t/exercise i/4 a/3`
+
+Edits the ratings of the 4th exercise in the list to `3`.
+
+==== Removing custom properties
+
+Removes a custom property which you have previously defined.
+This removes the custom property from all exercises.
+
+[TIP]
+`FULL_NAME` denotes the name of the previously defined custom property.
+
+Format: `custom r/FULL_NAME`
+
+Example:
+
+* `custom r/Ratings`
+* `custom r/Remark`
+
+=== Scheduling exercises: `schedule`
+
+==== Schedules a regime
+
+Schedules an exercise regime for a certain date. If regime clashes with another scheduled regime, users will be prompted to resolve the conflict via a popup window. Refer to <<resolve>> for details on resolving scheduling conflicts.
+
+Format: `schedule n/REGIME_NAME d/DATE`
+
+Example:
+
+* `schedule n/cardio d/19/9/2019`
+
+==== Completes a schedule regime
+
+Once a scheduled regime is completed, users can add that regime to the exercise tracker.
+
+Format: `schedule f/INDEX_OF_REGIME_IN_SCHEDULE`
+
+Example:
+
+* `schedule f/2`
+
+[[resolve]]
+=== Resolving scheduling conflicts: `resolve`
+
+==== Taking one of the conflicting regimes completely
+
+Takes the scheduled regime or the conflicting regime completely and discarding the other. Neither regimes will be completely deleted from the user’s collection.
+
+Format: `resolve n/REGIME_TO_TAKE`
+
+Example:
+
+* `resolve n/cardio`
+
+
+==== Taking some exercises from some regime
+Takes some exercises from the scheduled regime and some from the conflicting regime to make a brand new regime. The new regime that is a result of the combination will be added  to the user’s collection and scheduled at the date of conflict. This new regime will also be added to the user’s collection of regimes
+
+Format: `resolve n/REGIME_NAME [i/INDEX_OF_EXERCISE_IN_SCHEDULED]... [r/INDEX_OF_EXERCISE_IN_CONFLICTING]...`
+
+****
+* Takes the exercise at the specified `INDEX`.
+* A new regime with `REGIME_NAME` will be created and added to user's collection
+* `REGIME_NAME` must be a new name that does not exist in user's collection
+* The index refers to the index number shown in the displayed conflict resolving window.
+* The index *must be a positive integer* 1, 2, 3, ...
+* i/ is for index of the scheduled regime
+* r/ is for index of the conflicting regime
+****
+
+Example:
+
+* `resolve d/date n/cardios i/1 i/2 i/3 r/4 r/2`
+
+Takes exercise 1, 2, 3 from scheduled regime and exercise 2, 4 from conflicting regime and adds them to a new regime called cardios
+
+=== Suggesting ideas: `suggest`
+==== Suggest basic exercises
+Recommends exercises from ExerHealth's inbuilt database for beginners.
+
+Format: `suggest basic`
+
+==== Suggest possible exercises
+Suggests exercises matching specified tags.
+
+===== Based on matching muscle tags
+Format: `suggest possible m/MUSCLE`
+
+Example:
+
+* `suggest possible m/chest`
+
+A list of exercises with chest muscle tag will be displayed.
+
+* `suggest possible m/chest m/tricep`
+
+A list of exercises tagged with chest or triceps will be displayed.
+
+===== Based on matching custom properties `[Coming in v2.0]`
+
+==== Suggest intensity
+Recommends an increased quantity for the indexed exercise/regime based on its past record.
+
+Format: `suggest intensity t/exercise i/INDEX`
+`suggest intensity t/regime i/INDEX`
+
+****
+* Takes the exercise at the specified `INDEX`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* i/ is for index of the scheduled regime
+****
+
+Example:
+
+* `suggest intensity t/exercise 1`
+
+Displays the recommended quantity for the indexed exercise.
+
+* `suggest intensity t/regime 1`
+
+Displays the recommended quantity for all the exercises in the indexed regime.
 
 === Exiting the program : `exit`
 
@@ -148,8 +436,20 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+ExerHealth data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== Remind to do exercises `[coming in v2.0]`
+
+Reminds you to do exercises.
+
+=== Autocomplete of commands `[coming in v2.0]`
+
+Autocompletes the commands while typing.
+
+=== Importing data `[coming in v2.0]`
+
+Imports data to update inbuilt database of exercises.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -164,14 +464,29 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* : `add t/exercise n/EXERCISE_NAME d/DATE [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...` +
+e.g. `add t/exercise n/Bench press d/19/09/2019 c/500 q/50 u/reps m/Chest`
+* *List* : `list [t/CAT_NAME] [s/START_DATE] [e/END_DATE]`
+e.g. `list t/exercise s/12/12/2019 e/17/12/2019`
+* *Edit* : `edit t/exercise i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]... `
+e.g. `edit t/exercise i/3 n/Bench press d/22/09/2019 c/240 q/10 u/sets m/Chest`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]`
+e.g. `find bench press`
+* *Delete* : `delete t/exercise i/INDEX`
+e.g. `delete t/exercise i/2`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Stats* : `stats t/CAT_NAME h/CHART_TYPE [s/START_DATE] [d/END_DATE]`
+e.g. `stats t/exercise h/barchart s/20/09/2019 e/27/09/2019`
+* *Undo* : `undo`
+* *Redo* : `redo`
+* *Schedule* : `schedule n/REGIME_NAME d/DATE`
+e.g. `schedule n/cardio d/19/9/2019`
+* *Resolve* : `resolve n/REGIME_TO_TAKE`
+e.g. `resolve n/cardio`
+* *Suggest possible* : `suggest t/possible [m/MUSCLE]...`
+e.g. `suggest t/possible m/chest`
+* *Suggest intensity* : `suggest intensity i/INDEX`
+eg. `suggest intensity 1`
+* *Custom* : `custom s/SHORT_NAME f/FULL_NAME p/PARAMETER_TYPE`
+e.g. `custom s/c f/End Date p/Date`
+* *Exit* : `exit`
