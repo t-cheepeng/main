@@ -75,7 +75,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        resolveWindow = new ResolveWindow();
+        resolveWindow = new ResolveWindow(logic);
     }
 
     public Stage getPrimaryStage() {

@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seedu.exercise.commons.core.GuiSettings;
+import seedu.exercise.logic.Logic;
 import seedu.exercise.logic.commands.CommandResult;
 
 /**
@@ -19,6 +21,8 @@ public class ResolveWindow extends UiPart<Stage> {
 
     private static final String FXML = "ResolveWindow.fxml";
 
+    private Logic logic;
+
     private LeftRightPanel leftRightPanel;
     private ResultDisplay resultDisplay;
     private Stage parent;
@@ -33,14 +37,20 @@ public class ResolveWindow extends UiPart<Stage> {
     private StackPane leftRightPanelPlaceHolder;
 
 
-    public ResolveWindow(Stage root) {
+    public ResolveWindow(Stage root, Logic logic) {
         super(FXML, root);
         parent = getRoot();
+        this.logic = logic;
+
+        blockEvents(root);
         fillInnerParts();
+
+        setWindowSize(logic.getGuiSettings());
+        centerWindow();
     }
 
-    public ResolveWindow() {
-        this(new Stage());
+    public ResolveWindow(Logic logic) {
+        this(new Stage(), logic);
     }
 
     /**
@@ -72,6 +82,15 @@ public class ResolveWindow extends UiPart<Stage> {
     public void setLeftRightText(String leftPanelText, String rightPanelText) {
         leftRightPanel.setLeftPanelText(leftPanelText);
         leftRightPanel.setRightPanelText(rightPanelText);
+    }
+
+    private void setWindowSize(GuiSettings guiSettings) {
+        parent.setHeight(guiSettings.getWindowHeight());
+        parent.setWidth(guiSettings.getWindowWidth());
+    }
+
+    private void centerWindow() {
+        parent.centerOnScreen();
     }
 
     private void fillInnerParts() {
