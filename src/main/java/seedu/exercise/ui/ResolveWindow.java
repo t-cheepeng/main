@@ -1,10 +1,10 @@
-package seedu.address.ui;
+package seedu.exercise.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import seedu.address.logic.commands.CommandResult;
+import seedu.exercise.logic.commands.CommandResult;
 
 /**
  * Controller for resolving schedule conflicts.
@@ -21,6 +21,7 @@ public class ResolveWindow extends UiPart<Stage> {
 
     private LeftRightPanel leftRightPanel;
     private ResultDisplay resultDisplay;
+    private Stage parent;
 
     @FXML
     private StackPane commandBoxPlaceHolder;
@@ -34,7 +35,7 @@ public class ResolveWindow extends UiPart<Stage> {
 
     public ResolveWindow(Stage root) {
         super(FXML, root);
-        blockEvents(root);
+        parent = getRoot();
         fillInnerParts();
     }
 
@@ -46,8 +47,8 @@ public class ResolveWindow extends UiPart<Stage> {
      * Shows the resolve window.
      */
     public void show() {
-        getRoot().show();
-        getRoot().centerOnScreen();
+        parent.show();
+        parent.centerOnScreen();
     }
 
     public boolean isShowing() {
@@ -60,7 +61,7 @@ public class ResolveWindow extends UiPart<Stage> {
      * @see LeftRightPanel#clearAllText()
      */
     public void hideAndClearText() {
-        getRoot().hide();
+        parent.hide();
         leftRightPanel.clearAllText();
     }
 
