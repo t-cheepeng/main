@@ -3,6 +3,9 @@ package seedu.exercise.model.schedule;
 import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.regime.Regime;
 
+/**
+ * Represents a schedule for a regime at a certain date.
+ */
 public class Schedule {
     private final Regime regime;
     private final Date date;
@@ -30,8 +33,8 @@ public class Schedule {
     @Override
     public boolean equals(Object other) {
         return (other == this)
-        || (other instanceof Schedule)
-        &&  date.equals(((Schedule) other).date);
+            || (other instanceof Schedule)
+            && date.equals (((Schedule) other).date);
     }
 
 }

@@ -23,6 +23,7 @@ import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.RegimeBook;
+import seedu.exercise.model.ScheduleBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.testutil.EditExerciseDescriptorBuilder;
@@ -33,7 +34,8 @@ import seedu.exercise.testutil.ExerciseBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(),
+            new ScheduleBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -44,7 +46,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
         Model expectedModel = new ModelManager(new ExerciseBook(model.getAllExerciseData()),
-                new RegimeBook(), new UserPrefs());
+                new RegimeBook(), new ScheduleBook(), new UserPrefs());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -67,7 +69,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
         Model expectedModel = new ModelManager(new ExerciseBook(model.getAllExerciseData()),
-                new RegimeBook(), new UserPrefs());
+                new RegimeBook(), new ScheduleBook(), new UserPrefs());
         expectedModel.setExercise(lastExercise, editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -81,7 +83,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
         Model expectedModel = new ModelManager(new ExerciseBook(model.getAllExerciseData()),
-                new RegimeBook(), new UserPrefs());
+                new RegimeBook(), new ScheduleBook(), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -99,7 +101,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
         Model expectedModel = new ModelManager(new ExerciseBook(model.getAllExerciseData()),
-                new RegimeBook(), new UserPrefs());
+                new RegimeBook(), new ScheduleBook(), new UserPrefs());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

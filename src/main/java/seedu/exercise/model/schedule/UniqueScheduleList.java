@@ -8,8 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.exercise.model.regime.exceptions.DuplicateRegimeException;
-import seedu.exercise.model.regime.exceptions.RegimeNotFoundException;
 import seedu.exercise.model.schedule.exceptions.DuplicateScheduleException;
 import seedu.exercise.model.schedule.exceptions.ScheduleNotFoundException;
 
@@ -67,7 +65,7 @@ public class UniqueScheduleList implements Iterable<Schedule> {
 
     public void setSchedules(List<Schedule> schedules) {
         requireAllNonNull(schedules);
-        if(!schedulesAreUnique(schedules)) {
+        if (!schedulesAreUnique(schedules)) {
             throw new DuplicateScheduleException();
         }
 
@@ -98,6 +96,9 @@ public class UniqueScheduleList implements Iterable<Schedule> {
         return internalList.hashCode();
     }
 
+    /**
+     * Checks if schedules are all unique within the list
+     */
     private boolean schedulesAreUnique(List<Schedule> schedules) {
         for (int i = 0; i < schedules.size() - 1; i++) {
             for (int j = i + 1; j < schedules.size(); j++) {

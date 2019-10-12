@@ -15,14 +15,17 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.exercise.commons.core.GuiSettings;
+import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyExerciseBook;
 import seedu.exercise.model.ReadOnlyRegimeBook;
+import seedu.exercise.model.ReadOnlyScheduleBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.regime.Regime;
+import seedu.exercise.model.schedule.Schedule;
 import seedu.exercise.testutil.ExerciseBuilder;
 
 public class AddExerciseCommandTest {
@@ -198,12 +201,37 @@ public class AddExerciseCommandTest {
         }
 
         @Override
+        public ObservableList<Schedule> getFilteredScheduleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredRegimeList(Predicate<Regime> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasSchedule(Schedule schedule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addSchedule(Schedule schedule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyScheduleBook getAllScheduleData() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void completeRegime(Index index) {
             throw new AssertionError("This method should not be called.");
         }
     }

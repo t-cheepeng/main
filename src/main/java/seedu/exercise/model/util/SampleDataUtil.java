@@ -21,7 +21,6 @@ import seedu.exercise.model.exercise.Unit;
 import seedu.exercise.model.regime.Regime;
 import seedu.exercise.model.regime.RegimeName;
 import seedu.exercise.model.schedule.Schedule;
-import seedu.exercise.model.schedule.UniqueScheduleList;
 
 /**
  * Contains utility methods for populating {@code ExerciseBook} with sample data.
@@ -98,9 +97,9 @@ public class SampleDataUtil {
     public static Schedule[] getSampleSchedules() {
         Regime[] sampleRegimes = getSampleRegimes();
         return new Schedule[] {
-                new Schedule(sampleRegimes[0], new Date("27/09/2019")),
-                new Schedule(sampleRegimes[1], new Date("28/09/2019")),
-                new Schedule(sampleRegimes[2], new Date("29/09/2018"))
+            new Schedule(sampleRegimes[0], new Date("27/09/2019")),
+            new Schedule(sampleRegimes[1], new Date("28/09/2019")),
+            new Schedule(sampleRegimes[2], new Date("29/09/2018"))
         };
     }
 

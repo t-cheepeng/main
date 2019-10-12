@@ -5,6 +5,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.logic.commands.exceptions.ScheduleException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.exercise.UniqueExerciseList;
@@ -32,11 +33,11 @@ public class ScheduleCommand extends Command {
     public static final String MESSAGE_CONFLICT = "Regime to be scheduled conflicts with another regime. "
             + "Opening resolve window...";
 
-    private RegimeName regimeName;
+    private Regime regime;
     private Date dateToSchedule;
 
     public ScheduleCommand(RegimeName regime, Date date) {
-        regimeName = regime;
+        this.regime = new Regime(regime, new UniqueExerciseList());
         dateToSchedule = date;
     }
 
@@ -44,19 +45,37 @@ public class ScheduleCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        /*TODO check if date has something already scheduled on it.
-        if it does, throw Schedule Exception.
-        model.hasRegimeOnDate(Date date) */
+        checkExistenceOfRegime(model);
+        Schedule toSchedule = checkSchedulingConflict(model);
 
-        Regime regime = new Regime(regimeName, new UniqueExerciseList());
+        schedule(model, toSchedule);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, regime.getRegimeName(), dateToSchedule));
+    }
+
+    private void checkExistenceOfRegime(Model model) throws CommandException {
         if (!model.hasRegime(regime)) {
-            throw new CommandException(String.format(MESSAGE_REGIME_NOT_FOUND, regimeName));
+            throw new CommandException(String.format(MESSAGE_REGIME_NOT_FOUND, regime));
         }
+    }
 
+    /**
+     * Checks for scheduling conflicts and returns a valid schedule if no conflicts are found.
+     * @throws ScheduleException when there is another regime scheduled on the same date as {@code dateToSchedule}
+     */
+    private Schedule checkSchedulingConflict(Model model) throws ScheduleException {
         int indexOfRegime = model.getRegimeIndex(regime);
         Regime regimeToSchedule = model.getFilteredRegimeList().get(indexOfRegime);
-        model.schedule(new Schedule(regimeToSchedule, dateToSchedule));
+        Schedule toSchedule = new Schedule(regimeToSchedule, dateToSchedule);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, regimeToSchedule.getRegimeName(), dateToSchedule));
+        if (model.hasSchedule(toSchedule)) {
+            throw new ScheduleException(MESSAGE_CONFLICT);
+        }
+
+        return toSchedule;
+    }
+
+    private void schedule(Model model, Schedule toSchedule) {
+        model.addSchedule(toSchedule);
     }
 }

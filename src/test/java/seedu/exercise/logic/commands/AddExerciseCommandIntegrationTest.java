@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.RegimeBook;
+import seedu.exercise.model.ScheduleBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.testutil.ExerciseBuilder;
@@ -23,14 +24,15 @@ public class AddExerciseCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(), new UserPrefs());
+        model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(), new ScheduleBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newExercise_success() {
         Exercise validExercise = new ExerciseBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAllExerciseData(), new RegimeBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAllExerciseData(), new RegimeBook(),
+                new ScheduleBook(), new UserPrefs());
         expectedModel.addExercise(validExercise);
 
         assertCommandSuccess(new AddExerciseCommand(validExercise), model,

@@ -13,6 +13,9 @@ import seedu.exercise.model.ReadOnlyScheduleBook;
 import seedu.exercise.model.ScheduleBook;
 import seedu.exercise.model.schedule.Schedule;
 
+/**
+ * An Immutable ScheduleBook that is serializable to JSON format.
+ */
 @JsonRootName(value = "schedulebook")
 public class JsonSerializableScheduleBook {
 
@@ -33,6 +36,11 @@ public class JsonSerializableScheduleBook {
                         .collect(Collectors.toList()));
     }
 
+    /**
+     * Converts this schedule book into the model's {@code ScheduleBook} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated.
+     */
     public ScheduleBook toModelType() throws IllegalValueException {
         ScheduleBook scheduleBook = new ScheduleBook();
         for (JsonAdaptedSchedule schedule : schedules) {

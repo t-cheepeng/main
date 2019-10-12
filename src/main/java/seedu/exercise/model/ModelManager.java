@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.commons.core.index.Index;
-import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.regime.Regime;
 import seedu.exercise.model.schedule.Schedule;
@@ -174,7 +173,13 @@ public class ModelManager implements Model {
 
     //===================ScheduleBook==============================================================================
     @Override
-    public void schedule(Schedule schedule) {
+    public boolean hasSchedule(Schedule schedule) {
+        requireNonNull(schedule);
+        return scheduleBook.hasSchedule(schedule);
+    }
+
+    @Override
+    public void addSchedule(Schedule schedule) {
         requireNonNull(schedule);
         scheduleBook.addSchedule(schedule);
     }

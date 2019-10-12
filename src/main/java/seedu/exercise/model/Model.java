@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.index.Index;
-import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.regime.Regime;
 import seedu.exercise.model.schedule.Schedule;
@@ -155,10 +154,15 @@ public interface Model {
     void updateFilteredRegimeList(Predicate<Regime> predicate);
 
     /**
+     * Returns true if another schedule has been scheduled on the same date as {@code schedule}.
+     */
+    boolean hasSchedule(Schedule schedule);
+
+    /**
      * Schedules a {@code schedule} for the user.
      * It must be guranteed that there is no existing schedule in the {@code ScheduleBook}
      */
-    void schedule(Schedule schedule);
+    void addSchedule(Schedule schedule);
 
     /** Returns the data in the regime book */
     ReadOnlyScheduleBook getAllScheduleData();

@@ -15,6 +15,9 @@ import seedu.exercise.commons.util.FileUtil;
 import seedu.exercise.commons.util.JsonUtil;
 import seedu.exercise.model.ReadOnlyScheduleBook;
 
+/**
+ * A class to access ScheduleBook data stored as a json file on the hard disk.
+ */
 public class JsonScheduleBookStorage implements ScheduleBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonScheduleBookStorage.class);
