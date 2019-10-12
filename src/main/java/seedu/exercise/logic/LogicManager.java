@@ -17,6 +17,7 @@ import seedu.exercise.model.ReadOnlyExerciseBook;
 import seedu.exercise.model.ReadOnlyRegimeBook;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.regime.Regime;
+import seedu.exercise.model.schedule.Schedule;
 import seedu.exercise.storage.Storage;
 
 /**
@@ -83,6 +84,10 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Regime> getFilteredRegimeList() {
         return model.getFilteredRegimeList();
+    }
+
+    public ObservableList<Schedule> getFilteredScheduleList() {
+        return model.getFilteredScheduleList();
     }
 
     @Override

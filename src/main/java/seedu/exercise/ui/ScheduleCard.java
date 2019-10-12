@@ -8,13 +8,15 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.exercise.model.exercise.Exercise;
+import seedu.exercise.model.schedule.Schedule;
 
 /**
- * An UI component that displays information of a {@code Exercise}.
+ * An UI component that displays information of a {@code Schedule}.
  */
-public class ExerciseCard extends UiPart<Region> {
+public class ScheduleCard extends UiPart<Region> {
 
-    private static final String FXML = "ExerciseListCard.fxml";
+    private static final String FXML = "ScheduleListCard.fxml";
+    private static final String DATE_PREAMBLE = "Scheduled on: ";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +26,7 @@ public class ExerciseCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Exercise exercise;
+    public final Schedule schedule;
 
     @FXML
     private HBox cardPane;
@@ -34,27 +36,13 @@ public class ExerciseCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label date;
-    @FXML
-    private Label calories;
-    @FXML
-    private Label quantity;
-    @FXML
-    private Label unit;
-    @FXML
-    private FlowPane tags;
 
-    public ExerciseCard(Exercise exercise, int displayedIndex) {
+    public ScheduleCard(Schedule schedule, int displayedIndex) {
         super(FXML);
-        this.exercise = exercise;
+        this.schedule = schedule;
         id.setText(displayedIndex + ". ");
-        name.setText(exercise.getName().fullName);
-        date.setText(exercise.getDate().toString());
-        calories.setText(exercise.getCalories().value + " kcal");
-        quantity.setText(exercise.getQuantity().value);
-        unit.setText(exercise.getUnit().unit);
-        exercise.getMuscles().stream()
-            .sorted(Comparator.comparing(muscle -> muscle.muscleName))
-            .forEach(muscle -> tags.getChildren().add(new Label(muscle.muscleName)));
+        name.setText(schedule.getRegime().getRegimeName().toString());
+        date.setText(DATE_PREAMBLE + schedule.getDate().toString());
     }
 
     @Override
@@ -65,13 +53,13 @@ public class ExerciseCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ExerciseCard)) {
+        if (!(other instanceof ScheduleCard)) {
             return false;
         }
 
         // state check
-        ExerciseCard card = (ExerciseCard) other;
+        ScheduleCard card = (ScheduleCard) other;
         return id.getText().equals(card.id.getText())
-            && exercise.equals(card.exercise);
+            && schedule.equals(card.schedule);
     }
 }

@@ -29,6 +29,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Exercise> filteredExercises;
     private final FilteredList<Regime> filteredRegimes;
+    private final FilteredList<Schedule> filteredSchedules;
 
     /**
      * Initializes a ModelManager with the given exerciseBook and userPrefs.
@@ -46,6 +47,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExercises = new FilteredList<>(this.exerciseBook.getExerciseList());
         filteredRegimes = new FilteredList<>(this.regimeBook.getRegimeList());
+        filteredSchedules = new FilteredList<>(this.scheduleBook.getScheduleList());
 
     }
 
@@ -170,6 +172,7 @@ public class ModelManager implements Model {
         return regimeBook.hasRegime(regime);
     }
 
+    //===================ScheduleBook==============================================================================
     @Override
     public void schedule(Schedule schedule) {
         requireNonNull(schedule);
@@ -221,6 +224,15 @@ public class ModelManager implements Model {
     public void updateFilteredRegimeList(Predicate<Regime> predicate) {
         requireNonNull(predicate);
         filteredRegimes.setPredicate(predicate);
+    }
+
+    //=========== Filtered Schedule List Accessors ===============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Schedule} backed by the internal list of
+     * {@code scheduleBook}
+     */
+    public ObservableList<Schedule> getFilteredScheduleList() {
+        return filteredSchedules;
     }
 
     @Override

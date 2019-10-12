@@ -90,6 +90,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered regime list */
     ObservableList<Regime> getFilteredRegimeList();
 
+    /** Returns an unmodifiable view of the filtered schedule list */
+    ObservableList<Schedule> getFilteredScheduleList();
+
     /**
      * Updates the filter of the filtered exercise list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
