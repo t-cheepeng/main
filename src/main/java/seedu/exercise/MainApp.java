@@ -29,8 +29,10 @@ import seedu.exercise.model.util.SampleDataUtil;
 import seedu.exercise.storage.ExerciseBookStorage;
 import seedu.exercise.storage.JsonExerciseBookStorage;
 import seedu.exercise.storage.JsonRegimeBookStorage;
+import seedu.exercise.storage.JsonScheduleBookStorage;
 import seedu.exercise.storage.JsonUserPrefsStorage;
 import seedu.exercise.storage.RegimeBookStorage;
+import seedu.exercise.storage.ScheduleBookStorage;
 import seedu.exercise.storage.Storage;
 import seedu.exercise.storage.StorageManager;
 import seedu.exercise.storage.UserPrefsStorage;
@@ -64,7 +66,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ExerciseBookStorage exerciseBookStorage = new JsonExerciseBookStorage(userPrefs.getExerciseBookFilePath());
         RegimeBookStorage regimeBookStorage = new JsonRegimeBookStorage(userPrefs.getRegimeBookFilePath());
-        storage = new StorageManager(exerciseBookStorage, regimeBookStorage, userPrefsStorage);
+        ScheduleBookStorage scheduleBookStorage = new JsonScheduleBookStorage(userPrefs.getScheduleBookFilePath());
+        storage = new StorageManager(exerciseBookStorage, regimeBookStorage, scheduleBookStorage, userPrefsStorage);
 
         initLogging(config);
 

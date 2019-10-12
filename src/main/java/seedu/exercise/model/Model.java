@@ -157,6 +157,9 @@ public interface Model {
      */
     void schedule(Schedule schedule);
 
+    /** Returns the data in the regime book */
+    ReadOnlyScheduleBook getAllScheduleData();
+
     /**
      * Completes a regime and adds it to {@code ExerciseBook} for tracking.
      * @param index of the regime to complete

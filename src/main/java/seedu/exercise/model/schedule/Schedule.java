@@ -16,6 +16,10 @@ public class Schedule {
         return date;
     }
 
+    public Regime getRegime() {
+        return regime;
+    }
+
     /**
      * Returns true if both {@code schedules} have the same date
      */

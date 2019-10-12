@@ -181,6 +181,10 @@ public class ModelManager implements Model {
         //TODO implement completing a regime and adding to exercise tracker
     }
 
+    @Override
+    public ReadOnlyScheduleBook getAllScheduleData() {
+        return scheduleBook;
+    }
 
     @Override
     public int getRegimeIndex(Regime regime) {
