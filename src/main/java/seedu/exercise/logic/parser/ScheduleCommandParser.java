@@ -8,6 +8,8 @@ import java.util.stream.Stream;
 
 import seedu.exercise.logic.commands.ScheduleCommand;
 import seedu.exercise.logic.parser.exceptions.ParseException;
+import seedu.exercise.model.exercise.Date;
+import seedu.exercise.model.regime.RegimeName;
 
 /**
  * Parses input arguments and creates a new ScheduleCommand object
@@ -29,8 +31,8 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
         }
 
-        String regimeName = argumentMultimap.getValue(PREFIX_NAME).get();
-        String date = argumentMultimap.getValue(PREFIX_DATE).get();
+        RegimeName regimeName = ParserUtil.parseRegimeName(argumentMultimap.getValue(PREFIX_NAME).get());
+        Date date = ParserUtil.parseDate(argumentMultimap.getValue(PREFIX_DATE).get());
 
         return new ScheduleCommand(regimeName, date);
     }

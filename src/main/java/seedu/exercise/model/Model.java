@@ -5,8 +5,11 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.exercise.commons.core.GuiSettings;
+import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.regime.Regime;
+import seedu.exercise.model.schedule.Schedule;
 
 /**
  * The API of the Model component.
@@ -147,4 +150,16 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRegimeList(Predicate<Regime> predicate);
+
+    /**
+     * Schedules a {@code schedule} for the user.
+     * It must be guranteed that there is no existing schedule in the {@code ScheduleBook}
+     */
+    void schedule(Schedule schedule);
+
+    /**
+     * Completes a regime and adds it to {@code ExerciseBook} for tracking.
+     * @param index of the regime to complete
+     */
+    void completeRegime(Index index);
 }

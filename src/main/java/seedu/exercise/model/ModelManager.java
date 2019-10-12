@@ -11,8 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
+import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.regime.Regime;
+import seedu.exercise.model.schedule.Schedule;
 
 /**
  * Represents the in-memory model of the exercise book data.
@@ -22,6 +25,7 @@ public class ModelManager implements Model {
 
     private final ExerciseBook exerciseBook;
     private final RegimeBook regimeBook;
+    private final ScheduleBook scheduleBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Exercise> filteredExercises;
     private final FilteredList<Regime> filteredRegimes;
@@ -29,14 +33,16 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given exerciseBook and userPrefs.
      */
-    public ModelManager(ReadOnlyExerciseBook exerciseBook, ReadOnlyRegimeBook regimeBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExerciseBook exerciseBook, ReadOnlyRegimeBook regimeBook,
+                        ReadOnlyScheduleBook scheduleBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(exerciseBook, userPrefs);
+        requireAllNonNull(exerciseBook, regimeBook, scheduleBook, userPrefs);
 
         logger.fine("Initializing with exercise book: " + exerciseBook + " and user prefs " + userPrefs);
 
         this.exerciseBook = new ExerciseBook(exerciseBook);
         this.regimeBook = new RegimeBook(regimeBook);
+        this.scheduleBook = new ScheduleBook(scheduleBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExercises = new FilteredList<>(this.exerciseBook.getExerciseList());
         filteredRegimes = new FilteredList<>(this.regimeBook.getRegimeList());
@@ -44,7 +50,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new ExerciseBook(), new RegimeBook(), new UserPrefs());
+        this(new ExerciseBook(), new RegimeBook(), new ScheduleBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -163,6 +169,18 @@ public class ModelManager implements Model {
         requireNonNull(regime);
         return regimeBook.hasRegime(regime);
     }
+
+    @Override
+    public void schedule(Schedule schedule) {
+        requireNonNull(schedule);
+        scheduleBook.addSchedule(schedule);
+    }
+
+    @Override
+    public void completeRegime(Index index) {
+        //TODO implement completing a regime and adding to exercise tracker
+    }
+
 
     @Override
     public int getRegimeIndex(Regime regime) {

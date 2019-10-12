@@ -6,6 +6,11 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
+import seedu.exercise.model.exercise.Date;
+import seedu.exercise.model.exercise.UniqueExerciseList;
+import seedu.exercise.model.regime.Regime;
+import seedu.exercise.model.regime.RegimeName;
+import seedu.exercise.model.schedule.Schedule;
 
 /**
  * Schedules a regime on a certain date
@@ -23,15 +28,15 @@ public class ScheduleCommand extends Command {
             + PREFIX_DATE + "19/12/2019";
 
     public static final String MESSAGE_SUCCESS = "Regime %1$s scheduled on %2$s";
+    public static final String MESSAGE_REGIME_NOT_FOUND = "Regime %1$s not in regime book";
     public static final String MESSAGE_CONFLICT = "Regime to be scheduled conflicts with another regime. "
             + "Opening resolve window...";
 
-    private String regimeName;
-    private String dateToSchedule;
+    private RegimeName regimeName;
+    private Date dateToSchedule;
 
-    public ScheduleCommand(String name, String date) {
-        //TODO take in a regime object and date object to be scheduled.
-        regimeName = name;
+    public ScheduleCommand(RegimeName regime, Date date) {
+        regimeName = regime;
         dateToSchedule = date;
     }
 
@@ -43,10 +48,15 @@ public class ScheduleCommand extends Command {
         if it does, throw Schedule Exception.
         model.hasRegimeOnDate(Date date) */
 
-        /*
-         * TODO if no schedule conflicts make the regime at the date
-         * model.scheduleRegimeAt(Regime regime, Date date);
-         */
-        return new CommandResult(String.format(MESSAGE_SUCCESS, regimeName, dateToSchedule));
+        Regime regime = new Regime(regimeName, new UniqueExerciseList());
+        if (!model.hasRegime(regime)) {
+            throw new CommandException(String.format(MESSAGE_REGIME_NOT_FOUND, regimeName));
+        }
+
+        int indexOfRegime = model.getRegimeIndex(regime);
+        Regime regimeToSchedule = model.getFilteredRegimeList().get(indexOfRegime);
+        model.schedule(new Schedule(regimeToSchedule, dateToSchedule));
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, regimeToSchedule.getRegimeName(), dateToSchedule));
     }
 }

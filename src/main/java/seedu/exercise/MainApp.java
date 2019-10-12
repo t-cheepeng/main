@@ -20,8 +20,10 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyExerciseBook;
 import seedu.exercise.model.ReadOnlyRegimeBook;
+import seedu.exercise.model.ReadOnlyScheduleBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
 import seedu.exercise.model.RegimeBook;
+import seedu.exercise.model.ScheduleBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.util.SampleDataUtil;
 import seedu.exercise.storage.ExerciseBookStorage;
@@ -83,6 +85,8 @@ public class MainApp extends Application {
         ReadOnlyExerciseBook initialExerciseData;
         Optional<ReadOnlyRegimeBook> regimeBookOptional;
         ReadOnlyRegimeBook initialRegimeData;
+        Optional<ReadOnlyScheduleBook> scheduleBookOptional;
+        ReadOnlyScheduleBook initialScheduleData;
         try {
             exerciseBookOptional = storage.readExerciseBook();
             if (!exerciseBookOptional.isPresent()) {
@@ -111,7 +115,21 @@ public class MainApp extends Application {
             initialRegimeData = new RegimeBook();
         }
 
-        return new ModelManager(initialExerciseData, initialRegimeData, userPrefs);
+        try {
+            scheduleBookOptional = storage.readScheduleBook();
+            if (!scheduleBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample ScheduleBook");
+            }
+            initialScheduleData = scheduleBookOptional.orElseGet(SampleDataUtil::getSampleScheduleBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ScheduleBook");
+            initialScheduleData = new ScheduleBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ScheduleBook");
+            initialScheduleData = new ScheduleBook();
+        }
+
+        return new ModelManager(initialExerciseData, initialRegimeData, initialScheduleData, userPrefs);
     }
 
     private void initLogging(Config config) {
