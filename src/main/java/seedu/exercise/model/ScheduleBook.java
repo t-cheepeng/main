@@ -48,7 +48,7 @@ public class ScheduleBook implements ReadOnlyScheduleBook {
 
 
     /**
-     * Returns true if a schedules with the same date exists in the schedules book.
+     * Returns true if a schedule with the same date exists in the schedule book.
      */
     public boolean hasSchedule(Schedule schedule) {
         requireNonNull(schedules);
@@ -56,7 +56,7 @@ public class ScheduleBook implements ReadOnlyScheduleBook {
     }
 
     /**
-     * Adds a schedules to the schedules book.
+     * Adds a schedule to the schedule book.
      * The Schedule must not already exist in the ScheduleBook.
      */
     public void addSchedule(Schedule r) {
@@ -72,7 +72,7 @@ public class ScheduleBook implements ReadOnlyScheduleBook {
     }
 
     /**
-     * Returns the index of schedules in Schedules book.
+     * Returns the index of {@code schedule} in Schedule book.
      */
     public int getSchedulesIndex(Schedule schedule) {
         int i = 0;
