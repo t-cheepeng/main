@@ -10,6 +10,7 @@ import static seedu.exercise.logic.commands.CommandTestUtil.VALID_NAME_BASKETBAL
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.logic.commands.CommandTestUtil.showExerciseAtIndex;
+import static seedu.exercise.model.util.DefaultPropertyManagerUtil.getDefaultPropertyManager;
 import static seedu.exercise.testutil.TypicalExercises.getTypicalExerciseBook;
 import static seedu.exercise.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 import static seedu.exercise.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
@@ -35,7 +36,7 @@ import seedu.exercise.testutil.ExerciseBuilder;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(),
-            new ScheduleBook(), new UserPrefs());
+            new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -46,7 +47,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
         Model expectedModel = new ModelManager(new ExerciseBook(model.getAllExerciseData()),
-                new RegimeBook(), new ScheduleBook(), new UserPrefs());
+            new RegimeBook(), new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -69,7 +70,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
         Model expectedModel = new ModelManager(new ExerciseBook(model.getAllExerciseData()),
-                new RegimeBook(), new ScheduleBook(), new UserPrefs());
+            new RegimeBook(), new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
         expectedModel.setExercise(lastExercise, editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -83,7 +84,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
         Model expectedModel = new ModelManager(new ExerciseBook(model.getAllExerciseData()),
-                new RegimeBook(), new ScheduleBook(), new UserPrefs());
+            new RegimeBook(), new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -101,7 +102,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
         Model expectedModel = new ModelManager(new ExerciseBook(model.getAllExerciseData()),
-                new RegimeBook(), new ScheduleBook(), new UserPrefs());
+            new RegimeBook(), new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -122,7 +123,7 @@ public class EditCommandTest {
 
         // edit exercise in filtered list into a duplicate in exercise book
         Exercise exerciseInList = model.getAllExerciseData().getExerciseList()
-                .get(INDEX_SECOND_EXERCISE.getZeroBased());
+            .get(INDEX_SECOND_EXERCISE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXERCISE,
             new EditExerciseDescriptorBuilder(exerciseInList).build());
 

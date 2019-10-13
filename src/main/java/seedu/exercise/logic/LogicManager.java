@@ -46,19 +46,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveExerciseBook(model.getAllExerciseData());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-
-        try {
-            storage.saveRegimeBook(model.getAllRegimeData());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-
-        try {
-            storage.saveScheduleBook(model.getAllScheduleData());
+            saveAllData();
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -110,4 +98,15 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+    /**
+     * Saves all book data from ExerHealth to disk
+     *
+     * @throws IOException if saving fails
+     */
+    private void saveAllData() throws IOException {
+        storage.saveExerciseBook(model.getAllExerciseData());
+        storage.saveScheduleBook(model.getAllScheduleData());
+        storage.saveRegimeBook(model.getAllRegimeData());
+        storage.savePropertyManager(model.getPropertyManager());
+    }
 }

@@ -28,8 +28,10 @@ public class StorageManagerTest {
         JsonRegimeBookStorage regimeBookStorage = new JsonRegimeBookStorage(getTempFilePath("rb"));
         JsonScheduleBookStorage scheduleBookStorage = new JsonScheduleBookStorage((getTempFilePath("sb")));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
+        JsonPropertyManagerStorage propertyManagerStorage =
+            new JsonPropertyManagerStorage(getTempFilePath("pm"));
         storageManager = new StorageManager(exerciseBookStorage, regimeBookStorage,
-                scheduleBookStorage, userPrefsStorage);
+                scheduleBookStorage, userPrefsStorage, propertyManagerStorage);
     }
 
     private Path getTempFilePath(String fileName) {
