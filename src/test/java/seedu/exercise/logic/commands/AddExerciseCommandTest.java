@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.exercise.commons.core.GuiSettings;
-import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.Model;
@@ -231,7 +230,7 @@ public class AddExerciseCommandTest {
         }
 
         @Override
-        public void completeRegime(Index index) {
+        public void completeSchedule(Schedule schedule) {
             throw new AssertionError("This method should not be called.");
         }
     }

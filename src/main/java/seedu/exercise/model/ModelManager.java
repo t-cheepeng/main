@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,10 +12,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
-import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.regime.Regime;
 import seedu.exercise.model.schedule.Schedule;
+import seedu.exercise.model.util.DateChangerUtil;
 
 /**
  * Represents the in-memory model of the exercise book data.
@@ -171,6 +172,11 @@ public class ModelManager implements Model {
         return regimeBook.hasRegime(regime);
     }
 
+    @Override
+    public int getRegimeIndex(Regime regime) {
+        return regimeBook.getRegimeIndex(regime);
+    }
+
     //===================ScheduleBook==============================================================================
     @Override
     public boolean hasSchedule(Schedule schedule) {
@@ -185,8 +191,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void completeRegime(Index index) {
-        //TODO implement completing a regime and adding to exercise tracker
+    public void completeSchedule(Schedule schedule) {
+        requireNonNull(schedule);
+
+        scheduleBook.removeSchedule(schedule);
+        Collection<Exercise> scheduledExercises = DateChangerUtil
+                .changeAllDate(schedule.getExercises(), schedule.getDate());
+        for (Exercise exercise : scheduledExercises) {
+            if (!exerciseBook.hasExercise(exercise)) {
+                exerciseBook.addExercise(exercise);
+            }
+        }
     }
 
     @Override
@@ -194,10 +209,6 @@ public class ModelManager implements Model {
         return scheduleBook;
     }
 
-    @Override
-    public int getRegimeIndex(Regime regime) {
-        return regimeBook.getRegimeIndex(regime);
-    }
 
     //=========== Filtered Exercise List Accessors =============================================================
 

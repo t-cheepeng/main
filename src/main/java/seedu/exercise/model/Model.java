@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.exercise.commons.core.GuiSettings;
-import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.regime.Regime;
 import seedu.exercise.model.schedule.Schedule;
@@ -168,8 +167,16 @@ public interface Model {
     ReadOnlyScheduleBook getAllScheduleData();
 
     /**
-     * Completes a regime and adds it to {@code ExerciseBook} for tracking.
-     * @param index of the regime to complete
+     * Deletes a Schedule and adds it to {@code ExerciseBook} for tracking.
+     *
+     * If the schedule has some exercises that are duplicates exercises as
+     * specified by {@link Exercise#isSameExercise}, that exercise will
+     * be ignored and not be added into the exercise tracker.
+     *
+     * All exercises added will have their dates changed to be the date
+     * of the schedule itself.
+     *
+     * @param schedule to complete
      */
-    void completeRegime(Index index);
+    void completeSchedule(Schedule schedule);
 }

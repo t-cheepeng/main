@@ -1,6 +1,9 @@
 package seedu.exercise.model.schedule;
 
+import java.util.List;
+
 import seedu.exercise.model.exercise.Date;
+import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.regime.Regime;
 
 /**
@@ -21,6 +24,10 @@ public class Schedule {
 
     public Regime getRegime() {
         return regime;
+    }
+
+    public List<Exercise> getExercises() {
+        return regime.getExercises().asUnmodifiableObservableList();
     }
 
     /**
