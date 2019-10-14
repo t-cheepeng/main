@@ -137,6 +137,6 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setExerciseBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(exerciseBook, regimeBook,
-                allExerciseBook,scheduleBook , differentUserPrefs, propertyManager)));
+                allExerciseBook, scheduleBook , differentUserPrefs, propertyManager)));
     }
 }

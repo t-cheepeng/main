@@ -58,7 +58,7 @@ public class LogicManagerTest {
                 new JsonRegimeBookStorage(temporaryFolder.resolve("regimeBook.json"));
         JsonExerciseBookStorage allExerciseBookStorage =
                 new JsonExerciseBookStorage(temporaryFolder.resolve("exercisedatabase.json"));
-            new JsonRegimeBookStorage(temporaryFolder.resolve("regimeBook.json"));
+        new JsonRegimeBookStorage(temporaryFolder.resolve("regimeBook.json"));
         JsonScheduleBookStorage scheduleBookStorage =
                 new JsonScheduleBookStorage(temporaryFolder.resolve("scheduleBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));

@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ResolveWindow resolveWindow;
+    private ExerciseListPanel resultPanel;
     private SuggestionListPanel suggestionPanel;
 
     @FXML
@@ -134,6 +135,9 @@ public class MainWindow extends UiPart<Stage> {
 
         scheduleListPanel = new ScheduleListPanel(logic.getFilteredScheduleList());
         scheduleListPanelPlaceholder.getChildren().add(scheduleListPanel.getRoot());
+
+        resultPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
+        resultPanelPlaceholder.getChildren().add(resultPanel.getRoot());
 
         regimeListPanel = new RegimeListPanel(logic.getFilteredRegimeList());
         regimeListPanelPlaceholder.getChildren().add(regimeListPanel.getRoot());
