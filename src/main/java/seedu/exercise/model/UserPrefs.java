@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path exerciseBookFilePath = Paths.get("data" , "exercisebook.json");
     private Path propertyManagerFilePath = Paths.get("data", "propertymanager.json");
+    private Path exerciseDatabaseFilePath = Paths.get("data", "exercisedatabase.json");
     private Path regimeBookFilePath = Paths.get("data", "regimebook.json");
     private Path scheduleBookFilePath = Paths.get("data", "schedulebook.json");
 
@@ -41,6 +42,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setExerciseBookFilePath(newUserPrefs.getExerciseBookFilePath());
         setRegimeBookFilePath(newUserPrefs.getRegimeBookFilePath());
         setPropertyManagerFilePath(newUserPrefs.getPropertyManagerFilePath());
+        setAllExerciseBookFilePath(newUserPrefs.getAllExerciseBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -60,6 +62,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(exerciseBookFilePath);
         this.exerciseBookFilePath = exerciseBookFilePath;
     }
+
     public Path getRegimeBookFilePath() {
         return regimeBookFilePath;
     }
@@ -82,6 +85,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.propertyManagerFilePath = propertyManagerFilePath;
     }
 
+    public Path getAllExerciseBookFilePath() {
+        return exerciseDatabaseFilePath;
+    }
+
+    public void setAllExerciseBookFilePath(Path allExerciseFilePath) {
+        requireNonNull(allExerciseFilePath);
+        this.exerciseDatabaseFilePath = allExerciseFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -95,7 +107,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && exerciseBookFilePath.equals(o.exerciseBookFilePath)
-                && regimeBookFilePath.equals(o.regimeBookFilePath);
+                && regimeBookFilePath.equals(o.regimeBookFilePath)
+                && propertyManagerFilePath.equals(o.propertyManagerFilePath)
+                && exerciseDatabaseFilePath.equals(o.exerciseDatabaseFilePath);
     }
 
     @Override

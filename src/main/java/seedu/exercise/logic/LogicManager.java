@@ -56,7 +56,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyExerciseBook getExerciseBook() {
-        return model.getAllExerciseData();
+        return model.getExerciseBookData();
     }
 
     @Override
@@ -89,6 +89,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Exercise> getSuggestedExerciseList() {
+        return model.getSuggestedExerciseList();
+    }
+
+    @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
     }
@@ -104,7 +109,7 @@ public class LogicManager implements Logic {
      * @throws IOException if saving fails
      */
     private void saveAllData() throws IOException {
-        storage.saveExerciseBook(model.getAllExerciseData());
+        storage.saveExerciseBook(model.getExerciseBookData());
         storage.saveScheduleBook(model.getAllScheduleData());
         storage.saveRegimeBook(model.getAllRegimeData());
         storage.savePropertyManager(model.getPropertyManager());

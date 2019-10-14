@@ -21,7 +21,9 @@ public interface Model {
      */
     Predicate<Exercise> PREDICATE_SHOW_ALL_EXERCISES = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true*/
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Regime> PREDICATE_SHOW_ALL_REGIMES = unused -> true;
 
     /**
@@ -60,7 +62,7 @@ public interface Model {
     void setExerciseBook(ReadOnlyExerciseBook anotherBook);
 
     /** Returns the data in the exercise book */
-    ReadOnlyExerciseBook getAllExerciseData();
+    ReadOnlyExerciseBook getExerciseBookData();
 
     /**
      * Returns true if an exercise with the same identity as {@code exercise} exists in the exercise book.
@@ -92,7 +94,9 @@ public interface Model {
      */
     ObservableList<Exercise> getFilteredExerciseList();
 
-    /** Returns an unmodifiable view of the filtered regime list */
+    /**
+     * Returns an unmodifiable view of the filtered regime list
+     */
     ObservableList<Regime> getFilteredRegimeList();
 
     /** Returns an unmodifiable view of the filtered schedule list */
@@ -207,4 +211,20 @@ public interface Model {
      * Adds the given {@code customProperty} into the PropertyManager.
      */
     void addCustomProperty(CustomProperty customProperty);
+
+    /**
+     * Returns an unmodifiable view of the list of suggested exercises
+     * */
+    ObservableList<Exercise> getSuggestedExerciseList();
+
+    /**
+     * Updates the filter of the filtered exercise list to filter by the give {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateSuggestedExerciseList(Predicate<Exercise> predicateShowAllExercises);
+
+    /**
+     * Returns the data of all exercises in the database
+     */
+    ReadOnlyExerciseBook getDatabaseBook();
 }

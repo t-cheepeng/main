@@ -29,10 +29,12 @@ public class ModelManager implements Model {
 
     private final ExerciseBook exerciseBook;
     private final RegimeBook regimeBook;
+    private final ExerciseBook databaseBook;
     private final ScheduleBook scheduleBook;
     private final UserPrefs userPrefs;
     private final PropertyManager propertyManager;
     private final FilteredList<Exercise> filteredExercises;
+    private final FilteredList<Exercise> suggestedExercises;
     private final FilteredList<Regime> filteredRegimes;
     private final FilteredList<Schedule> filteredSchedules;
 
@@ -40,18 +42,20 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given exerciseBook and userPrefs.
      */
     public ModelManager(ReadOnlyExerciseBook exerciseBook, ReadOnlyRegimeBook regimeBook,
-                        ReadOnlyScheduleBook scheduleBook, ReadOnlyUserPrefs userPrefs,
-                        PropertyManager propertyManager) {
+                        ReadOnlyExerciseBook databaseBook, ReadOnlyScheduleBook scheduleBook,
+                        ReadOnlyUserPrefs userPrefs, PropertyManager propertyManager) {
         super();
-        requireAllNonNull(exerciseBook, regimeBook, scheduleBook, userPrefs, propertyManager);
+        requireAllNonNull(exerciseBook, regimeBook, databaseBook, scheduleBook, userPrefs, propertyManager);
 
         logger.fine("Initializing with exercise book: " + exerciseBook + " and user prefs " + userPrefs);
 
         this.exerciseBook = new ExerciseBook(exerciseBook);
+        this.databaseBook = new ExerciseBook(databaseBook);
         this.regimeBook = new RegimeBook(regimeBook);
         this.scheduleBook = new ScheduleBook(scheduleBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExercises = new FilteredList<>(this.exerciseBook.getExerciseList());
+        suggestedExercises = new FilteredList<>(this.databaseBook.getExerciseList());
         filteredRegimes = new FilteredList<>(this.regimeBook.getRegimeList());
         filteredSchedules = new FilteredList<>(this.scheduleBook.getScheduleList());
 
@@ -60,7 +64,8 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new ExerciseBook(), new RegimeBook(), new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
+        this(new ExerciseBook(), new RegimeBook(), new ExerciseBook(),
+                new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -117,7 +122,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyExerciseBook getAllExerciseData() {
+    public ReadOnlyExerciseBook getExerciseBookData() {
         return exerciseBook;
     }
 
@@ -147,6 +152,7 @@ public class ModelManager implements Model {
     }
 
     //===================RegimeBook==============================================================================
+
     @Override
     public void setRegimeBook(ReadOnlyRegimeBook anotherBook) {
         this.regimeBook.resetData(anotherBook);
@@ -279,6 +285,25 @@ public class ModelManager implements Model {
         propertyManager.addCustomProperty(customProperty);
     }
 
+    //=========== ExerciseDatabase ===============================================================
+
+    @Override
+    public ReadOnlyExerciseBook getDatabaseBook() {
+        return databaseBook;
+    }
+
+    //=========== Suggested Exercise Accessors ===============================================================
+
+    @Override
+    public ObservableList<Exercise> getSuggestedExerciseList() {
+        return suggestedExercises;
+    }
+
+    @Override
+    public void updateSuggestedExerciseList(Predicate<Exercise> predicate) {
+        suggestedExercises.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -294,13 +319,15 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return exerciseBook.equals(other.exerciseBook)
-            && regimeBook.equals(other.regimeBook)
-            && scheduleBook.equals(other.scheduleBook)
-            && userPrefs.equals(other.userPrefs)
-            && filteredExercises.equals(other.filteredExercises)
-            && filteredRegimes.equals(other.filteredRegimes)
-            && filteredSchedules.equals(other.filteredSchedules)
-            && propertyManager.equals(other.propertyManager);
+                && regimeBook.equals(other.regimeBook)
+                && scheduleBook.equals(other.scheduleBook)
+                && userPrefs.equals(other.userPrefs)
+                && filteredExercises.equals(other.filteredExercises)
+                && filteredRegimes.equals(other.filteredRegimes)
+                && filteredSchedules.equals(other.filteredSchedules)
+                && databaseBook.equals(other.databaseBook)
+                && suggestedExercises.equals(other.suggestedExercises)
+                && propertyManager.equals(other.propertyManager);
     }
 
 }

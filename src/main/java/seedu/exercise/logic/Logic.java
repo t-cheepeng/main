@@ -30,7 +30,7 @@ public interface Logic {
     /**
      * Returns the ExerciseBook.
      *
-     * @see seedu.exercise.model.Model#getAllExerciseData()
+     * @see seedu.exercise.model.Model#getExerciseBookData()
      */
     ReadOnlyExerciseBook getExerciseBook();
 
@@ -62,6 +62,11 @@ public interface Logic {
      * Returns the user prefs' regime book file path.
      */
     Path getRegimeBookFilePath();
+
+    /**
+     * Returns an unmodifiable view of the suggested list of exercises.
+     */
+    ObservableList<Exercise> getSuggestedExerciseList();
 
     /**
      * Returns the user prefs' GUI settings.
