@@ -35,14 +35,14 @@ public class ScheduleBook implements ReadOnlyScheduleBook {
     public void resetData(ReadOnlyScheduleBook newData) {
         requireNonNull(newData);
 
-        setRegimes(newData.getScheduleList());
+        setSchedule(newData.getScheduleList());
     }
 
     /**
-     * Replaces the contents of the regime list with {@code regimes}.
-     * {@code regimes} must not contain duplicate regimes.
+     * Replaces the contents of the schedule list with {@code schedules}.
+     * {@code schedules} must not contain duplicate schedules.
      */
-    public void setRegimes(List<Schedule> schedules) {
+    public void setSchedule(List<Schedule> schedules) {
         this.schedules.setSchedules(schedules);
     }
 
