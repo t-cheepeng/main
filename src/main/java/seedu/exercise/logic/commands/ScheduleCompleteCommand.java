@@ -8,6 +8,7 @@ import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
+import seedu.exercise.model.schedule.Schedule;
 
 /**
  * Completes a schedule and removes it from the schedule list.
@@ -33,7 +34,8 @@ public class ScheduleCompleteCommand extends ScheduleCommand {
     }
 
     private void completeSchedule(Model model) {
-        model.completeSchedule(model.getFilteredScheduleList().get(index.getZeroBased()));
+        Schedule toComplete = model.getFilteredScheduleList().get(index.getZeroBased());
+        model.completeSchedule(toComplete);
     }
 
     private void checkValidIndex(Model model) throws CommandException {
