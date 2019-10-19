@@ -10,6 +10,7 @@ import java.util.List;
 
 import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.commons.core.index.IndexUtil;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.UniqueResourceList;
@@ -54,10 +55,8 @@ public class AddRegimeCommand extends AddCommand {
         List<Exercise> lastShownList = model.getFilteredExerciseList();
 
         //check all index valid
-        for (Index targetIndex : toAddIndexes) {
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
-            }
+        if (IndexUtil.areIndexesOutOfBounds(toAddIndexes, lastShownList)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
 
         //create new regime

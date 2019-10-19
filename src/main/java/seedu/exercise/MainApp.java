@@ -1,5 +1,6 @@
 package seedu.exercise;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.exercise.model.util.DefaultPropertyManagerUtil.getDefaultPropertyManager;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.exercise.commons.core.Config;
 import seedu.exercise.commons.core.LogsCenter;
+import seedu.exercise.commons.core.State;
 import seedu.exercise.commons.core.Version;
 import seedu.exercise.commons.exceptions.DataConversionException;
 import seedu.exercise.commons.util.ConfigUtil;
@@ -42,12 +44,15 @@ import seedu.exercise.ui.UiManager;
 
 /**
  * Runs the application.
+ *
+ * Additionally, the MainApp wil keep track of the state of the program.
  */
 public class MainApp extends Application {
 
     public static final Version VERSION = new Version(1, 2, 1, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static State state;
 
     protected Ui ui;
     protected Logic logic;
@@ -281,6 +286,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting ExerciseBook " + MainApp.VERSION);
+        state = State.NORMAL;
         ui.start(primaryStage);
     }
 
@@ -292,5 +298,16 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
+    }
+
+    public static State getState() {
+        return state;
+    }
+
+    public static void setState(State newState) {
+        requireNonNull(newState);
+        logger.info("Changing state from " + state.toString() + " to " + newState.toString());
+
+        state = newState;
     }
 }

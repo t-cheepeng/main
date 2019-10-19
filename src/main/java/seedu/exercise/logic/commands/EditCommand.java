@@ -18,6 +18,7 @@ import java.util.Set;
 
 import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.commons.core.index.IndexUtil;
 import seedu.exercise.commons.util.CollectionUtil;
 import seedu.exercise.logic.commands.events.EventHistory;
 import seedu.exercise.logic.commands.exceptions.CommandException;
@@ -77,7 +78,7 @@ public class EditCommand extends Command implements UndoableCommand {
         requireNonNull(model);
         List<Exercise> lastShownList = model.getFilteredExerciseList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (IndexUtil.isIndexOutOfBounds(index, lastShownList)) {
             throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
 

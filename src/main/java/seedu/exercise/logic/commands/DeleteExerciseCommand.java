@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.commons.core.index.IndexUtil;
 import seedu.exercise.logic.commands.events.EventHistory;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
@@ -30,7 +31,7 @@ public class DeleteExerciseCommand extends DeleteCommand {
         requireNonNull(model);
         List<Exercise> lastShownList = model.getFilteredExerciseList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (IndexUtil.isIndexOutOfBounds(targetIndex, lastShownList)) {
             throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
 

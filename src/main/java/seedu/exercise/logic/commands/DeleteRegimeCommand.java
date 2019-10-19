@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.commons.core.index.IndexUtil;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.UniqueResourceList;
@@ -53,10 +54,9 @@ public class DeleteRegimeCommand extends DeleteCommand {
 
             List<Exercise> currentExerciseList = regimeToDelete.getRegimeExercises().asUnmodifiableObservableList();
             //check all index valid
-            for (Index targetIndex : indexes) {
-                if (targetIndex.getZeroBased() >= currentExerciseList.size()) {
-                    throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
-                }
+
+            if (IndexUtil.areIndexesOutOfBounds(indexes, currentExerciseList)) {
+                throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
             }
 
             // delete exercise identified by index

@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.commons.core.index.IndexUtil;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Schedule;
@@ -39,12 +40,8 @@ public class ScheduleCompleteCommand extends ScheduleCommand {
     }
 
     private void checkValidIndex(Model model) throws CommandException {
-        if (isIndexOutOfBounds(index, model.getFilteredScheduleList())) {
+        if (IndexUtil.isIndexOutOfBounds(index, model.getFilteredScheduleList())) {
             throw new CommandException(Messages.MESSAGE_INVALID_SCHEDULE_DISPLAYED_INDEX);
         }
-    }
-
-    private static <T> boolean isIndexOutOfBounds(Index index, List<T> list) {
-        return index.getZeroBased() >= list.size();
     }
 }
