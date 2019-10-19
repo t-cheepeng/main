@@ -257,6 +257,45 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
+=== Resolve feature
+==== Implementation
+The resolve feature is used when there is a scheduling conflict that happens within ExerHealth. The flow of the program is as such:
+
+Step 1. User enters a `schedule` command that will cause a scheduling conflict.
+
+[NOTE]
+`schedule` can conflict with another `schedule` when the dates from the 2 schedules are the same. The method `model.hasSchedule()` returns `true` if that happens.
+
+Step 2. A `ScheduleException` is thrown from `ScheduleCommand`
+
+Step 3. The exception will propagate to `MainWindow`.
+
+Step 4. At that point, the exception is caught and ExerHealth will prompt the user to resolve the scheduling conflict by showing the `ResolveWindow`.
+
+[NOTE]
+The `ResolveWindow` will block all inputs to `MainWindow` and only allow `resolve` command to be entered.
+
+Shown below is the sequence diagram for when a scheduling conflict happens:
+
+image::ScheduleConflict.png[]
+
+Step 5. When the user is prompted with the `ResolveWindow`, all the conflicting exercises will be shown in one page. The previously `scheduled regime` on the left and the `conflicting regime` on the right.
+
+Step 6. Once the user issue a `resolve` command correctly, the `model` and `storage` of ExerHealth will be updated to reflect the changes. A new regime will be added for the user from the `resolve`.
+
+[NOTE]
+The `ResolveWindow` will only take one valid `resolve` command and `Ui` will close the `ResolveWindow` immediately after the command finishes. The newly made schedule will result in a new `regime` being added to the user's `RegimeList`, so the name of the `regime` in the `resolve` command cannot have any conflicts with current names in `RegimeList`.
+
+Step 7. The `ResolveWindow` then closes upon successful `resolve` and the application continues.
+
+Shown below is the sequence diagram for when a valid resolve command is issued:
+
+image::ScheduleResolve.png[]
+
+The following activity diagram summarizes what happens when a user enters a `schedule` command:
+
+image::ScheduleActivityDiagram.png[]
+
 [[Implementation-Configuration]]
 === Configuration
 
@@ -598,8 +637,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -612,12 +649,11 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: Must have ran `ExerHealth` at least once and have `exercisebook.json`.
 
-_{ more test cases ... }_
+.. Open up `exercisebook.json` with any text editor and change one of the dates to `//`, representing an invalid date. +
+   Expected: `ExerHealth` will start with an empty exercise book due to data corruption. Exercise Panel will be empty.
