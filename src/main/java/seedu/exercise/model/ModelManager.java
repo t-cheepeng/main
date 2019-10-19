@@ -3,6 +3,7 @@ package seedu.exercise.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.AppUtil.requireMainAppState;
 import static seedu.exercise.commons.util.CollectionUtil.append;
+import static seedu.exercise.commons.util.CollectionUtil.areListsEmpty;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.model.util.DefaultPropertyManagerUtil.getDefaultPropertyManager;
 
@@ -253,6 +254,7 @@ public class ModelManager implements Model {
                     getResolvedExerciseList(indexFromSchedule, indexFromConflict);
             Schedule resolvedSchedule = getResolvedSchedule(regimeName, resolvedExercises);
             addResolvedSchedule(resolvedSchedule);
+            addCombinedRegime(resolvedSchedule.getRegime());
         }
     }
 
@@ -378,10 +380,6 @@ public class ModelManager implements Model {
             && conflict.equals(other.conflict);
     }
 
-    private boolean areListsEmpty(List<Index> schedule, List<Index> conflict) {
-        return schedule.isEmpty() && conflict.isEmpty();
-    }
-
     private UniqueResourceList<Exercise> getResolvedExerciseList(List<Index> indexFromSchedule,
                                                                  List<Index> indexFromConflict) {
         Regime scheduledRegime = conflict.getScheduledRegime();
@@ -407,5 +405,9 @@ public class ModelManager implements Model {
 
     private void addResolvedSchedule(Schedule resolvedSchedule) {
         scheduleBook.addResource(resolvedSchedule);
+    }
+
+    private void addCombinedRegime(Regime regime) {
+        regimeBook.addResource(regime);
     }
 }

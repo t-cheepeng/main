@@ -20,7 +20,7 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
 
     public static final String MESSAGE_SUCCESS = "Regime %1$s scheduled on %2$s";
     public static final String MESSAGE_REGIME_NOT_FOUND = "Regime %1$s not in regime book";
-    public static final String MESSAGE_CONFLICT = "Regime to be scheduled conflicts with another regime. "
+    public static final String MESSAGE_CONFLICT = "Regime to be scheduled conflicts with another scheduled regime. "
         + "Opening resolve window...";
 
     private Regime regime;
@@ -39,7 +39,7 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
         Schedule toSchedule = checkSchedulingConflict(model);
 
         if (toSchedule == null) {
-            return new CommandResult(String.format(MESSAGE_CONFLICT, false, false, true));
+            return new CommandResult(MESSAGE_CONFLICT, false, false, true);
         }
 
         schedule(model, toSchedule);
@@ -83,8 +83,7 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
     private Conflict buildConflict(Model model, Schedule toSchedule) {
         int indexOfScheduled = model.getAllScheduleData().getResourceIndex(toSchedule);
         Schedule scheduled = model.getFilteredScheduleList().get(indexOfScheduled);
-        Conflict conflict = new Conflict(scheduled, toSchedule);
-        return conflict
+        return new Conflict(scheduled, toSchedule);
     }
 
     private void setConflictForModel(Model model, Conflict conflict) {

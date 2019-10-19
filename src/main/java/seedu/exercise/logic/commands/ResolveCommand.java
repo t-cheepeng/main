@@ -1,6 +1,8 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_CONTEXT;
+import static seedu.exercise.commons.util.CollectionUtil.areListsEmpty;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CONFLICT_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
@@ -24,7 +26,7 @@ public class ResolveCommand extends Command {
     public static final String COMMAND_WORD = "resolve";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + "Resolves a scheduling conflict. Parameters: "
+            + ": Resolves a scheduling conflict. Parameters: "
             + PREFIX_NAME + "NEW_REGIME_NAME "
             + "[" + PREFIX_INDEX + "INDEX_OF_SCHEDULED_EXERCISES" + "]"
             + "[" + PREFIX_CONFLICT_INDEX + "INDEX_OF_CONFLICTING_EXERCISES" + "]"
@@ -35,9 +37,10 @@ public class ResolveCommand extends Command {
             + PREFIX_CONFLICT_INDEX + "1 "
             + PREFIX_CONFLICT_INDEX + "4 ";
 
-    public static final String MESSAGE_SUCCESS = "Successfully resolved conflict between regime %1$s and regime %1$s";
-    public static final String MESSAGE_WRONG_CONTEXT = "Unable to issue Resolve command here";
+    public static final String MESSAGE_SUCCESS = "Successfully resolved conflict between regime %1$s and regime %2$s";
     public static final String MESSAGE_DUPLICATE_NAME = "Regime name %1$s already exists. Try another name";
+    public static final String MESSAGE_INVALID_NAME = "Regime name is neither the scheduled regime"
+            + " or the conflicting regime";
 
     private Name regimeName;
     private Conflict conflict;
@@ -60,7 +63,11 @@ public class ResolveCommand extends Command {
         conflict = getConflictFromModel(model);
 
         checkValidIndexes();
-        checkNonDuplicateRegimeNameFromModel(model);
+        if (!areListsEmpty(indexToTakeFromSchedule, indexToTakeFromConflict)) {
+            checkNonDuplicateRegimeNameFromModel(model);
+        } else {
+            checkNameIsFromConflictingSchedules();
+        }
 
         resolveConflict(model);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
@@ -88,7 +95,7 @@ public class ResolveCommand extends Command {
 
     private void checkIfProgramStateIsValid() throws CommandException {
         if (MainApp.getState() != State.IN_CONFLICT) {
-            throw new CommandException(MESSAGE_WRONG_CONTEXT);
+            throw new CommandException(String.format(MESSAGE_INVALID_CONTEXT, getClass().getSimpleName()));
         }
     }
 
@@ -96,6 +103,13 @@ public class ResolveCommand extends Command {
         requireNonNull(model);
         if (model.hasRegime(new Regime(regimeName, new UniqueResourceList<>()))) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_NAME, regimeName.toString()));
+        }
+    }
+
+    private void checkNameIsFromConflictingSchedules() throws CommandException {
+        String name = regimeName.toString();
+        if (!name.equals(conflict.getConflictedName()) && !name.equals(conflict.getScheduledName())) {
+            throw new CommandException(MESSAGE_INVALID_NAME);
         }
     }
 }

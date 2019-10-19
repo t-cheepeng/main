@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import seedu.exercise.commons.core.index.Index;
+
 /**
  * Utility methods related to Collections
  */
@@ -43,5 +45,9 @@ public class CollectionUtil {
         List<T> result = new ArrayList<>(first);
         result.addAll(second);
         return result;
+    }
+
+    public static <T> boolean areListsEmpty(List<T> first, List<T> second) {
+        return first.isEmpty() && second.isEmpty();
     }
 }

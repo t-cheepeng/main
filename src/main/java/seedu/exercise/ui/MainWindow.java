@@ -80,7 +80,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        resolveWindow = new ResolveWindow(logic);
     }
 
     public Stage getPrimaryStage() {
@@ -133,6 +132,8 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
+        resolveWindow = new ResolveWindow(logic, resultDisplay);
+
         scheduleListPanel = new ScheduleListPanel(logic.getFilteredScheduleList());
         scheduleListPanelPlaceholder.getChildren().add(scheduleListPanel.getRoot());
 
@@ -175,8 +176,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleResolve() {
-        String testData = "This is clearly test data. DELETE".repeat(1000);
-        resolveWindow.setLeftRightText(testData, testData);
+        String leftText = logic.getConflict().getConflictedExerciseList().toString();
+        String rightText = logic.getConflict().getScheduledExerciseList().toString();
+        resolveWindow.setLeftRightText(leftText, rightText);
         if (resolveWindow.isShowing()) {
             resolveWindow.focus();
         } else {

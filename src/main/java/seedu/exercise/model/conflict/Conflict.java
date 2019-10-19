@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 
 import seedu.exercise.model.property.Date;
-import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
