@@ -3,7 +3,6 @@ package seedu.exercise.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 

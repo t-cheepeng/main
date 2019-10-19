@@ -111,7 +111,7 @@ public class UniqueResourceList<T extends Resource> implements Iterable<T> {
     public List<T> getAllResourcesIndex(Collection<Index> indexes) {
         List<T> resultingList = new ArrayList<>();
         List<T> unmodifiableList = asUnmodifiableObservableList();
-        for(Index index : indexes) {
+        for (Index index : indexes) {
             resultingList.add(unmodifiableList.get(index.getZeroBased()));
         }
         return resultingList;

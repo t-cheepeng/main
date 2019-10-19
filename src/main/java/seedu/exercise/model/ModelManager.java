@@ -19,7 +19,6 @@ import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.commons.core.State;
 import seedu.exercise.commons.core.index.Index;
-import seedu.exercise.commons.core.index.IndexUtil;
 import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.CustomProperty;
@@ -376,8 +375,7 @@ public class ModelManager implements Model {
             && filteredSchedules.equals(other.filteredSchedules)
             && databaseBook.equals(other.databaseBook)
             && suggestedExercises.equals(other.suggestedExercises)
-            && propertyManager.equals(other.propertyManager)
-            && conflict.equals(other.conflict);
+            && propertyManager.equals(other.propertyManager);
     }
 
     private UniqueResourceList<Exercise> getResolvedExerciseList(List<Index> indexFromSchedule,

@@ -132,7 +132,7 @@ public class LogicManager implements Logic {
     }
 
     private boolean isCommandExecutedInCorrectState(Command command) {
-        return (MainApp.getState() == State.NORMAL && !(command instanceof ResolveCommand)) ||
-                (MainApp.getState() == State.IN_CONFLICT && command instanceof ResolveCommand);
+        return (MainApp.getState() == State.NORMAL && !(command instanceof ResolveCommand))
+                || (MainApp.getState() == State.IN_CONFLICT && command instanceof ResolveCommand);
     }
 }

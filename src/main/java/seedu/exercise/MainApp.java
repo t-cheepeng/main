@@ -1,6 +1,5 @@
 package seedu.exercise;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.model.util.DefaultPropertyManagerUtil.getDefaultPropertyManager;
 
@@ -20,7 +19,6 @@ import seedu.exercise.commons.util.ConfigUtil;
 import seedu.exercise.commons.util.StringUtil;
 import seedu.exercise.logic.Logic;
 import seedu.exercise.logic.LogicManager;
-import seedu.exercise.logic.commands.Command;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
@@ -313,8 +311,6 @@ public class MainApp extends Application {
      */
     public static void setState(State newState) {
         requireAllNonNull(newState);
-        logger.info("Changing state from " + state.toString() + " to " + newState.toString());
-
         state = newState;
     }
 }

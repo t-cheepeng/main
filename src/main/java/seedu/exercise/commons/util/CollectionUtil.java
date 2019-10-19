@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import seedu.exercise.commons.core.index.Index;
-
 /**
  * Utility methods related to Collections
  */

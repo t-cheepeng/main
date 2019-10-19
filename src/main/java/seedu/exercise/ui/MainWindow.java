@@ -176,9 +176,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleResolve() {
-        String leftText = logic.getConflict().getConflictedExerciseList().toString();
-        String rightText = logic.getConflict().getScheduledExerciseList().toString();
-        resolveWindow.setLeftRightText(leftText, rightText);
+        resolveWindow.setLeftRightPanel();
         if (resolveWindow.isShowing()) {
             resolveWindow.focus();
         } else {
@@ -199,7 +197,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
-        resolveWindow.hideAndClearText();
+        resolveWindow.hideAndClearPanels();
         primaryStage.hide();
     }
 
@@ -233,6 +231,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Checks if a secondary window should be shown based on the command results.
+     * Method will show the windows if it is to be shown.
+     */
     private void shouldShowWindowsBasedOnCommandResult(CommandResult commandResult) {
         if (commandResult.isShowHelp()) {
             handleHelp();

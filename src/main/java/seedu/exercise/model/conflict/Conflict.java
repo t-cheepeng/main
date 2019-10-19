@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Objects;
 
+import javafx.collections.ObservableList;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
@@ -62,6 +63,14 @@ public class Conflict {
 
     public List<Exercise> getConflictedExerciseList() {
         return conflicted.getExercises();
+    }
+
+    public ObservableList<Exercise> getScheduledUnmodifiableExerciseList() {
+        return scheduled.getRegime().getRegimeExercises().asUnmodifiableObservableList();
+    }
+
+    public ObservableList<Exercise> getConflictedUnmodifiableExerciseList() {
+        return conflicted.getRegime().getRegimeExercises().asUnmodifiableObservableList();
     }
 
     public String getScheduledName() {

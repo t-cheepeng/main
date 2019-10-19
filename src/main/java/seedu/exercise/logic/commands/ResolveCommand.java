@@ -21,6 +21,9 @@ import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Regime;
 
+/**
+ * Represents a Resolve Command that resolves scheduling conflicts.
+ */
 public class ResolveCommand extends Command {
 
     public static final String COMMAND_WORD = "resolve";
@@ -86,8 +89,11 @@ public class ResolveCommand extends Command {
         return model.getConflict();
     }
 
+    /**
+     * Checks if indexes passed into the {@code Command} are valid and not out of bounds
+     */
     private void checkValidIndexes() throws CommandException {
-        if(IndexUtil.areIndexesOutOfBounds(indexToTakeFromSchedule, conflict.getScheduledExerciseList())
+        if (IndexUtil.areIndexesOutOfBounds(indexToTakeFromSchedule, conflict.getScheduledExerciseList())
             || IndexUtil.areIndexesOutOfBounds(indexToTakeFromConflict, conflict.getConflictedExerciseList())) {
             throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
@@ -99,6 +105,10 @@ public class ResolveCommand extends Command {
         }
     }
 
+    /**
+     * Checks if there are duplicate {@code regime names} in the {@code model}.
+     * Method is to be called only if there are indexes provided to the Regime Command.
+     */
     private void checkNonDuplicateRegimeNameFromModel(Model model) throws CommandException {
         requireNonNull(model);
         if (model.hasRegime(new Regime(regimeName, new UniqueResourceList<>()))) {
@@ -106,6 +116,10 @@ public class ResolveCommand extends Command {
         }
     }
 
+    /**
+     * Checks if the name passed in is one of the conflicting schedule's names.
+     * Method is to be called only if there are no indexes provided to the Regime Command.
+     */
     private void checkNameIsFromConflictingSchedules() throws CommandException {
         String name = regimeName.toString();
         if (!name.equals(conflict.getConflictedName()) && !name.equals(conflict.getScheduledName())) {

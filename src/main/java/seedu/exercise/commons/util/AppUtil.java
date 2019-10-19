@@ -38,6 +38,10 @@ public class AppUtil {
         }
     }
 
+    /**
+     * Checks that {@code state} of the program is actually {@code state}. Used for validating a particular
+     * state of the program in a method.
+     */
     public static void requireMainAppState(State state) {
         requireNonNull(state);
         assert MainApp.getState() == state;

@@ -77,10 +77,10 @@ public class ResolveWindow extends UiPart<Stage> {
     /**
      * Hides the window and clears the text in LeftRightPanel
      *
-     * @see LeftRightPanel#clearAllText()
+     * @see LeftRightPanel#clearAll()
      */
-    public void hideAndClearText() {
-        leftRightPanel.clearAllText();
+    public void hideAndClearPanels() {
+        leftRightPanel.clearAll();
         resultDisplay.setFeedbackToUser("");
         parent.hide();
     }
@@ -89,9 +89,9 @@ public class ResolveWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
-    public void setLeftRightText(String leftPanelText, String rightPanelText) {
-        leftRightPanel.setLeftPanelText(leftPanelText);
-        leftRightPanel.setRightPanelText(rightPanelText);
+    public void setLeftRightPanel() {
+        leftRightPanel.setLeftPanel(logic.getConflict().getScheduledUnmodifiableExerciseList());
+        leftRightPanel.setRightPanel(logic.getConflict().getConflictedUnmodifiableExerciseList());
     }
 
     private void setWindowSize(GuiSettings guiSettings) {
@@ -144,7 +144,7 @@ public class ResolveWindow extends UiPart<Stage> {
 
             if (!commandResult.isShowResolve()) {
                 mainWindowDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-                this.hideAndClearText();
+                this.hideAndClearPanels();
             }
 
             return commandResult;

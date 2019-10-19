@@ -20,6 +20,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.exercise.MainApp;
+import seedu.exercise.commons.core.State;
 import seedu.exercise.logic.commands.AddExerciseCommand;
 import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.logic.commands.ListCommand;
@@ -63,6 +65,7 @@ public class LogicManagerTest {
             new JsonPropertyManagerStorage(temporaryFolder.resolve("propertyManager.json"));
         StorageManager storage = new StorageManager(jsonExerciseBookStorage, allJsonExerciseDatabase,
             jsonRegimeBookStorage, jsonScheduleBookStorage, userPrefsStorage, propertyManagerStorage);
+        MainApp.setState(State.NORMAL);
         logic = new LogicManager(model, storage);
     }
 
