@@ -5,14 +5,11 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import seedu.exercise.MainApp;
 import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
-import seedu.exercise.commons.core.State;
 import seedu.exercise.logic.commands.Command;
 import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.logic.commands.exceptions.CommandException;
-import seedu.exercise.logic.commands.exceptions.ScheduleException;
 import seedu.exercise.logic.parser.ExerciseBookParser;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.Model;
@@ -40,7 +37,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ScheduleException, ParseException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;

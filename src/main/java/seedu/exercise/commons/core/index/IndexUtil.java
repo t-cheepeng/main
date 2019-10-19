@@ -1,5 +1,6 @@
 package seedu.exercise.commons.core.index;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class IndexUtil {

@@ -220,19 +220,30 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
+            shouldShowWindowsBasedOnCommandResult(commandResult);
+            shouldExitAppBasedOnCommandResult(commandResult);
 
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    private void shouldShowWindowsBasedOnCommandResult(CommandResult commandResult) {
+        if (commandResult.isShowHelp()) {
+            handleHelp();
+        }
+
+        if (commandResult.isShowResolve()) {
+            handleResolve();
+        }
+    }
+
+    private void shouldExitAppBasedOnCommandResult(CommandResult commandResult) {
+        if (commandResult.isExit()) {
+            handleExit();
         }
     }
 }

@@ -1,9 +1,14 @@
 package seedu.exercise.model.conflict;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.Objects;
 
+import seedu.exercise.model.property.Date;
+import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
 
 /**
@@ -28,6 +33,28 @@ public class Conflict {
 
     public Schedule getConflicted() {
         return conflicted;
+    }
+
+    public Regime getScheduledRegime() {
+        return scheduled.getRegime();
+    }
+
+    public Regime getConflictingRegime() {
+        return conflicted.getRegime();
+    }
+
+    public Date getConflictDate() {
+        return scheduled.getDate();
+    }
+
+    public Schedule getScheduleByRegime(Regime regime) {
+        requireNonNull(regime);
+
+        return scheduled.getRegime().equals(regime)
+                ? scheduled
+                : conflicted.getRegime().equals(regime)
+                    ? conflicted
+                    : null;
     }
 
     public List<Exercise> getScheduledExerciseList() {

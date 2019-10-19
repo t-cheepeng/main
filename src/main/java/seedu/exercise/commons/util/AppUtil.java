@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.scene.image.Image;
 import seedu.exercise.MainApp;
+import seedu.exercise.commons.core.State;
 
 /**
  * A container for App specific utility functions
@@ -35,5 +36,10 @@ public class AppUtil {
         if (!condition) {
             throw new IllegalArgumentException(errorMessage);
         }
+    }
+
+    public static void requireMainAppState(State state) {
+        requireNonNull(state);
+        assert MainApp.getState() == state;
     }
 }

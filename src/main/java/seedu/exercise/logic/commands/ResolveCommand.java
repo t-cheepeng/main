@@ -70,7 +70,8 @@ public class ResolveCommand extends Command {
 
     private void resolveConflict(Model model) {
         requireNonNull(model);
-        model.resolveConflict(indexToTakeFromSchedule, indexToTakeFromConflict);
+        model.resolveConflict(regimeName, indexToTakeFromSchedule, indexToTakeFromConflict);
+        MainApp.setState(State.NORMAL);
     }
 
     private Conflict getConflictFromModel(Model model) {

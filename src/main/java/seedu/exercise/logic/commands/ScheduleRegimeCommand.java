@@ -2,10 +2,12 @@ package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.exercise.MainApp;
+import seedu.exercise.commons.core.State;
 import seedu.exercise.logic.commands.exceptions.CommandException;
-import seedu.exercise.logic.commands.exceptions.ScheduleException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.UniqueResourceList;
+import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Regime;
@@ -36,6 +38,10 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
         checkExistenceOfRegime(model);
         Schedule toSchedule = checkSchedulingConflict(model);
 
+        if (toSchedule == null) {
+            return new CommandResult(String.format(MESSAGE_CONFLICT, false, false, true));
+        }
+
         schedule(model, toSchedule);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, regime.getRegimeName(), dateToSchedule));
@@ -49,16 +55,18 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
 
     /**
      * Checks for scheduling conflicts and returns a valid schedule if no conflicts are found.
-     *
-     * @throws ScheduleException when there is another regime scheduled on the same date as {@code dateToSchedule}
+     * If a conflict is found, returns a null schedule
      */
-    private Schedule checkSchedulingConflict(Model model) throws ScheduleException {
+    private Schedule checkSchedulingConflict(Model model) {
         int indexOfRegime = model.getRegimeIndex(regime);
         Regime regimeToSchedule = model.getFilteredRegimeList().get(indexOfRegime);
         Schedule toSchedule = new Schedule(regimeToSchedule, dateToSchedule);
 
         if (model.hasSchedule(toSchedule)) {
-            throw new ScheduleException(MESSAGE_CONFLICT);
+            setConflictState();
+            Conflict conflict = buildConflict(model, toSchedule);
+            setConflictForModel(model, conflict);
+            return null;
         }
 
         return toSchedule;
@@ -66,5 +74,20 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
 
     private void schedule(Model model, Schedule toSchedule) {
         model.addSchedule(toSchedule);
+    }
+
+    private void setConflictState() {
+        MainApp.setState(State.IN_CONFLICT);
+    }
+
+    private Conflict buildConflict(Model model, Schedule toSchedule) {
+        int indexOfScheduled = model.getAllScheduleData().getResourceIndex(toSchedule);
+        Schedule scheduled = model.getFilteredScheduleList().get(indexOfScheduled);
+        Conflict conflict = new Conflict(scheduled, toSchedule);
+        return conflict
+    }
+
+    private void setConflictForModel(Model model, Conflict conflict) {
+        model.setConflict(conflict);
     }
 }
