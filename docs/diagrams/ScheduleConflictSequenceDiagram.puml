@@ -10,16 +10,16 @@ participant "__:Model__" as Model MODEL_COLOR
 User -[USER_COLOR]> Ui: schedule n/cardio d/12/12/2012
 activate Ui UI_COLOR
 
-Ui --[UI_COLOR]> Logic: execute("n/cardio d/12/12/2012")
+Ui -[UI_COLOR]> Logic: execute("n/cardio d/12/12/2012")
 activate Logic LOGIC_COLOR
 
-Logic -[LOGIC_COLOR]> Model: addSchedule(schedule)
+Logic -[LOGIC_COLOR]> Model: hasSchedule(schedule)
 activate Model MODEL_COLOR
 
-Model --[MODEL_COLOR]> Logic: throws ScheduleException
+Model --[MODEL_COLOR]> Logic: true
 deactivate Model
 
-Logic --[LOGIC_COLOR]> Ui: throws ScheduleException
+Logic --[LOGIC_COLOR]> Ui: CommandResult("Schedule Conflict")
 deactivate Logic
 
 Ui -[UI_COLOR]> Ui: createResolveWindow()

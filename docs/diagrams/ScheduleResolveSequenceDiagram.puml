@@ -18,7 +18,7 @@ activate Ui UI_COLOR
 Ui -[UI_COLOR]> Logic: execute("n/cardio2 i/1 r/2")
 activate Logic LOGIC_COLOR
 
-Logic -[LOGIC_COLOR]> Model: resolveScheduleConflict(conflict)
+Logic -[LOGIC_COLOR]> Model: resolveConflict(conflict)
 activate Model MODEL_COLOR
 
 Model --[MODEL_COLOR]> Logic

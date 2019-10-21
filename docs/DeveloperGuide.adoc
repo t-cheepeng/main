@@ -259,18 +259,16 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 === Resolve feature
 ==== Implementation
-The resolve feature is used when there is a scheduling conflict that happens within ExerHealth. The flow of the program is as such:
+The resolve feature is used when there is a scheduling conflict that happens within ExerHealth. This feature will alter the state of the program. The state is known by `MainApp` and it is either `State.IN_CONFLICT` or `State.NORMAL`. Only when the state is `State.IN_CONFLICT` will `resolve` commands be allowed. The flow of the program for a scheduling conflict is as such:
 
-Step 1. User enters a `schedule` command that will cause a scheduling conflict.
+Step 1. User enters a `schedule` command that will cause a scheduling conflict. The `ScheduleCommand` will change `MainApp` state to `State.IN_CONFLICT`.
 
 [NOTE]
 `schedule` can conflict with another `schedule` when the dates from the 2 schedules are the same. The method `model.hasSchedule()` returns `true` if that happens.
 
-Step 2. A `ScheduleException` is thrown from `ScheduleCommand`
+Step 2. A `CommandResult` object is returned to `MainWindow` where the flag `showResolve` is set to `true`.
 
-Step 3. The exception will propagate to `MainWindow`.
-
-Step 4. At that point, the exception is caught and ExerHealth will prompt the user to resolve the scheduling conflict by showing the `ResolveWindow`.
+Step 3. Upon receipt of the object, `MainWindow` will show the resolve window and the user is required to resolve the conflict.
 
 [NOTE]
 The `ResolveWindow` will block all inputs to `MainWindow` and only allow `resolve` command to be entered.
@@ -295,6 +293,24 @@ image::ScheduleResolve.png[]
 The following activity diagram summarizes what happens when a user enters a `schedule` command:
 
 image::ScheduleActivityDiagram.png[]
+
+==== Design Considerations
+===== Aspect: Signalling Schedule Conflict
+* **Alternative 1(current choice): ** Using `CommandResult` object
+** Pros:
+*** Cleaner code while using existing objects in codebase
+*** UI does not have to handle logic when encountering schedule conflicts. It only has to show the `ResolveWindow` and pass the data accordingly.
+** Cons:
+*** If we have to signal different types of scheduling conflict in the future, the `CommandResult` will become bloated.
+*** Violates SRP as CommandResult is continuously doing multiple types of jobs.
+
+* **Alternative 2: ** throw `ScheduleException`
+** Pros:
+*** Easy to implement. `ScheduleCommand` just has to throw an exception and `UI` catches it.
+** Cons:
+*** UI required to catch `ScheduleException` and act on that catch which makes the program hard to integrate
+*** Codebase will contain multiple `try/catch` acting like a control flow mechanism
+
 
 [[Implementation-Configuration]]
 === Configuration
