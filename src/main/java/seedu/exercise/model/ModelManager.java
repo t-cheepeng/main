@@ -5,7 +5,7 @@ import static seedu.exercise.commons.util.AppUtil.requireMainAppState;
 import static seedu.exercise.commons.util.CollectionUtil.append;
 import static seedu.exercise.commons.util.CollectionUtil.areListsEmpty;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.exercise.model.util.DefaultPropertyManagerUtil.getDefaultPropertyManager;
+import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 
 import java.nio.file.Path;
 import java.util.Collection;
@@ -23,7 +23,7 @@ import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.CustomProperty;
 import seedu.exercise.model.property.Name;
-import seedu.exercise.model.property.PropertyManager;
+import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
@@ -40,7 +40,7 @@ public class ModelManager implements Model {
     private final ReadOnlyResourceBook<Exercise> databaseBook;
     private final ReadOnlyResourceBook<Schedule> scheduleBook;
     private final UserPrefs userPrefs;
-    private final PropertyManager propertyManager;
+    private final PropertyBook propertyBook;
     private final FilteredList<Exercise> filteredExercises;
     private final FilteredList<Exercise> suggestedExercises;
     private final FilteredList<Regime> filteredRegimes;
@@ -53,9 +53,9 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyResourceBook<Exercise> exerciseBook, ReadOnlyResourceBook<Regime> regimeBook,
                         ReadOnlyResourceBook<Exercise> databaseBook, ReadOnlyResourceBook<Schedule> scheduleBook,
-                        ReadOnlyUserPrefs userPrefs, PropertyManager propertyManager) {
+                        ReadOnlyUserPrefs userPrefs, PropertyBook propertyBook) {
         super();
-        requireAllNonNull(exerciseBook, regimeBook, databaseBook, scheduleBook, userPrefs, propertyManager);
+        requireAllNonNull(exerciseBook, regimeBook, databaseBook, scheduleBook, userPrefs, propertyBook);
 
         logger.fine("Initializing with exercise book: " + exerciseBook + " and user prefs " + userPrefs);
 
@@ -69,15 +69,15 @@ public class ModelManager implements Model {
         filteredRegimes = new FilteredList<>(this.regimeBook.getResourceList());
         filteredSchedules = new FilteredList<>(this.scheduleBook.getResourceList());
 
-        this.propertyManager = propertyManager;
-        this.propertyManager.updatePropertyPrefixes();
+        this.propertyBook = propertyBook;
+        this.propertyBook.updatePropertyPrefixes();
 
         conflict = null;
     }
 
     public ModelManager() {
         this(new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyManager());
+            new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -317,20 +317,20 @@ public class ModelManager implements Model {
 
     //=========== Property Manager Accessors =============================================================
 
-    public PropertyManager getPropertyManager() {
-        return propertyManager;
+    public PropertyBook getPropertyBook() {
+        return propertyBook;
     }
 
-    public boolean isPrefixPresent(Prefix prefix) {
-        return propertyManager.isPrefixPresent(prefix);
+    public boolean isPrefixUsed(Prefix prefix) {
+        return propertyBook.isPrefixUsed(prefix);
     }
 
-    public boolean isFullNamePresent(String fullName) {
-        return propertyManager.isFullNamePresent(fullName);
+    public boolean isFullNameUsed(String fullName) {
+        return propertyBook.isFullNameUsed(fullName);
     }
 
     public void addCustomProperty(CustomProperty customProperty) {
-        propertyManager.addCustomProperty(customProperty);
+        propertyBook.addCustomProperty(customProperty);
     }
 
     //=========== ExerciseDatabase ===============================================================
@@ -375,7 +375,7 @@ public class ModelManager implements Model {
             && filteredSchedules.equals(other.filteredSchedules)
             && databaseBook.equals(other.databaseBook)
             && suggestedExercises.equals(other.suggestedExercises)
-            && propertyManager.equals(other.propertyManager);
+            && propertyBook.equals(other.propertyBook);
     }
 
     private UniqueResourceList<Exercise> getResolvedExerciseList(List<Index> indexFromSchedule,
