@@ -36,7 +36,7 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
         requireNonNull(model);
 
         checkExistenceOfRegime(model);
-        Schedule toSchedule = checkSchedulingConflict(model);
+        Schedule toSchedule = getScheduleFromModel(model);
 
         if (toSchedule == null) {
             return new CommandResult(MESSAGE_CONFLICT, false, false, true);
@@ -57,7 +57,7 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
      * Checks for scheduling conflicts and returns a valid schedule if no conflicts are found.
      * If a conflict is found, returns a null schedule
      */
-    private Schedule checkSchedulingConflict(Model model) {
+    private Schedule getScheduleFromModel(Model model) {
         int indexOfRegime = model.getRegimeIndex(regime);
         Regime regimeToSchedule = model.getFilteredRegimeList().get(indexOfRegime);
         Schedule toSchedule = new Schedule(regimeToSchedule, dateToSchedule);

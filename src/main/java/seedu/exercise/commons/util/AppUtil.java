@@ -11,6 +11,8 @@ import seedu.exercise.commons.core.State;
  */
 public class AppUtil {
 
+    private static final String UNEXPECTED_STATE = "State of program is not %1$s";
+
     public static Image getImage(String imagePath) {
         requireNonNull(imagePath);
         return new Image(MainApp.class.getResourceAsStream(imagePath));
@@ -39,11 +41,15 @@ public class AppUtil {
     }
 
     /**
-     * Checks that {@code state} of the program is actually {@code state}. Used for validating a particular
+     * Checks that {@code state} of the program is valid. Used for validating a particular
      * state of the program in a method.
+     *
+     * @throws IllegalStateException if {@code MainApp's} state is not as expected
      */
     public static void requireMainAppState(State state) {
         requireNonNull(state);
-        assert MainApp.getState() == state;
+        if (MainApp.getState() != state) {
+            throw new IllegalStateException(String.format(UNEXPECTED_STATE, state.toString()));
+        }
     }
 }
