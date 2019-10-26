@@ -12,8 +12,10 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.testutil.StatisticBuilder;
 import seedu.exercise.testutil.exercise.ExerciseBuilder;
 
 public class AddExerciseCommandTest {
@@ -107,6 +109,22 @@ public class AddExerciseCommandTest {
         @Override
         public ReadOnlyResourceBook<Exercise> getExerciseBookData() {
             return new ReadOnlyResourceBook<>();
+        }
+
+        @Override
+        public void updateStatistic() {
+            //will add here when writing tests
+        }
+
+        @Override
+        public void setStatistic(Statistic statistic) {
+            //will add here when writing tests
+        }
+
+        @Override
+        public Statistic getStatistic() {
+            StatisticBuilder statisticBuilder = new StatisticBuilder();
+            return statisticBuilder.build();
         }
     }
 
