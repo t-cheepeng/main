@@ -42,6 +42,7 @@ import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.storage.JsonPropertyBookStorage;
 import seedu.exercise.storage.JsonUserPrefsStorage;
+import seedu.exercise.storage.Storage;
 import seedu.exercise.storage.StorageBook;
 import seedu.exercise.storage.bookstorage.JsonExerciseBookStorage;
 import seedu.exercise.storage.bookstorage.JsonRegimeBookStorage;
@@ -61,6 +62,7 @@ public class LogicManagerTest {
     public Path temporaryFolder;
 
     private Model model = new ModelManager();
+    private Storage storage;
     private Logic logic;
 
     @BeforeEach
@@ -78,7 +80,7 @@ public class LogicManagerTest {
                 temporaryFolder.resolve(CommonTestData.USER_PREFS_FILE_NAME));
         JsonPropertyBookStorage propertyBookStorage =
             new JsonPropertyBookStorage(temporaryFolder.resolve(CommonTestData.PROPERTY_BOOK_FILE_NAME));
-        StorageBook storage = new StorageBook(jsonExerciseBookStorage, allJsonExerciseDatabase,
+        storage = new StorageBook(jsonExerciseBookStorage, allJsonExerciseDatabase,
             jsonRegimeBookStorage, jsonScheduleBookStorage, userPrefsStorage, propertyBookStorage);
         MainApp.setState(State.NORMAL);
         logic = new LogicManager(model, storage);
@@ -161,8 +163,8 @@ public class LogicManagerTest {
         assertEquals(new ReadOnlyResourceBook<>(), logic.getRegimeBook());
         assertEquals(model.getFilteredRegimeList(), logic.getFilteredRegimeList());
         assertEquals(model.getFilteredScheduleList(), logic.getFilteredScheduleList());
-        assertEquals(exerciseBookFilePath, logic.getExerciseBookFilePath());
-        assertEquals(regimeBookFilePath, logic.getRegimeBookFilePath());
+        assertEquals(storage.getExerciseBookFilePath().getFileName(), logic.getExerciseBookFilePath().getFileName());
+        assertEquals(storage.getRegimeBookFilePath().getFileName(), logic.getRegimeBookFilePath().getFileName());
         assertEquals(model.getSuggestedExerciseList(), logic.getSuggestedExerciseList());
         assertEquals(model.getGuiSettings(), logic.getGuiSettings());
 
