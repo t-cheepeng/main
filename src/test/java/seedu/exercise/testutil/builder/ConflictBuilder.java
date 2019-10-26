@@ -1,7 +1,8 @@
-package seedu.exercise.testutil;
+package seedu.exercise.testutil.builder;
 
 import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.resource.Schedule;
+import seedu.exercise.testutil.typicalutil.TypicalSchedule;
 
 /**
  * Builder for {@code Conflict} objects

@@ -1,10 +1,11 @@
-package seedu.exercise.testutil;
+package seedu.exercise.testutil.typicalutil;
 
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Schedule;
+import seedu.exercise.testutil.builder.ScheduleBuilder;
 
 /**
  * Holds some schedule objects that can be used in testing.

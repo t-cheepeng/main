@@ -12,9 +12,9 @@ import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.resource.Schedule;
 import seedu.exercise.model.util.DefaultPropertyBookUtil;
-import seedu.exercise.testutil.TypicalIndexes;
-import seedu.exercise.testutil.TypicalSchedule;
-import seedu.exercise.testutil.exercise.TypicalExercises;
+import seedu.exercise.testutil.typicalutil.TypicalExercises;
+import seedu.exercise.testutil.typicalutil.TypicalIndexes;
+import seedu.exercise.testutil.typicalutil.TypicalSchedule;
 
 /**
  * Contains integration test for {@code ScheduleCompleteCommand}.

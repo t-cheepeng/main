@@ -15,8 +15,8 @@ import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
-import seedu.exercise.testutil.StatisticBuilder;
-import seedu.exercise.testutil.exercise.ExerciseBuilder;
+import seedu.exercise.testutil.builder.ExerciseBuilder;
+import seedu.exercise.testutil.builder.StatisticBuilder;
 
 public class AddExerciseCommandTest {
 

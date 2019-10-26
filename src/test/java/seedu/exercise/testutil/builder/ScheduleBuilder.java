@@ -1,8 +1,10 @@
-package seedu.exercise.testutil;
+package seedu.exercise.testutil.builder;
 
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
+import seedu.exercise.testutil.typicalutil.TypicalDates;
+import seedu.exercise.testutil.typicalutil.TypicalRegime;
 
 /**
  * Builder for {@code Schedule} objects.

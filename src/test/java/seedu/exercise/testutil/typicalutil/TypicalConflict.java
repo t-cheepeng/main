@@ -1,6 +1,7 @@
-package seedu.exercise.testutil;
+package seedu.exercise.testutil.typicalutil;
 
 import seedu.exercise.model.conflict.Conflict;
+import seedu.exercise.testutil.builder.ConflictBuilder;
 
 /**
  * Holds a valid conflict object to be used in testing

@@ -15,10 +15,10 @@ import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Schedule;
 import seedu.exercise.model.util.DefaultPropertyBookUtil;
-import seedu.exercise.testutil.TypicalConflict;
-import seedu.exercise.testutil.TypicalDates;
-import seedu.exercise.testutil.TypicalRegime;
-import seedu.exercise.testutil.TypicalSchedule;
+import seedu.exercise.testutil.typicalutil.TypicalConflict;
+import seedu.exercise.testutil.typicalutil.TypicalDates;
+import seedu.exercise.testutil.typicalutil.TypicalRegime;
+import seedu.exercise.testutil.typicalutil.TypicalSchedule;
 
 public class ScheduleRegimeCommandTest {
 

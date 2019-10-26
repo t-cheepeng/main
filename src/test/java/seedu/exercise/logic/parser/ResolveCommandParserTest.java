@@ -1,15 +1,14 @@
 package seedu.exercise.logic.parser;
 
-import static seedu.exercise.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.exercise.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.exercise.testutil.CommonTestData.INVALID_INDEX_ALPHABETS;
 import static seedu.exercise.testutil.CommonTestData.INVALID_PREFIX_CONFLICT_INDEX_NOT_ENGLISH;
 import static seedu.exercise.testutil.CommonTestData.INVALID_PREFIX_CONFLICT_INDEX_ZERO;
 import static seedu.exercise.testutil.CommonTestData.INVALID_PREFIX_INDEX_ALPHABETS;
 import static seedu.exercise.testutil.CommonTestData.INVALID_PREFIX_NAME_NOT_ENGLISH;
 import static seedu.exercise.testutil.CommonTestData.INVALID_PREFIX_NAME_SYMBOLS;
+import static seedu.exercise.testutil.CommonTestData.PREAMBLE_NON_EMPTY;
+import static seedu.exercise.testutil.CommonTestData.PREAMBLE_WHITESPACE;
 import static seedu.exercise.testutil.CommonTestData.VALID_INDEX;
 import static seedu.exercise.testutil.CommonTestData.VALID_NAME_CARDIO;
 import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_CONFLICT_INDEX;
@@ -27,7 +26,7 @@ import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.ResolveCommand;
 import seedu.exercise.model.property.Name;
-import seedu.exercise.testutil.TypicalIndexes;
+import seedu.exercise.testutil.typicalutil.TypicalIndexes;
 
 public class ResolveCommandParserTest {
 
@@ -50,8 +49,8 @@ public class ResolveCommandParserTest {
                 new ResolveCommand(new Name(VALID_NAME_CARDIO), new ArrayList<>(), new ArrayList<>()));
 
         // multiple indexes - all accepted
-        assertParseSuccess(parser, VALID_PREFIX_NAME_CARDIO +
-                VALID_PREFIX_INDEX + VALID_PREFIX_INDEX_2 + VALID_PREFIX_CONFLICT_INDEX,
+        assertParseSuccess(parser, VALID_PREFIX_NAME_CARDIO
+                        + VALID_PREFIX_INDEX + VALID_PREFIX_INDEX_2 + VALID_PREFIX_CONFLICT_INDEX,
                 new ResolveCommand(new Name(VALID_NAME_CARDIO), scheduledIndex, conflictIndex));
     }
 

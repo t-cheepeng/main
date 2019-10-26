@@ -22,10 +22,10 @@ import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.util.DefaultPropertyBookUtil;
-import seedu.exercise.testutil.TypicalConflict;
-import seedu.exercise.testutil.TypicalIndexes;
-import seedu.exercise.testutil.TypicalRegime;
-import seedu.exercise.testutil.TypicalSchedule;
+import seedu.exercise.testutil.typicalutil.TypicalConflict;
+import seedu.exercise.testutil.typicalutil.TypicalIndexes;
+import seedu.exercise.testutil.typicalutil.TypicalRegime;
+import seedu.exercise.testutil.typicalutil.TypicalSchedule;
 
 /**
  * Contains integration tests (interaction with Model) and unit tests for

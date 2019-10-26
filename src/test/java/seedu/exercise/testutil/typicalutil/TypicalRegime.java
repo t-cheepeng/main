@@ -1,4 +1,4 @@
-package seedu.exercise.testutil;
+package seedu.exercise.testutil.typicalutil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,7 @@ import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UniqueResourceList;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
-import seedu.exercise.testutil.exercise.TypicalExercises;
+import seedu.exercise.testutil.builder.RegimeBuilder;
 
 /**
  * Holds some regime objects that can be used in testing.

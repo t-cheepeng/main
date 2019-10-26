@@ -1,4 +1,4 @@
-package seedu.exercise.testutil;
+package seedu.exercise.testutil.typicalutil;
 
 import seedu.exercise.commons.core.index.Index;
 

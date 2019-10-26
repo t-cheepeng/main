@@ -1,7 +1,5 @@
 package seedu.exercise.logic.parser;
 
-import static seedu.exercise.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.exercise.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.exercise.testutil.CommonTestData.INVALID_PREFIX_DATE_ALPHABETS;
@@ -16,6 +14,8 @@ import static seedu.exercise.testutil.CommonTestData.INVALID_PREFIX_INDEX_SYMBOL
 import static seedu.exercise.testutil.CommonTestData.INVALID_PREFIX_INDEX_ZERO;
 import static seedu.exercise.testutil.CommonTestData.INVALID_PREFIX_NAME_NOT_ENGLISH;
 import static seedu.exercise.testutil.CommonTestData.INVALID_PREFIX_NAME_SYMBOLS;
+import static seedu.exercise.testutil.CommonTestData.PREAMBLE_NON_EMPTY;
+import static seedu.exercise.testutil.CommonTestData.PREAMBLE_WHITESPACE;
 import static seedu.exercise.testutil.CommonTestData.VALID_DATE;
 import static seedu.exercise.testutil.CommonTestData.VALID_INDEX;
 import static seedu.exercise.testutil.CommonTestData.VALID_NAME_CARDIO;
@@ -34,7 +34,7 @@ import seedu.exercise.logic.commands.ScheduleCompleteCommand;
 import seedu.exercise.logic.commands.ScheduleRegimeCommand;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Name;
-import seedu.exercise.testutil.TypicalIndexes;
+import seedu.exercise.testutil.typicalutil.TypicalIndexes;
 
 /**
  * Unit tests for parsing both {@code ScheduleRegimeCommand} and {@code ScheduleCompleteCommand}.

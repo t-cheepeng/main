@@ -3,8 +3,8 @@ package seedu.exercise.logic.commands;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.logic.commands.CommandTestUtil.showExerciseAtIndex;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
-import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExerciseBook;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
