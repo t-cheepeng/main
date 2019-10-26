@@ -79,6 +79,24 @@ public class ResolveCommand extends Command {
                 conflict.getConflictedName()));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        //instanceof handles nulls
+        if (!(other instanceof ResolveCommand)) {
+            return false;
+        }
+
+        ResolveCommand otherCommand = (ResolveCommand) other;
+        return regimeName.equals(otherCommand.regimeName)
+                && indexToTakeFromConflict.equals(otherCommand.indexToTakeFromConflict)
+                && indexToTakeFromSchedule.equals(otherCommand.indexToTakeFromSchedule);
+    }
+
     private void resolveConflict(Model model) {
         requireNonNull(model);
         model.resolveConflict(regimeName, indexToTakeFromSchedule, indexToTakeFromConflict);

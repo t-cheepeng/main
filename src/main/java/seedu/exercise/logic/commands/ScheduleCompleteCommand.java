@@ -33,6 +33,13 @@ public class ScheduleCompleteCommand extends ScheduleCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, Integer.toString(index.getOneBased())));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ScheduleCompleteCommand // instanceof handles nulls
+                && index.equals(((ScheduleCompleteCommand) other).index));
+    }
+
     private void completeSchedule(Model model) {
         Schedule toComplete = model.getFilteredScheduleList().get(index.getZeroBased());
         model.completeSchedule(toComplete);

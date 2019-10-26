@@ -2,7 +2,7 @@ package seedu.exercise.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.exercise.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.exercise.commons.core.index.Index.MESSAGE_CONSTRAINTS;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
 
@@ -47,7 +47,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
+        assertThrows(ParseException.class, MESSAGE_CONSTRAINTS, ()
             -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 

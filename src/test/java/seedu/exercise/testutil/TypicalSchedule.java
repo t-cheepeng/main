@@ -6,6 +6,9 @@ import java.util.List;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Schedule;
 
+/**
+ * Holds some schedule objects that can be used in testing.
+ */
 public class TypicalSchedule {
 
     public static final Schedule VALID_SCHEDULE_CARDIO_DATE;
@@ -40,6 +43,6 @@ public class TypicalSchedule {
     }
 
     public static List<Schedule> getValidScheduleList() {
-        return Arrays.asList(VALID_SCHEDULE_CARDIO_DATE,  VALID_SCHEDULE_LEG_DATE_2);
+        return Arrays.asList(VALID_SCHEDULE_CARDIO_DATE, VALID_SCHEDULE_LEG_DATE_2);
     }
 }

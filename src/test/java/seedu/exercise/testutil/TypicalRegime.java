@@ -10,6 +10,9 @@ import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.testutil.exercise.TypicalExercises;
 
+/**
+ * Holds some regime objects that can be used in testing.
+ */
 public class TypicalRegime {
 
     public static final String VALID_REGIME_NAME_CARDIO = "cardio";

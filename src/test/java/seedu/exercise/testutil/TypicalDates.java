@@ -2,6 +2,9 @@ package seedu.exercise.testutil;
 
 import seedu.exercise.model.property.Date;
 
+/**
+ * Holds some date objects that can be used in testing.
+ */
 public class TypicalDates {
 
     public static final Date DATE_1 = new Date("12/12/2019");

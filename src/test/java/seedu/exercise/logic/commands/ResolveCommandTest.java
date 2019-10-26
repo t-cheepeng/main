@@ -65,8 +65,8 @@ public class ResolveCommandTest {
     //===================UNIT TESTS==================================================
     @Test
     public void constructor_nullArguments_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> new ResolveCommand(null, null, null));
+        assertThrows(NullPointerException.class, () -> new ResolveCommand(
+                null, null, null));
     }
 
     @Test
@@ -77,26 +77,26 @@ public class ResolveCommandTest {
     @Test
     public void execute_invalidMainAppState_throwsCommandException() {
         MainApp.setState(State.NORMAL);
-        assertThrows(CommandException.class,
-                () -> validResolveCommandWithEmptyIndexes.execute(new ModelStubForTakingOneSchedule()));
+        assertThrows(CommandException.class, () -> validResolveCommandWithEmptyIndexes
+                .execute(new ModelStubForTakingOneSchedule()));
     }
 
     @Test
     public void execute_indexesOutOfBounds_throwsCommandExceptino() {
-        assertThrows(CommandException.class,
-                () -> validResolveCommandWithOutOfBoundIndexes.execute(new ModelStubForTakingOneSchedule()));
+        assertThrows(CommandException.class, () -> validResolveCommandWithOutOfBoundIndexes
+                .execute(new ModelStubForTakingOneSchedule()));
     }
 
     @Test
     public void execute_duplicateRegimeName_throwsCommandException() {
-        assertThrows(CommandException.class,
-                () -> validResolveCommandWithNonEmptyIndexes.execute(new ModelStubWithDuplicateRegimeName()));
+        assertThrows(CommandException.class, () -> validResolveCommandWithNonEmptyIndexes
+                .execute(new ModelStubWithDuplicateRegimeName()));
     }
 
     @Test
     public void execute_enteredNameNotFromConflictingSchedule_throwsCommandException() {
-        assertThrows(CommandException.class,
-                () -> validResolveCommandWithImpossibleRegimeName.execute(new ModelStubForTakingOneSchedule()));
+        assertThrows(CommandException.class, () -> validResolveCommandWithImpossibleRegimeName
+                .execute(new ModelStubForTakingOneSchedule()));
     }
 
     @Test

@@ -2,6 +2,9 @@ package seedu.exercise.testutil;
 
 import seedu.exercise.model.conflict.Conflict;
 
+/**
+ * Holds a valid conflict object to be used in testing
+ */
 public class TypicalConflict {
 
     public static final Conflict VALID_CONFLICT = new ConflictBuilder()

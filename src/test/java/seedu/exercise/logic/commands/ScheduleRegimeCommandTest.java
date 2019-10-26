@@ -22,14 +22,14 @@ import seedu.exercise.testutil.TypicalSchedule;
 
 public class ScheduleRegimeCommandTest {
 
-    private final ScheduleCommand scheduleRegimeCommandWithUnknownRegime
-            = new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_CHEST),
+    private final ScheduleCommand scheduleRegimeCommandWithUnknownRegime =
+            new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_CHEST),
                 TypicalDates.DATE_3);
-    private final ScheduleCommand scheduleRegimeCommandWithConflictingDate
-            = new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_LEGS),
+    private final ScheduleCommand scheduleRegimeCommandWithConflictingDate =
+            new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_LEGS),
                 TypicalDates.DATE_1);
-    private final ScheduleCommand validScheduleRegimeCommand
-            = new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_CARDIO),
+    private final ScheduleCommand validScheduleRegimeCommand =
+            new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_CARDIO),
                 TypicalDates.DATE_3);
 
     private Model model;

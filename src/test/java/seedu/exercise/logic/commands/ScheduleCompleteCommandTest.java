@@ -30,9 +30,9 @@ public class ScheduleCompleteCommandTest {
 
     @BeforeEach
     public void setUp() {
-         model = new ModelManager(TypicalExercises.getTypicalExerciseBook(),
-                new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), TypicalSchedule.getTypicalScheduleBook(),
-                new UserPrefs(), DefaultPropertyBookUtil.getDefaultPropertyBook());
+        model = new ModelManager(TypicalExercises.getTypicalExerciseBook(),
+            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), TypicalSchedule.getTypicalScheduleBook(),
+            new UserPrefs(), DefaultPropertyBookUtil.getDefaultPropertyBook());
     }
 
     @Test

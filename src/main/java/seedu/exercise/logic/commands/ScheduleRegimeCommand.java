@@ -50,6 +50,14 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, regime.getRegimeName(), dateToSchedule));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ScheduleRegimeCommand // instanceof handles nulls
+                && regime.equals(((ScheduleRegimeCommand) other).regime)
+                && dateToSchedule.equals(((ScheduleRegimeCommand) other).dateToSchedule));
+    }
+
     private void checkExistenceOfRegime(Model model) throws CommandException {
         if (!model.hasRegime(regime)) {
             throw new CommandException(String.format(MESSAGE_REGIME_NOT_FOUND, regime.getRegimeName()));
