@@ -21,12 +21,12 @@ import seedu.exercise.testutil.exercise.TypicalExercises;
  */
 public class ScheduleCompleteCommandTest {
 
-    private Model model;
-
     private final ScheduleCommand scheduleCompleteCommandWithOutOfBoundsIndex =
             new ScheduleCompleteCommand(TypicalIndexes.INDEX_VERY_LARGE_NUMBER);
     private final ScheduleCommand scheduleCompleteCommandWithValidIndex =
             new ScheduleCompleteCommand(TypicalIndexes.INDEX_ONE_BASED_FIRST);
+
+    private Model model;
 
     @BeforeEach
     public void setUp() {

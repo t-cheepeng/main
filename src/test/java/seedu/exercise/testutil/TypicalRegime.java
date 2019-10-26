@@ -8,13 +8,13 @@ import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UniqueResourceList;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
-import seedu.exercise.model.resource.Schedule;
 import seedu.exercise.testutil.exercise.TypicalExercises;
 
 public class TypicalRegime {
 
     public static final String VALID_REGIME_NAME_CARDIO = "cardio";
     public static final String VALID_REGIME_NAME_LEGS = "legs";
+    public static final String VALID_REGIME_NAME_CHEST = "chest";
 
     public static final Regime VALID_REGIME_LEGS;
     public static final Regime VALID_REGIME_CARDIO;

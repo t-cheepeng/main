@@ -8,9 +8,6 @@ import seedu.exercise.model.resource.Schedule;
 
 public class TypicalSchedule {
 
-    public static final String VALID_SCHEDULE_DATE = "12/12/2019";
-    public static final String VALID_SCHEDULE_DATE_2 = "13/12/2019";
-
     public static final Schedule VALID_SCHEDULE_CARDIO_DATE;
     public static final Schedule VALID_SCHEDULE_LEG_DATE;
     public static final Schedule VALID_SCHEDULE_LEG_DATE_2;
@@ -18,17 +15,17 @@ public class TypicalSchedule {
     static {
         VALID_SCHEDULE_CARDIO_DATE = new ScheduleBuilder()
                 .withRegime(TypicalRegime.VALID_REGIME_CARDIO)
-                .withDate(VALID_SCHEDULE_DATE)
+                .withDate(TypicalDates.DATE_1)
                 .build();
 
         VALID_SCHEDULE_LEG_DATE_2 = new ScheduleBuilder()
                 .withRegime(TypicalRegime.VALID_REGIME_LEGS)
-                .withDate(VALID_SCHEDULE_DATE_2)
+                .withDate(TypicalDates.DATE_2)
                 .build();
 
         VALID_SCHEDULE_LEG_DATE = new ScheduleBuilder()
                 .withRegime(TypicalRegime.VALID_REGIME_LEGS)
-                .withDate(VALID_SCHEDULE_DATE)
+                .withDate(TypicalDates.DATE_1)
                 .build();
     }
 
