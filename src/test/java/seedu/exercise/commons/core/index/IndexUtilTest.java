@@ -10,8 +10,6 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import seedu.exercise.testutil.Assert;
-
 public class IndexUtilTest {
 
     private static final Index ZERO_BASED_IN_BOUND = Index.fromZeroBased(0);
@@ -40,7 +38,7 @@ public class IndexUtilTest {
     }
 
     @Test
-    public void areIndexOutOfBounds_AllIndexInBounds_returnsFalse() {
+    public void areIndexOutOfBounds_allIndexInBounds_returnsFalse() {
         List<Index> indexList = new ArrayList<>();
         indexList.add(ZERO_BASED_IN_BOUND);
         indexList.add(ONE_BASED_IN_BOUND);
@@ -48,7 +46,7 @@ public class IndexUtilTest {
     }
 
     @Test
-    public void areIndexOutOfBounds_SomeIndexOutBounds_returnsTrue() {
+    public void areIndexOutOfBounds_someIndexOutBounds_returnsTrue() {
         List<Index> indexList = new ArrayList<>();
         indexList.add(ZERO_BASED_OUT_BOUND);
         indexList.add(ZERO_BASED_IN_BOUND);

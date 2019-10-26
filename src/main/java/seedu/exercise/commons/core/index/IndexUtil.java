@@ -9,6 +9,10 @@ import java.util.List;
  */
 public class IndexUtil {
 
+    /**
+     * Checks if the {@code index} is out of bounds of the {@code list}.
+     * {@code index} is always positive.
+     */
     public static <T> boolean isIndexOutOfBounds(Index index, List<T> list) {
         requireAllNonNull(index, list);
         return index.getZeroBased() >= list.size();

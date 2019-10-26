@@ -2,7 +2,6 @@ package seedu.exercise.commons.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
@@ -107,8 +106,8 @@ public class VersionTest {
         assertTrue(one.compareTo(another) < 0);
 
         // Tests not early access same version vs early access same version
-        one = new Version(1, 1 ,1, false);
-        another = new Version(1,1,1, true);
+        one = new Version(1, 1, 1, false);
+        another = new Version(1, 1, 1, true);
         assertTrue(one.compareTo(another) > 0);
     }
 
