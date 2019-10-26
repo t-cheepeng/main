@@ -217,6 +217,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void removeSchedule(Schedule schedule) {
+        requireNonNull(schedule);
+        scheduleBook.removeResource(schedule);
+    }
+
+    @Override
     public void completeSchedule(Schedule schedule) {
         requireNonNull(schedule);
 

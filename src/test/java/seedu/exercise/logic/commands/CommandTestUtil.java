@@ -24,6 +24,8 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.NameContainsKeywordsPredicate;
+import seedu.exercise.model.resource.Regime;
+import seedu.exercise.model.resource.Schedule;
 import seedu.exercise.testutil.exercise.EditExerciseDescriptorBuilder;
 
 /**
@@ -139,7 +141,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the exercise book, filtered exercise list and selected exercise in {@code actualModel} remain unchanged
+     * - All resources in the model are expected to be unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
@@ -148,9 +150,23 @@ public class CommandTestUtil {
             new ReadOnlyResourceBook<>(actualModel.getExerciseBookData());
         List<Exercise> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExerciseList());
 
+        ReadOnlyResourceBook<Regime> expectedRegimeBook =
+                new ReadOnlyResourceBook<>(actualModel.getAllRegimeData());
+        List<Regime> expectedRegimeList = new ArrayList<>(actualModel.getFilteredRegimeList());
+
+        ReadOnlyResourceBook<Schedule> expectedScheduleBook =
+                new ReadOnlyResourceBook<>(actualModel.getAllScheduleData());
+        List<Schedule> expectedScheduleList = new ArrayList<>(actualModel.getFilteredScheduleList());
+
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedExerciseBook, actualModel.getExerciseBookData());
         assertEquals(expectedFilteredList, actualModel.getFilteredExerciseList());
+
+        assertEquals(expectedRegimeBook, actualModel.getAllRegimeData());
+        assertEquals(expectedRegimeList, actualModel.getFilteredRegimeList());
+
+        assertEquals(expectedScheduleBook, actualModel.getAllScheduleData());
+        assertEquals(expectedScheduleList, actualModel.getFilteredScheduleList());
     }
 
     /**
