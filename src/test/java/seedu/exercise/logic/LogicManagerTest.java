@@ -163,8 +163,6 @@ public class LogicManagerTest {
         assertEquals(new ReadOnlyResourceBook<>(), logic.getRegimeBook());
         assertEquals(model.getFilteredRegimeList(), logic.getFilteredRegimeList());
         assertEquals(model.getFilteredScheduleList(), logic.getFilteredScheduleList());
-        assertEquals(storage.getExerciseBookFilePath().getFileName(), logic.getExerciseBookFilePath().getFileName());
-        assertEquals(storage.getRegimeBookFilePath().getFileName(), logic.getRegimeBookFilePath().getFileName());
         assertEquals(model.getSuggestedExerciseList(), logic.getSuggestedExerciseList());
         assertEquals(model.getGuiSettings(), logic.getGuiSettings());
 
