@@ -30,9 +30,9 @@ import static seedu.exercise.logic.commands.CommandTestUtil.VALID_UNIT_AEROBICS;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_THIRD_EXERCISE;
+import static seedu.exercise.testutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
+import static seedu.exercise.testutil.TypicalIndexes.INDEX_ONE_BASED_SECOND;
+import static seedu.exercise.testutil.TypicalIndexes.INDEX_ONE_BASED_THIRD;
 
 import org.junit.jupiter.api.Test;
 
@@ -117,7 +117,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_EXERCISE;
+        Index targetIndex = INDEX_ONE_BASED_SECOND;
         String userInput = targetIndex.getOneBased() + DATE_DESC_BASKETBALL + MUSCLE_DESC_AEROBICS + UNIT_DESC_AEROBICS
             + CALORIES_DESC_AEROBICS + QUANTITY_DESC_AEROBICS + NAME_DESC_AEROBICS + MUSCLE_DESC_BASKETBALL;
 
@@ -133,7 +133,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_EXERCISE;
+        Index targetIndex = INDEX_ONE_BASED_FIRST;
         String userInput = targetIndex.getOneBased() + DATE_DESC_BASKETBALL + CALORIES_DESC_AEROBICS;
 
         EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder().withDate(VALID_DATE_BASKETBALL)
@@ -146,7 +146,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_EXERCISE;
+        Index targetIndex = INDEX_ONE_BASED_THIRD;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AEROBICS;
         EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder()
             .withName(VALID_NAME_AEROBICS).build();
@@ -186,7 +186,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_EXERCISE;
+        Index targetIndex = INDEX_ONE_BASED_FIRST;
         String userInput = targetIndex.getOneBased() + DATE_DESC_AEROBICS + QUANTITY_DESC_AEROBICS
             + CALORIES_DESC_AEROBICS + MUSCLE_DESC_BASKETBALL + DATE_DESC_AEROBICS
             + QUANTITY_DESC_AEROBICS + CALORIES_DESC_AEROBICS + MUSCLE_DESC_BASKETBALL
@@ -204,7 +204,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_EXERCISE;
+        Index targetIndex = INDEX_ONE_BASED_FIRST;
         String userInput = targetIndex.getOneBased() + INVALID_DATE_DESC + DATE_DESC_BASKETBALL;
         EditExerciseDescriptor descriptor =
             new EditExerciseDescriptorBuilder().withDate(VALID_DATE_BASKETBALL).build();
@@ -222,7 +222,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_EXERCISE;
+        Index targetIndex = INDEX_ONE_BASED_THIRD;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder().withMuscles().build();

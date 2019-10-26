@@ -33,19 +33,19 @@ import seedu.exercise.testutil.TypicalSchedule;
  */
 public class ResolveCommandTest {
 
-    private ResolveCommand validResolveCommandWithEmptyIndexes = new ResolveCommand(
+    private final ResolveCommand validResolveCommandWithEmptyIndexes = new ResolveCommand(
             new Name(TypicalRegime.VALID_REGIME_NAME_CARDIO),
             new ArrayList<>(),
             new ArrayList<>());
-    private ResolveCommand validResolveCommandWithImpossibleRegimeName = new ResolveCommand(
+    private final ResolveCommand validResolveCommandWithImpossibleRegimeName = new ResolveCommand(
             new Name("No one is going to call their regime this name seriously"),
             new ArrayList<>(),
             new ArrayList<>());
-    private ResolveCommand validResolveCommandWithNonEmptyIndexes = new ResolveCommand(
+    private final ResolveCommand validResolveCommandWithNonEmptyIndexes = new ResolveCommand(
             new Name(TypicalRegime.VALID_REGIME_NAME_CARDIO),
-            Arrays.asList(TypicalIndexes.INDEX_FIRST_EXERCISE),
+            Arrays.asList(TypicalIndexes.INDEX_ONE_BASED_FIRST),
             new ArrayList<>());
-    private ResolveCommand validResolveCommandWithOutOfBoundIndexes = new ResolveCommand(
+    private final ResolveCommand validResolveCommandWithOutOfBoundIndexes = new ResolveCommand(
             new Name(TypicalRegime.VALID_REGIME_NAME_CARDIO),
             Arrays.asList(TypicalIndexes.INDEX_VERY_LARGE_NUMBER),
             new ArrayList<>());

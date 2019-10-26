@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyResourceBook;
@@ -241,6 +242,21 @@ class ModelStub implements Model {
 
     @Override
     public ReadOnlyResourceBook<Exercise> getDatabaseBook() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateStatistic() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setStatistic(Statistic statistic) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Statistic getStatistic() {
         throw new AssertionError("This method should not be called.");
     }
 

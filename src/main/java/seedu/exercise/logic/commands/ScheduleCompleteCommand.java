@@ -19,6 +19,7 @@ public class ScheduleCompleteCommand extends ScheduleCommand {
     private Index index;
 
     public ScheduleCompleteCommand(Index index) {
+        requireNonNull(index);
         this.index = index;
     }
 
