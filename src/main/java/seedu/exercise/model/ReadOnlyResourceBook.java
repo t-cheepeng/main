@@ -93,10 +93,6 @@ public class ReadOnlyResourceBook<T extends Resource> {
         return -1;
     }
 
-    public List<T> getAllResourcesIndex(Collection<Index> indexes) {
-        return resources.getAllResourcesIndex(indexes);
-    }
-
     /**
      * Returns an unmodifiable list of {@code Resource} of type {@code T}.
      */

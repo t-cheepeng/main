@@ -24,6 +24,8 @@ public class ScheduleTest {
 
     @Test
     public void toString_returnsCorrectlyFormattedString() {
-        assertEquals(CommonTestData.VALID_SCHEDULE_STRING_FOR_TYPICAL_SCHEDULE_LEG, legSchedule.toString());
+        //Replaces the first date 13/12/2019 to 12/12/2019
+        assertEquals(legScheduleOnAnotherDate.toString().replaceFirst("3", "2"),
+                legSchedule.toString());
     }
 }

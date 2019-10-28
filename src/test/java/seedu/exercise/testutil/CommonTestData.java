@@ -214,9 +214,4 @@ public class CommonTestData {
             "Exercise 4: Bench Press\n" +
             "Exercise 5: Skipping\n" +
             "Exercise 6: Sprinting\nExercise 7: Snapping\n";
-
-    //=======================For valid schedule toString============================
-    public static final String VALID_SCHEDULE_STRING_FOR_TYPICAL_SCHEDULE_LEG =
-            "12/12/2019\nExercise 1: Sprinting\nExercise 2: Walking\n";
-
 }
