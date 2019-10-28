@@ -15,6 +15,23 @@ public class MuscleTest {
     private Muscle testMuscle = new Muscle(CommonTestData.VALID_MUSCLE_BASKETBALL);
 
     @Test
+    public void constructor_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new Muscle(null));
+    }
+
+    @Test
+    public void constructor_invalidTagName_throwsIllegalArgumentException() {
+        String invalidTagName = "";
+        assertThrows(IllegalArgumentException.class, () -> new Muscle(invalidTagName));
+    }
+
+    @Test
+    public void isValidTagName() {
+        // null tag name
+        assertThrows(NullPointerException.class, () -> Muscle.isValidMuscleName(null));
+    }
+
+    @Test
     public void constructor_invalidValues_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, Muscle.MESSAGE_CONSTRAINTS,
                 () -> new Muscle(CommonTestData.INVALID_SYMBOLS_FOR_ALPHABETS_AND_SPACES));

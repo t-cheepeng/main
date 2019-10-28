@@ -58,6 +58,6 @@ public class RegimeTest {
 
     @Test
     public void toString_returnsCorrectlyFormattedString() {
-        assertEquals(CommonTestData.VALID_REGIME_STRING_FOR_TYPICA_REGIME_CARDIO, testRegime.toString());
+        assertEquals(CommonTestData.VALID_REGIME_STRING_FOR_TYPICAL_REGIME_CARDIO, testRegime.toString());
     }
 }

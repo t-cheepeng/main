@@ -1,9 +1,14 @@
 package seedu.exercise.testutil;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import org.junit.jupiter.api.Assertions;
 
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.model.Model;
@@ -51,5 +56,13 @@ public class TestUtil {
      */
     public static Exercise getExercise(Model model, Index index) {
         return model.getFilteredExerciseList().get(index.getZeroBased());
+    }
+
+    public static <T> void assertCommonEqualsTest(T obj) {
+        // null values -> false
+        assertFalse(obj.equals(null));
+
+        // same object -> true
+        assertTrue(obj.equals(obj));
     }
 }

@@ -208,10 +208,15 @@ public class CommonTestData {
                     VALID_PREFIX_NAME_RATING + ": " + VALID_PREFIX_NAME_REMARK;
 
     //=======================For valid regime toString============================
-    public static final String VALID_REGIME_STRING_FOR_TYPICA_REGIME_CARDIO = "Exercise 1: Walking\n" +
+    public static final String VALID_REGIME_STRING_FOR_TYPICAL_REGIME_CARDIO = "Exercise 1: Walking\n" +
             "Exercise 2: Swimming\n" +
             "Exercise 3: Dancing\n" +
             "Exercise 4: Bench Press\n" +
             "Exercise 5: Skipping\n" +
             "Exercise 6: Sprinting\nExercise 7: Snapping\n";
+
+    //=======================For valid schedule toString============================
+    public static final String VALID_SCHEDULE_STRING_FOR_TYPICAL_SCHEDULE_LEG =
+            "12/12/2019\nExercise 1: Sprinting\nExercise 2: Walking\n";
+
 }
