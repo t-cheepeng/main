@@ -27,7 +27,6 @@ import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
 import seedu.exercise.model.util.DefaultPropertyBookUtil;
 import seedu.exercise.testutil.typicalutil.TypicalConflict;
-import seedu.exercise.testutil.typicalutil.TypicalDates;
 import seedu.exercise.testutil.typicalutil.TypicalExercises;
 import seedu.exercise.testutil.typicalutil.TypicalIndexes;
 import seedu.exercise.testutil.typicalutil.TypicalRegime;

@@ -33,10 +33,10 @@ public class MuscleTest {
 
     @Test
     public void constructor_invalidValues_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, Muscle.MESSAGE_CONSTRAINTS,
-                () -> new Muscle(CommonTestData.INVALID_SYMBOLS_FOR_ALPHABETS_AND_SPACES));
-        assertThrows(IllegalArgumentException.class, Muscle.MESSAGE_CONSTRAINTS,
-                () -> new Muscle(CommonTestData.INVALID_NUMBERS_FOR_ALPHABETS_AND_SPACES));
+        assertThrows(IllegalArgumentException.class, Muscle.MESSAGE_CONSTRAINTS, () ->
+                new Muscle(CommonTestData.INVALID_SYMBOLS_FOR_ALPHABETS_AND_SPACES));
+        assertThrows(IllegalArgumentException.class, Muscle.MESSAGE_CONSTRAINTS, () ->
+                new Muscle(CommonTestData.INVALID_NUMBERS_FOR_ALPHABETS_AND_SPACES));
     }
 
     @Test

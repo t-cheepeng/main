@@ -6,7 +6,6 @@ import static seedu.exercise.testutil.TestUtil.assertCommonEqualsTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import seedu.exercise.testutil.CommonTestData;
 import seedu.exercise.testutil.typicalutil.TypicalSchedule;
 
 public class ScheduleTest {

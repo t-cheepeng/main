@@ -6,7 +6,6 @@ import static seedu.exercise.testutil.Assert.assertThrows;
 
 import java.nio.file.Paths;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.testutil.CommonTestData;

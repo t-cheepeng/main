@@ -3,11 +3,9 @@ package seedu.exercise.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collection;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.model.resource.Resource;
 
 /**

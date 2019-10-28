@@ -19,7 +19,8 @@ public class DateChangerUtilTest {
     public void changeAllDate_onSampleExercises_allSuccessful() {
         List<Exercise> testExercise = TypicalExercises.getTypicalExercises();
 
-        Collection<Exercise> changed = DateChangerUtil.changeAllDate(testExercise, new Date(CommonTestData.VALID_DATE_2));
+        Collection<Exercise> changed = DateChangerUtil.changeAllDate(testExercise,
+                new Date(CommonTestData.VALID_DATE_2));
 
         // ensure a different copy of object is returned
         assertNotSame(changed, testExercise);

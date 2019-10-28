@@ -8,8 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.junit.jupiter.api.Assertions;
-
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Exercise;
@@ -58,6 +56,10 @@ public class TestUtil {
         return model.getFilteredExerciseList().get(index.getZeroBased());
     }
 
+    /**
+     * Asserts the commonly used assertions in testing equals method.
+     * Asserts null object is false and same object to be true.
+     */
     public static <T> void assertCommonEqualsTest(T obj) {
         // null values -> false
         assertFalse(obj.equals(null));
