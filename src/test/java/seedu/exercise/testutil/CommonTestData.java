@@ -16,6 +16,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.testutil.builder.EditExerciseDescriptorBuilder;
+import seedu.exercise.testutil.typicalutil.TypicalExercises;
 
 /**
  * Contains test data that is commonly used throughout the test suites
@@ -205,4 +206,12 @@ public class CommonTestData {
                     + " Quantity: " + VALID_QUANTITY_BASKETBALL + " Unit: " + VALID_UNIT_BASKETBALL + " Muscle(s): "
                     + "[" + VALID_MUSCLE_AEROBICS + "]" + "[" + VALID_MUSCLE_BASKETBALL + "] " +
                     VALID_PREFIX_NAME_RATING + ": " + VALID_PREFIX_NAME_REMARK;
+
+    //=======================For valid regime toString============================
+    public static final String VALID_REGIME_STRING_FOR_TYPICA_REGIME_CARDIO = "Exercise 1: Walking\n" +
+            "Exercise 2: Swimming\n" +
+            "Exercise 3: Dancing\n" +
+            "Exercise 4: Bench Press\n" +
+            "Exercise 5: Skipping\n" +
+            "Exercise 6: Sprinting\nExercise 7: Snapping\n";
 }

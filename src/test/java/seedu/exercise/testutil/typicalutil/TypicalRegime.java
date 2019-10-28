@@ -28,8 +28,8 @@ public class TypicalRegime {
         cardioList.setAll(typicalExerciseCardio);
 
         List<Exercise> typicalExerciseLegs = new ArrayList<>();
-        typicalExerciseCardio.add(TypicalExercises.SPRINT);
-        typicalExerciseCardio.add(TypicalExercises.WALK);
+        typicalExerciseLegs.add(TypicalExercises.SPRINT);
+        typicalExerciseLegs.add(TypicalExercises.WALK);
         UniqueResourceList<Exercise> legList = new UniqueResourceList<>();
         legList.setAll(typicalExerciseLegs);
 
