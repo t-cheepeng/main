@@ -76,7 +76,7 @@ public class SuggestPossibleCommandTest {
     private Predicate<Exercise> getCustomPropertyPredicate() {
         return exercise -> {
             for (String key : targetCustomProperties.keySet()) {
-                if (!(targetCustomProperties.get(key).equals(exercise.getCustomProperties().get(key)))) {
+                if (!(targetCustomProperties.get(key).equals(exercise.getCustomPropertiesMap().get(key)))) {
                     return false;
                 }
             }

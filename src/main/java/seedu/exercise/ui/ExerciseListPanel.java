@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -34,10 +35,20 @@ public class ExerciseListPanel extends UiPart<Region> {
         this.exerciseList = exerciseList;
         exerciseListView.setItems(exerciseList);
         exerciseListView.setCellFactory(listView -> new ExerciseListViewCell());
-    }
 
-    public boolean isListEmpty() {
-        return exerciseList.isEmpty();
+        exerciseList.addListener((ListChangeListener<Exercise>) change -> {
+            while (change.next()) {
+                if (change.wasReplaced()) {
+                    int indexChanged = change.getFrom();
+                    logger.info("Exercise " + indexChanged + " is replaced.");
+                    selectGivenIndex(indexChanged);
+                } else if (change.wasAdded()) {
+                    int indexAdded = exerciseList.size() - 1;
+                    logger.info("Exercise " + indexAdded + " is added.");
+                    selectGivenIndex(indexAdded);
+                }
+            }
+        });
     }
 
     public boolean isExerciseSelected() {
@@ -54,6 +65,11 @@ public class ExerciseListPanel extends UiPart<Region> {
 
     public ListView<Exercise> getExerciseListView() {
         return exerciseListView;
+    }
+
+    private void selectGivenIndex(int index) {
+        exerciseListView.scrollTo(index);
+        exerciseListView.getSelectionModel().select(index);
     }
 
     public void setPanelTitleText(String title) {
@@ -77,5 +93,4 @@ public class ExerciseListPanel extends UiPart<Region> {
             }
         }
     }
-
 }
