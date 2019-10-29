@@ -2,6 +2,7 @@ package seedu.exercise.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 
 import javafx.fxml.FXML;
@@ -14,7 +15,7 @@ import seedu.exercise.model.resource.Regime;
 /**
  * Panel containing list of regimes.
  */
-public class RegimeListPanel extends UiPart<Region> {
+public class RegimeListPanel extends ResourceListPanel {
     private static final String FXML = "RegimeListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(RegimeListPanel.class);
 
@@ -22,13 +23,28 @@ public class RegimeListPanel extends UiPart<Region> {
     private ListView<Regime> regimeListView;
 
     public RegimeListPanel(ObservableList<Regime> regimeList) {
-        super(FXML);
+        super(FXML, regimeList);
         regimeListView.setItems(regimeList);
         regimeListView.setCellFactory(listView -> new RegimeListViewCell());
     }
 
     public ListView<Regime> getRegimeListView() {
         return regimeListView;
+    }
+
+    @Override
+    protected void selectGivenIndex(int index) {
+        if (index >= 0) {
+            /*
+                An extremely hacky way to get the list to select, focus and scroll to the newly changed item.
+                Without this method, when any add/edit commands are supplied, the ListChangeListener attached to
+                ObservableList is called first without the list actually changing its structure. So when the index
+                is provided, the listview is not updated and thus cannot be focused on.
+                So the solution is to make this focusing operation be done at a slightly later time when the
+                list view has been updated to reflect the commands changes
+             */
+            Platform.runLater(() -> selectFocusAndScrollTo(regimeListView, index));
+        }
     }
 
     /**

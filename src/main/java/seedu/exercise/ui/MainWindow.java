@@ -1,18 +1,13 @@
 package seedu.exercise.ui;
 
-import java.util.Optional;
 import java.util.logging.Logger;
 
-import javafx.event.Event;
-import javafx.event.EventDispatchChain;
-import javafx.event.EventDispatcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.exercise.commons.core.GuiSettings;
@@ -22,7 +17,6 @@ import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.parser.exceptions.ParseException;
-import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Resource;
 
 /**
@@ -92,10 +86,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.setTitle("ExerHealth");
 
         helpWindow = new HelpWindow();
-
-//        resourceListPanelPlaceholder.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-//            displayInfoPanelResult();
-//        });
     }
 
     public Stage getPrimaryStage() {
@@ -136,12 +126,6 @@ public class MainWindow extends UiPart<Stage> {
         resourceListPanelPlaceholder.getTabs().add(scheduleListTabPlaceholder);
         resourceListPanelPlaceholder.getTabs().add(suggestionListTabPlaceholder);
 
-        // First tab to show is exercise list
-        //FOR TESTING purposes
-        changeTab(exerciseListTabPlaceholder);
-
-        displayDefaultMessage();
-
         chartPlaceholder.getChildren().add(new LineChartPanel(logic.getStatistic()).getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -151,12 +135,11 @@ public class MainWindow extends UiPart<Stage> {
         infoDisplayPanel = new InfoDisplayPanel();
         infoDisplayPanelPlaceholder.getChildren().add(infoDisplayPanel.getRoot());
 
-        exerciseListPanel.setOnItemSelectListener(new ResourceListPanel.onItemSelectListener() {
-            @Override
-            public void onItemSelect(Resource selected) {
-                infoDisplayPanel.update(selected);
-            }
-        });
+        //TODO fix the display default message thing and other parts
+        initListenersForResourceListPanels();
+
+//        displayDefaultMessage();
+        displayInitialList();
     }
 
     /**
@@ -174,6 +157,27 @@ public class MainWindow extends UiPart<Stage> {
             chartPlaceholder.getChildren().add(new PieChartPanel(statistic).getRoot());
         }
     }
+
+    private void displayInitialList() {
+        changeTab(exerciseListTabPlaceholder);
+        exerciseListPanel.selectGivenIndex(0);
+    }
+
+    private void initListenersForResourceListPanels() {
+        exerciseListPanel.setOnItemSelectListener(getListener());
+        regimeListPanel.setOnItemSelectListener(getListener());
+        scheduleListPanel.setOnItemSelectListener(getListener());
+    }
+
+    private ResourceListPanel.OnItemSelectListener getListener() {
+        return new ResourceListPanel.OnItemSelectListener() {
+            @Override
+            public void onItemSelect(Resource selected) {
+                infoDisplayPanel.update(selected);
+            }
+        };
+    }
+
     /**
      * Sets the default size based on {@code guiSettings}.
      */

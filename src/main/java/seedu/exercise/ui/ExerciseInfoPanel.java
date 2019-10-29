@@ -28,7 +28,7 @@ public class ExerciseInfoPanel extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Exercise exercise;
+    public Exercise exercise;
 
     @FXML
     private AnchorPane cardPane;
@@ -49,8 +49,11 @@ public class ExerciseInfoPanel extends UiPart<Region> {
 
     private CustomPropertyListPanel customPropertiesList;
 
-    public ExerciseInfoPanel(Exercise exercise) {
+    public ExerciseInfoPanel() {
         super(FXML);
+    }
+
+    public void updateText(Exercise exercise) {
         this.exercise = exercise;
         name.setText(exercise.getName().fullName);
         date.setText(exercise.getDate().toString());
@@ -77,6 +80,14 @@ public class ExerciseInfoPanel extends UiPart<Region> {
         // state check
         ExerciseInfoPanel card = (ExerciseInfoPanel) other;
         return exercise.equals(card.exercise);
+    }
+
+    public void show() {
+        cardPane.setVisible(true);
+    }
+
+    public void hide() {
+        cardPane.setVisible(false);
     }
 
     private void setMuscleTags(Set<Muscle> musclesSet) {

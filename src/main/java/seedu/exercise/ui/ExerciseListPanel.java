@@ -6,6 +6,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -38,24 +39,7 @@ public class ExerciseListPanel extends ResourceListPanel {
         super(FXML, exerciseList);
         exerciseListView.setItems(exerciseList);
         exerciseListView.setCellFactory(listView -> new ExerciseListViewCell());
-        exerciseListView.getFocusModel().focusedItemProperty().addListener(new ChangeListener<Exercise>() {
-            @Override
-            public void changed(ObservableValue<? extends Exercise> observableValue, Exercise exercise, Exercise t1) {
-                notifyOnSelectListener(t1);
-            }
-        });
-    }
-
-    public boolean isExerciseSelected() {
-        return exerciseListView.getSelectionModel().getSelectedIndex() >= 0;
-    }
-
-    public Optional<Exercise> getSelectedExercise() {
-        if (isExerciseSelected()) {
-            return Optional.of(exerciseListView.getSelectionModel().getSelectedItem());
-        } else {
-            return Optional.empty();
-        }
+        exerciseListView.getFocusModel().focusedItemProperty().addListener(getDefaultListViewListener());
     }
 
     public ListView<Exercise> getExerciseListView() {
@@ -70,7 +54,15 @@ public class ExerciseListPanel extends ResourceListPanel {
     @Override
     protected void selectGivenIndex(int index) {
         if (index >= 0) {
-            exerciseListView.getSelectionModel().select(index);
+            /*
+                An extremely hacky way to get the list to select, focus and scroll to the newly changed item.
+                Without this method, when any add/edit commands are supplied, the ListChangeListener attached to
+                ObservableList is called first without the list actually changing its structure. So when the index
+                is provided, the listview is not updated and thus cannot be focused on.
+                So the solution is to make this focusing operation be done at a slightly later time when the
+                list view has been updated to reflect the commands changes
+             */
+            Platform.runLater(() -> selectFocusAndScrollTo(exerciseListView, index));
         }
     }
 
