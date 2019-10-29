@@ -2,6 +2,7 @@ package seedu.exercise.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -18,7 +19,9 @@ import seedu.exercise.model.resource.Exercise;
  */
 public class ExerciseListPanel extends UiPart<Region> {
     private static final String FXML = "ExerciseListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(ExerciseListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
+    private ObservableList<Exercise> exerciseList;
 
     @FXML
     private ListView<Exercise> exerciseListView;
@@ -28,8 +31,25 @@ public class ExerciseListPanel extends UiPart<Region> {
 
     public ExerciseListPanel(ObservableList<Exercise> exerciseList) {
         super(FXML);
+        this.exerciseList = exerciseList;
         exerciseListView.setItems(exerciseList);
         exerciseListView.setCellFactory(listView -> new ExerciseListViewCell());
+    }
+
+    public boolean isListEmpty() {
+        return exerciseList.isEmpty();
+    }
+
+    public boolean isExerciseSelected() {
+        return exerciseListView.getSelectionModel().getSelectedIndex() >= 0;
+    }
+
+    public Optional<Exercise> getSelectedExercise() {
+        if (isExerciseSelected()) {
+            return Optional.of(exerciseListView.getSelectionModel().getSelectedItem());
+        } else {
+            return Optional.empty();
+        }
     }
 
     public ListView<Exercise> getExerciseListView() {
@@ -42,7 +62,7 @@ public class ExerciseListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Exercise} using a {@code ExerciseCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Exercise} using a {@code ExerciseInfoPanel}.
      */
     class ExerciseListViewCell extends ListCell<Exercise> {
         @Override
@@ -53,7 +73,7 @@ public class ExerciseListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ExerciseCard(exercise, getIndex() + 1).getRoot());
+                setGraphic(new ExerciseListCard(exercise, getIndex() + 1).getRoot());
             }
         }
     }
