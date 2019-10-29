@@ -3,8 +3,6 @@ package seedu.exercise.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDate;
-
 import seedu.exercise.MainApp;
 import seedu.exercise.commons.core.State;
 import seedu.exercise.logic.commands.exceptions.CommandException;
@@ -71,10 +69,13 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
         }
     }
 
+    /**
+     * Checks if the input date if after the current date as given by {@link Date#getToday()}.
+     */
     private void checkInputDateAfterCurrentDate() throws CommandException {
         Date currentDate = Date.getToday();
         if (!Date.isEndDateAfterStartDate(currentDate.toString(), dateToSchedule.toString())) {
-           throw new CommandException(String.format(MESSAGE_DATE_BEFORE_CURRENT_DATE, currentDate.toString()));
+            throw new CommandException(String.format(MESSAGE_DATE_BEFORE_CURRENT_DATE, currentDate.toString()));
         }
     }
 

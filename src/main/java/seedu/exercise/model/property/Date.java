@@ -1,6 +1,5 @@
 package seedu.exercise.model.property;
 
-import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.AppUtil.checkArgument;
 
@@ -8,10 +7,11 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 /**
- * Represents Exercise's and Statistic's date in ExerHealth.
+ * Represents date in ExerHealth.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
@@ -19,8 +19,14 @@ public class Date {
     public static final String PROPERTY_DATE = "Date";
     public static final String MESSAGE_CONSTRAINTS = "Dates should be of the format dd/MM/yyyy and must be valid.";
     public static final String MESSAGE_INVALID_END_DATE = "End date must be after start date";
+    public static final String MESSAGE_PRETTY_PRINT_ONE_UNIT = "%1$s %2$s left to schedule";
+    public static final String MESSAGE_PRETTY_PRINT_TWO_UNITS = "%1$s and %2$s left to schedule";
+
     private static final String DATE_FORMAT = "dd/MM/yyyy";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+    private static final String DAYS = "day(s)";
+    private static final String WEEKS = "week(s)";
+
     public final LocalDate value;
 
     /**
@@ -91,7 +97,7 @@ public class Date {
             return -1;
         }
 
-        return (int) DAYS.between(sDate, eDate);
+        return (int) ChronoUnit.DAYS.between(sDate, eDate);
     }
 
     /**
@@ -125,7 +131,7 @@ public class Date {
         } catch (DateTimeParseException e) {
             return new ArrayList<>();
         }
-        days = (int) DAYS.between(sDate, eDate) + 1;
+        days = (int) ChronoUnit.DAYS.between(sDate, eDate) + 1;
 
         ArrayList<Date> dates = new ArrayList<>();
         for (int i = 0; i < days; i++) {
@@ -137,6 +143,44 @@ public class Date {
         return dates;
     }
 
+    /**
+     * Convenient overloaded method to pretty print a date of format dd/MM/YYYY.
+     */
+    public static String prettyPrint(String date) {
+        requireNonNull(date);
+        Date localDate = new Date(date);
+        return prettyPrint(localDate);
+    }
+
+    /**
+     * Returns a representation of {@code date} that is more natural to human language.
+     * {@code prettyPrint} will use {@link Date#getToday()} to determine how to print the dates.
+     */
+    public static String prettyPrint(Date date) {
+        int daysBetween = numberOfDaysBetween(Date.getToday(), date);
+
+        //Within a week
+        if (daysBetween < 7) {
+            return String.format(MESSAGE_PRETTY_PRINT_ONE_UNIT, daysBetween, DAYS);
+        } else {
+            int numOfWeeksLeft = daysBetween / 7;
+            int numOfDaysLeft = daysBetween % 7;
+
+            // A full week distance away. Don't show xxx days remaining.
+            if (numOfDaysLeft == 0) {
+                return String.format(MESSAGE_PRETTY_PRINT_ONE_UNIT, numOfWeeksLeft, WEEKS);
+            } else {
+                return String.format(MESSAGE_PRETTY_PRINT_TWO_UNITS, numOfWeeksLeft + " " + WEEKS,
+                        numOfDaysLeft + " " + DAYS);
+            }
+        }
+    }
+
+    /**
+     * Returns the dd/MM/YYYY representation of the date.
+     * Call {@link Date#prettyPrint} to return a more natural form of
+     * the date.
+     */
     @Override
     public String toString() {
         return value.format(formatter);
