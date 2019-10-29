@@ -3,6 +3,9 @@ package seedu.exercise.ui;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.event.Event;
+import javafx.event.EventDispatchChain;
+import javafx.event.EventDispatcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -20,6 +23,7 @@ import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.model.resource.Resource;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -89,9 +93,9 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
 
-        resourceListPanelPlaceholder.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            displayInfoPanelResult();
-        });
+//        resourceListPanelPlaceholder.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+//            displayInfoPanelResult();
+//        });
     }
 
     public Stage getPrimaryStage() {
@@ -111,6 +115,7 @@ public class MainWindow extends UiPart<Stage> {
         resolveWindow = new ResolveWindow(logic, resultDisplay);
 
         exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
+
         exerciseListTabPlaceholder = new Tab();
         exerciseListTabPlaceholder.setContent((exerciseListPanel).getExerciseListView());
 
@@ -131,6 +136,10 @@ public class MainWindow extends UiPart<Stage> {
         resourceListPanelPlaceholder.getTabs().add(scheduleListTabPlaceholder);
         resourceListPanelPlaceholder.getTabs().add(suggestionListTabPlaceholder);
 
+        // First tab to show is exercise list
+        //FOR TESTING purposes
+        changeTab(exerciseListTabPlaceholder);
+
         displayDefaultMessage();
 
         chartPlaceholder.getChildren().add(new LineChartPanel(logic.getStatistic()).getRoot());
@@ -138,6 +147,16 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
         commandBox.requestFocus();
+
+        infoDisplayPanel = new InfoDisplayPanel();
+        infoDisplayPanelPlaceholder.getChildren().add(infoDisplayPanel.getRoot());
+
+        exerciseListPanel.setOnItemSelectListener(new ResourceListPanel.onItemSelectListener() {
+            @Override
+            public void onItemSelect(Resource selected) {
+                infoDisplayPanel.update(selected);
+            }
+        });
     }
 
     /**
@@ -314,12 +333,11 @@ public class MainWindow extends UiPart<Stage> {
      * default message.
      */
     private void displayInfoPanelResult() {
-        Optional<Exercise> selectedExercise = exerciseListPanel.getSelectedExercise();
-        if (selectedExercise.isPresent()) {
-            updateDisplayPanel(new ExerciseInfoPanel(selectedExercise.get()));
-        } else {
-            displayDefaultMessage();
-        }
+//        Optional<Exercise> selectedExercise = exerciseListPanel.getSelectedExercise();
+//        if (selectedExercise.isPresent()) {
+//            updateDisplayPanel(new ExerciseInfoPanel(selectedExercise.get()));
+//        } else {
+//            displayDefaultMessage();
+//        }
     }
-
 }

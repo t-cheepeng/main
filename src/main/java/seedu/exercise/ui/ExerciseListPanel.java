@@ -1,12 +1,17 @@
 package seedu.exercise.ui;
 
+import static java.util.Objects.checkFromIndexSize;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -18,11 +23,10 @@ import seedu.exercise.model.resource.Exercise;
 /**
  * Panel containing the list of exercises.
  */
-public class ExerciseListPanel extends UiPart<Region> {
+public class ExerciseListPanel extends ResourceListPanel {
+
     private static final String FXML = "ExerciseListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
-
-    private ObservableList<Exercise> exerciseList;
 
     @FXML
     private ListView<Exercise> exerciseListView;
@@ -31,22 +35,13 @@ public class ExerciseListPanel extends UiPart<Region> {
     private Label exerciseTitle;
 
     public ExerciseListPanel(ObservableList<Exercise> exerciseList) {
-        super(FXML);
-        this.exerciseList = exerciseList;
+        super(FXML, exerciseList);
         exerciseListView.setItems(exerciseList);
         exerciseListView.setCellFactory(listView -> new ExerciseListViewCell());
-
-        exerciseList.addListener((ListChangeListener<Exercise>) change -> {
-            while (change.next()) {
-                if (change.wasReplaced()) {
-                    int indexChanged = change.getFrom();
-                    logger.info("Exercise " + indexChanged + " is replaced.");
-                    selectGivenIndex(indexChanged);
-                } else if (change.wasAdded()) {
-                    int indexAdded = exerciseList.size() - 1;
-                    logger.info("Exercise " + indexAdded + " is added.");
-                    selectGivenIndex(indexAdded);
-                }
+        exerciseListView.getFocusModel().focusedItemProperty().addListener(new ChangeListener<Exercise>() {
+            @Override
+            public void changed(ObservableValue<? extends Exercise> observableValue, Exercise exercise, Exercise t1) {
+                notifyOnSelectListener(t1);
             }
         });
     }
@@ -67,14 +62,16 @@ public class ExerciseListPanel extends UiPart<Region> {
         return exerciseListView;
     }
 
-    private void selectGivenIndex(int index) {
-        exerciseListView.scrollTo(index);
-        exerciseListView.getSelectionModel().select(index);
-    }
-
     public void setPanelTitleText(String title) {
         requireNonNull(title);
         exerciseTitle.setText(title);
+    }
+
+    @Override
+    protected void selectGivenIndex(int index) {
+        if (index >= 0) {
+            exerciseListView.getSelectionModel().select(index);
+        }
     }
 
     /**
