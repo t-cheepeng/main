@@ -1,10 +1,8 @@
 package seedu.exercise.ui;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 
 /**

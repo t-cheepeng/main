@@ -2,6 +2,7 @@ package seedu.exercise.ui;
 
 import java.util.logging.Logger;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
@@ -25,6 +26,8 @@ import seedu.exercise.logic.parser.exceptions.ParseException;
 public class ResolveWindow extends UiPart<Stage> {
 
     private static final String FXML = "ResolveWindow.fxml";
+    private static final String UNABLE_TO_CLOSE_WINDOW = "Please resolve your conflict using the resolve command.\n"
+            + "You are not allowed to close this window before resolving this conflict.";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -94,6 +97,16 @@ public class ResolveWindow extends UiPart<Stage> {
     public void setLeftRightPanel() {
         leftRightPanel.setLeftPanel(logic.getConflict().getScheduledRegime());
         leftRightPanel.setRightPanel(logic.getConflict().getConflictingRegime());
+    }
+
+    /**
+     * The user is not allowed to close the {@code ResolveWindow} using the exit button.
+     * All events are consumed and feedback is given to user to resolve the conflict.
+     */
+    @FXML
+    private void handleCloseRequest(Event evt) {
+        evt.consume();
+        resultDisplay.setFeedbackToUser(UNABLE_TO_CLOSE_WINDOW);
     }
 
     private void setWindowSize(GuiSettings guiSettings) {
