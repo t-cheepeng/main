@@ -360,6 +360,10 @@
     -fx-border-top-width: 0px;
 }
 
+.resolveWindowPanelText {
+    -fx-text-fill: #1d1d1d;
+}
+
 .logoBox {
     -fx-background-color: #209de5;
 }

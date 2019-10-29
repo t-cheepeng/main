@@ -31,6 +31,7 @@ public class ResolveWindow extends UiPart<Stage> {
     private Logic logic;
 
     private LeftRightPanel leftRightPanel;
+    private CommandBox commandBox;
     private ResultDisplay resultDisplay;
     private ResultDisplay mainWindowDisplay;
     private Stage parent;
@@ -81,7 +82,8 @@ public class ResolveWindow extends UiPart<Stage> {
      */
     public void hideAndClearPanels() {
         leftRightPanel.clearAll();
-        resultDisplay.setFeedbackToUser("");
+        resultDisplay.clearText();
+        commandBox.clearText();
         parent.hide();
     }
 
@@ -90,8 +92,8 @@ public class ResolveWindow extends UiPart<Stage> {
     }
 
     public void setLeftRightPanel() {
-        leftRightPanel.setLeftPanel(logic.getConflict().getScheduledUnmodifiableExerciseList());
-        leftRightPanel.setRightPanel(logic.getConflict().getConflictedUnmodifiableExerciseList());
+        leftRightPanel.setLeftPanel(logic.getConflict().getScheduledRegime());
+        leftRightPanel.setRightPanel(logic.getConflict().getConflictingRegime());
     }
 
     private void setWindowSize(GuiSettings guiSettings) {
@@ -120,7 +122,7 @@ public class ResolveWindow extends UiPart<Stage> {
     }
 
     private void fillCommandBox() {
-        CommandBox commandBox = new CommandBox(this::execute);
+        commandBox = new CommandBox(this::execute);
         commandBoxPlaceHolder.getChildren().add(commandBox.getRoot());
     }
 
