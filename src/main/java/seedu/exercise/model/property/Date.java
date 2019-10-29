@@ -17,15 +17,15 @@ import java.util.ArrayList;
 public class Date {
 
     public static final String PROPERTY_DATE = "Date";
+    public static final String DAYS = "day(s)";
+    public static final String WEEKS = "week(s)";
     public static final String MESSAGE_CONSTRAINTS = "Dates should be of the format dd/MM/yyyy and must be valid.";
     public static final String MESSAGE_INVALID_END_DATE = "End date must be after start date";
-    public static final String MESSAGE_PRETTY_PRINT_ONE_UNIT = "%1$s %2$s left to schedule";
-    public static final String MESSAGE_PRETTY_PRINT_TWO_UNITS = "%1$s and %2$s left to schedule";
+    public static final String MESSAGE_PRETTY_PRINT_ONE_UNIT = "%1$s %2$s left...";
+    public static final String MESSAGE_PRETTY_PRINT_TWO_UNITS = "%1$s and %2$s left...";
 
     private static final String DATE_FORMAT = "dd/MM/yyyy";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
-    private static final String DAYS = "day(s)";
-    private static final String WEEKS = "week(s)";
+    public static final DateTimeFormatter STANDARD_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
     public final LocalDate value;
 
@@ -37,7 +37,7 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
-        value = LocalDate.parse(date, formatter);
+        value = LocalDate.parse(date, STANDARD_DATE_TIME_FORMATTER);
     }
 
     /**
@@ -45,7 +45,7 @@ public class Date {
      */
     public static boolean isValidDate(String test) {
         try {
-            LocalDate.parse(test, formatter);
+            LocalDate.parse(test, STANDARD_DATE_TIME_FORMATTER);
             return true;
         } catch (DateTimeParseException e) {
             return false;
@@ -57,8 +57,8 @@ public class Date {
      */
     public static boolean isEndDateAfterStartDate(String startDate, String endDate) {
         try {
-            LocalDate sDate = LocalDate.parse(startDate, formatter);
-            LocalDate eDate = LocalDate.parse(endDate, formatter);
+            LocalDate sDate = LocalDate.parse(startDate, STANDARD_DATE_TIME_FORMATTER);
+            LocalDate eDate = LocalDate.parse(endDate, STANDARD_DATE_TIME_FORMATTER);
             return eDate.compareTo(sDate) >= 0;
         } catch (DateTimeParseException e) {
             return false;
@@ -74,9 +74,9 @@ public class Date {
         LocalDate d;
 
         try {
-            d = LocalDate.parse(date.toString(), formatter);
-            sDate = LocalDate.parse(startDate.toString(), formatter);
-            eDate = LocalDate.parse(endDate.toString(), formatter);
+            d = LocalDate.parse(date.toString(), STANDARD_DATE_TIME_FORMATTER);
+            sDate = LocalDate.parse(startDate.toString(), STANDARD_DATE_TIME_FORMATTER);
+            eDate = LocalDate.parse(endDate.toString(), STANDARD_DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
             return false;
         }
@@ -91,8 +91,8 @@ public class Date {
         LocalDate sDate;
         LocalDate eDate;
         try {
-            sDate = LocalDate.parse(startDate.toString(), formatter);
-            eDate = LocalDate.parse(endDate.toString(), formatter);
+            sDate = LocalDate.parse(startDate.toString(), STANDARD_DATE_TIME_FORMATTER);
+            eDate = LocalDate.parse(endDate.toString(), STANDARD_DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
             return -1;
         }
@@ -105,16 +105,16 @@ public class Date {
      */
     public static Date getToday() {
         LocalDate today = LocalDate.now(ZoneId.systemDefault());
-        return new Date(today.format(formatter));
+        return new Date(today.format(STANDARD_DATE_TIME_FORMATTER));
     }
 
     /**
      * Returns the date of a week before today.
      */
     public static Date getOneWeekBeforeToday() {
-        LocalDate today = LocalDate.parse(getToday().toString(), formatter);
+        LocalDate today = LocalDate.parse(getToday().toString(), STANDARD_DATE_TIME_FORMATTER);
         LocalDate oneWeekBefore = today.minusDays(6);
-        return new Date(oneWeekBefore.format(formatter));
+        return new Date(oneWeekBefore.format(STANDARD_DATE_TIME_FORMATTER));
     }
 
     /**
@@ -126,8 +126,8 @@ public class Date {
         LocalDate eDate;
 
         try {
-            sDate = LocalDate.parse(startDate.toString(), formatter);
-            eDate = LocalDate.parse(endDate.toString(), formatter);
+            sDate = LocalDate.parse(startDate.toString(), STANDARD_DATE_TIME_FORMATTER);
+            eDate = LocalDate.parse(endDate.toString(), STANDARD_DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
             return new ArrayList<>();
         }
@@ -136,7 +136,7 @@ public class Date {
         ArrayList<Date> dates = new ArrayList<>();
         for (int i = 0; i < days; i++) {
             LocalDate temp = sDate.plusDays(i);
-            Date date = new Date(temp.format(formatter));
+            Date date = new Date(temp.format(STANDARD_DATE_TIME_FORMATTER));
             dates.add(date);
         }
 
@@ -183,7 +183,7 @@ public class Date {
      */
     @Override
     public String toString() {
-        return value.format(formatter);
+        return value.format(STANDARD_DATE_TIME_FORMATTER);
     }
 
     @Override
