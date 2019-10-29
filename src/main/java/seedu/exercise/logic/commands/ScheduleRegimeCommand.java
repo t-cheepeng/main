@@ -3,6 +3,8 @@ package seedu.exercise.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
+
 import seedu.exercise.MainApp;
 import seedu.exercise.commons.core.State;
 import seedu.exercise.logic.commands.exceptions.CommandException;
@@ -24,6 +26,8 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
     public static final String MESSAGE_REGIME_NOT_FOUND = "Regime %1$s not in regime book";
     public static final String MESSAGE_CONFLICT = "Regime to be scheduled conflicts with another scheduled regime. "
         + "Opening resolve window...";
+    public static final String MESSAGE_DATE_BEFORE_CURRENT_DATE = "Input date falls before today's date. \n"
+        + "Please choose a date after the today's date: %1$s";
 
     private Regime regime;
     private Date dateToSchedule;
@@ -39,6 +43,7 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        checkInputDateAfterCurrentDate();
         checkExistenceOfRegime(model);
         Schedule toSchedule = getScheduleFromModel(model);
 
@@ -63,6 +68,13 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
     private void checkExistenceOfRegime(Model model) throws CommandException {
         if (!model.hasRegime(regime)) {
             throw new CommandException(String.format(MESSAGE_REGIME_NOT_FOUND, regime.getRegimeName()));
+        }
+    }
+
+    private void checkInputDateAfterCurrentDate() throws CommandException {
+        Date currentDate = Date.getToday();
+        if (!Date.isEndDateAfterStartDate(currentDate.toString(), dateToSchedule.toString())) {
+           throw new CommandException(String.format(MESSAGE_DATE_BEFORE_CURRENT_DATE, currentDate.toString()));
         }
     }
 
