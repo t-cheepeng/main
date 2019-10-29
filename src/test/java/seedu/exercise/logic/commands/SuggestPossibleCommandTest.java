@@ -48,7 +48,7 @@ public class SuggestPossibleCommandTest {
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SUGGESTION);
         assertCommandSuccess(new SuggestPossibleCommand(targetMuscles, targetCustomProperties),
-            model, SuggestPossibleCommand.MESSAGE_SUCCESS, expectedModel);
+            model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class SuggestPossibleCommandTest {
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SUGGESTION);
         assertCommandSuccess(new SuggestPossibleCommand(targetMuscles, targetCustomProperties),
-            model, SuggestPossibleCommand.MESSAGE_SUCCESS, expectedModel);
+            model, expectedCommandResult, expectedModel);
     }
 
     private Predicate<Exercise> getMusclePredicate() {

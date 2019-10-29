@@ -15,6 +15,7 @@ import java.util.ArrayList;
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
+
     public static final String PROPERTY_DATE = "Date";
     public static final String MESSAGE_CONSTRAINTS = "Dates should be of the format dd/MM/yyyy and must be valid.";
     public static final String MESSAGE_INVALID_END_DATE = "End date must be after start date";
