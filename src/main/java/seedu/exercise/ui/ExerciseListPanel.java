@@ -90,4 +90,5 @@ public class ExerciseListPanel extends ResourceListPanel {
             }
         }
     }
+
 }
