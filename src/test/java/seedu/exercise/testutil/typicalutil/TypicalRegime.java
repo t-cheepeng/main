@@ -21,6 +21,7 @@ public class TypicalRegime {
 
     public static final Regime VALID_REGIME_LEGS;
     public static final Regime VALID_REGIME_CARDIO;
+    public static final Regime VALID_REGIME_CHEST;
 
     static {
         List<Exercise> typicalExerciseCardio = TypicalExercises.getTypicalExercises();
@@ -33,16 +34,25 @@ public class TypicalRegime {
         UniqueResourceList<Exercise> legList = new UniqueResourceList<>();
         legList.setAll(typicalExerciseLegs);
 
+        UniqueResourceList<Exercise> chestList = new UniqueResourceList<>();
+
+        // 3 exercises
         VALID_REGIME_CARDIO = new RegimeBuilder()
                 .withName(VALID_REGIME_NAME_CARDIO)
                 .withExerciseList(cardioList)
                 .build();
 
+        // 2 exercises
         VALID_REGIME_LEGS = new RegimeBuilder()
                 .withName(VALID_REGIME_NAME_LEGS)
                 .withExerciseList(legList)
                 .build();
 
+        // 0 exercise
+        VALID_REGIME_CHEST = new RegimeBuilder()
+                .withName(VALID_REGIME_NAME_CHEST)
+                .withExerciseList(chestList)
+                .build();
     }
 
     private TypicalRegime() {}
