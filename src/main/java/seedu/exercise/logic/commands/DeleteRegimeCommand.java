@@ -8,7 +8,6 @@ import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_ORIGINAL_
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.exercise.logic.parser.predicate.PredicateUtil.PREDICATE_SHOW_ALL_REGIMES;
 
 import java.util.HashSet;
 import java.util.List;

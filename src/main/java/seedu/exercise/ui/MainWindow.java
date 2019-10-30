@@ -158,10 +158,14 @@ public class MainWindow extends UiPart<Stage> {
         infoDisplayPanel.showDefaultMessage();
     }
 
+    /**
+     * Initialises a listener for each list panel on the left of the window
+     */
     private void initListenersForResourceListPanels() {
         exerciseListPanel.setOnItemSelectListener(getListener());
         regimeListPanel.setOnItemSelectListener(getListener());
         scheduleListPanel.setOnItemSelectListener(getListener());
+        suggestionListPanel.setOnItemSelectListener(getListener());
     }
 
     private ResourceListPanel.OnItemSelectListener getListener() {
