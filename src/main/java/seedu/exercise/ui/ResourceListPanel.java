@@ -15,13 +15,11 @@ import seedu.exercise.model.resource.Resource;
  */
 public abstract class ResourceListPanel extends UiPart<Region> {
 
-    private static final String FXML = "ResourceListPanel.fxml";
-
     private OnItemSelectListener itemSelectListener;
     private ObservableList<? extends Resource> resourceList;
 
-    public ResourceListPanel(String FXML, ObservableList<? extends Resource> resourceList) {
-        super(FXML);
+    public ResourceListPanel(String fxml, ObservableList<? extends Resource> resourceList) {
+        super(fxml);
         this.resourceList = resourceList;
 
         setResourceListListener();
@@ -88,6 +86,9 @@ public abstract class ResourceListPanel extends UiPart<Region> {
 
     protected abstract void selectGivenIndex(int index);
 
+    /**
+     * Listener for item selection events in this {@code ResourceListPanel}.
+     */
     public interface OnItemSelectListener {
         void onItemSelect(Resource selected);
     }

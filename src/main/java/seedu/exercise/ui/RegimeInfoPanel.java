@@ -6,12 +6,15 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.exercise.model.resource.Regime;
 
+/**
+ * Information panel for regime type resources
+ */
 public class RegimeInfoPanel extends UiPart<Region> {
 
     private static final String FXML = "RegimeInfoPanel.fxml";
     private static final String EXERCISE_LIST_PANEL_TEXT = "List of Exercises";
     private static final String REGIME_NAME_TEXT = "Regime %1$s";
-    private static final String TOTAL_CALORIE_COUNT_TEXT = "Total Calorie for Regime: %1$d";
+    private static final String TOTAL_CALORIE_COUNT_TEXT = "Total Calories: %1$d";
 
     private Regime regime;
 

@@ -4,11 +4,9 @@ import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.Region;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.model.resource.Regime;
 

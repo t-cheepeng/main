@@ -28,6 +28,9 @@ public class InfoDisplayPanel extends UiPart<Region> {
         super(FXML);
     }
 
+    /**
+     * Updates the information displayed in the center panel of application.
+     */
     public void update(Resource resource) {
         infoPanelPlaceholder.getChildren().clear();
         if (resource instanceof Exercise) {

@@ -1,23 +1,15 @@
 package seedu.exercise.ui;
 
-import static java.util.Objects.checkFromIndexSize;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.Region;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.model.resource.Exercise;
 
