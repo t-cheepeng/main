@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
-<AnchorPane fx:id="cardPane" prefHeight="644.0"
-            prefWidth="501.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="regimeName"/>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" prefHeight="750.0" prefWidth="1000.0">
+   <VBox>
+      <children>
+         <HBox prefHeight="100.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+            <children>
+               <Label fx:id="regimeName" prefHeight="100.0"
+                      prefWidth="1000.0" styleClass="infoPanel_name" stylesheets="@CustomTheme.css" text="\$name"
+                      wrapText="true" HBox.hgrow="ALWAYS"/>
+            </children>
+         </HBox>
+         <HBox prefHeight="100.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+            <children>
+               <Label fx:id="totalCalorieCount" styleClass="infoPanel_name" stylesheets="@CustomTheme.css" text="\$calorieCount"
+               HBox.hgrow="ALWAYS"/>
+            </children>
+         </HBox>
+         <HBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+               prefHeight="750.0" prefWidth="1000.0"
+               VBox.vgrow="ALWAYS">
+            <children>
+               <StackPane fx:id="exerciseListPanelPlaceholder"  HBox.hgrow="ALWAYS"/>
+            </children>
+         </HBox>
+      </children>
+   </VBox>
 </AnchorPane>

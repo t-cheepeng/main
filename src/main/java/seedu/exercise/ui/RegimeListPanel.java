@@ -26,6 +26,7 @@ public class RegimeListPanel extends ResourceListPanel {
         super(FXML, regimeList);
         regimeListView.setItems(regimeList);
         regimeListView.setCellFactory(listView -> new RegimeListViewCell());
+        regimeListView.getFocusModel().focusedItemProperty().addListener(getDefaultListViewListener());
     }
 
     public ListView<Regime> getRegimeListView() {

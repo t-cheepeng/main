@@ -26,7 +26,6 @@ import seedu.exercise.model.resource.Resource;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final String DEFAULT_MESSAGE = "Select an exercise/regime/schedule to display its info.";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -135,10 +134,7 @@ public class MainWindow extends UiPart<Stage> {
         infoDisplayPanel = new InfoDisplayPanel();
         infoDisplayPanelPlaceholder.getChildren().add(infoDisplayPanel.getRoot());
 
-        //TODO fix the display default message thing and other parts
         initListenersForResourceListPanels();
-
-//        displayDefaultMessage();
         displayInitialList();
     }
 
@@ -159,8 +155,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void displayInitialList() {
-        changeTab(exerciseListTabPlaceholder);
-        exerciseListPanel.selectGivenIndex(0);
+        changeTab(regimeListTabPlaceholder);
+        infoDisplayPanel.showDefaultMessage();
     }
 
     private void initListenersForResourceListPanels() {
@@ -205,7 +201,6 @@ public class MainWindow extends UiPart<Stage> {
             shouldShowWindowsBasedOnCommandResult(commandResult);
             shouldExitAppBasedOnCommandResult(commandResult);
             updateResourceListTab(commandResult);
-            displayInfoPanelResult();
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -320,28 +315,5 @@ public class MainWindow extends UiPart<Stage> {
 
     private void handleShowSuggestionList() {
         resourceListPanelPlaceholder.getSelectionModel().select(suggestionListTabPlaceholder);
-    }
-
-    private void updateDisplayPanel(ExerciseInfoPanel newExerciseDisplay) {
-        infoDisplayPanelPlaceholder.getChildren().clear();
-        infoDisplayPanelPlaceholder.getChildren().add(newExerciseDisplay.getRoot());
-    }
-
-    private void displayDefaultMessage() {
-        infoDisplayPanelPlaceholder.getChildren().clear();
-        infoDisplayPanelPlaceholder.getChildren().add(new Label(DEFAULT_MESSAGE));
-    }
-
-    /**
-     * Displays the selected exercise on the info panel if there are any. Otherwise, it will display be the
-     * default message.
-     */
-    private void displayInfoPanelResult() {
-//        Optional<Exercise> selectedExercise = exerciseListPanel.getSelectedExercise();
-//        if (selectedExercise.isPresent()) {
-//            updateDisplayPanel(new ExerciseInfoPanel(selectedExercise.get()));
-//        } else {
-//            displayDefaultMessage();
-//        }
     }
 }

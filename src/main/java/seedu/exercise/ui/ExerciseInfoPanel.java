@@ -49,11 +49,8 @@ public class ExerciseInfoPanel extends UiPart<Region> {
 
     private CustomPropertyListPanel customPropertiesList;
 
-    public ExerciseInfoPanel() {
+    public ExerciseInfoPanel(Exercise exercise) {
         super(FXML);
-    }
-
-    public void updateText(Exercise exercise) {
         this.exercise = exercise;
         name.setText(exercise.getName().fullName);
         date.setText(exercise.getDate().toString());
@@ -63,7 +60,6 @@ public class ExerciseInfoPanel extends UiPart<Region> {
         customPropertiesList = new CustomPropertyListPanel(exercise.getObservableCustomPropertiesList());
         customProperties.getChildren().add(customPropertiesList.getRoot());
     }
-
 
     @Override
     public boolean equals(Object other) {
@@ -80,14 +76,6 @@ public class ExerciseInfoPanel extends UiPart<Region> {
         // state check
         ExerciseInfoPanel card = (ExerciseInfoPanel) other;
         return exercise.equals(card.exercise);
-    }
-
-    public void show() {
-        cardPane.setVisible(true);
-    }
-
-    public void hide() {
-        cardPane.setVisible(false);
     }
 
     private void setMuscleTags(Set<Muscle> musclesSet) {

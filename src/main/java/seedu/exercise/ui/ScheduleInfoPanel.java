@@ -18,8 +18,9 @@ public class ScheduleInfoPanel extends UiPart<Region> {
     @FXML
     private AnchorPane cardPane;
 
-    public ScheduleInfoPanel() {
+    public ScheduleInfoPanel(Schedule schedule) {
         super(FXML);
+        scheduleDate.setText(schedule.getDate().toString());
     }
 
     public void updateText(Schedule schedule) {

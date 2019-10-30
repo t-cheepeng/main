@@ -25,6 +25,7 @@ public class ScheduleListPanel extends ResourceListPanel {
         super(FXML, scheduleList);
         scheduleListView.setItems(scheduleList);
         scheduleListView.setCellFactory(listView -> new ScheduleListViewCell());
+        scheduleListView.getFocusModel().focusedItemProperty().addListener(getDefaultListViewListener());
     }
 
     public ListView<Schedule> getScheduleListView() {
