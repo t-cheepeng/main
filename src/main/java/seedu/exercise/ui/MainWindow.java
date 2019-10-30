@@ -288,7 +288,7 @@ public class MainWindow extends UiPart<Stage> {
         case "SCHEDULE":
             handleShowScheduleList();
             return;
-        case "SUGGESTION":
+        case "SUGGEST":
             handleShowSuggestionList();
             return;
         default:

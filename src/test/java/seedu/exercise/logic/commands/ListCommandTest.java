@@ -32,14 +32,20 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_listIsNotFiltered_showsSameList() {
-        CommandResult expectedCommandResult = new CommandResult(ListCommand.MESSAGE_SUCCESS, ListResourceType.EXERCISE);
-        assertCommandSuccess(new ListCommand(), model, expectedCommandResult, expectedModel);
+    public void execute_exerciseListNotFiltered_showsAllExercises() {
+        ListResourceType listResourceType = ListResourceType.EXERCISE;
+        CommandResult expectedCommandResult = new CommandResult(
+                String.format(ListCommand.MESSAGE_SUCCESS, listResourceType.toString().toLowerCase()),
+                listResourceType);
+        assertCommandSuccess(new ListCommand(listResourceType), model, expectedCommandResult, expectedModel);
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() {
-        CommandResult expectedCommandResult = new CommandResult(ListCommand.MESSAGE_SUCCESS, ListResourceType.EXERCISE);
-        assertCommandSuccess(new ListCommand(), model, expectedCommandResult, expectedModel);
+    public void execute_exerciseListFiltered_showsFilteredExercises() {
+        ListResourceType listResourceType = ListResourceType.EXERCISE;
+        CommandResult expectedCommandResult = new CommandResult(
+                String.format(ListCommand.MESSAGE_SUCCESS, listResourceType.toString().toLowerCase()),
+                listResourceType);
+        assertCommandSuccess(new ListCommand(listResourceType), model, expectedCommandResult, expectedModel);
     }
 }
