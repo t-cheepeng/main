@@ -77,7 +77,7 @@ public class ResolveCommand extends Command {
         resolveConflict(model);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 conflict.getScheduledName(),
-                conflict.getConflictedName()), ListResourceType.REGIME);
+                conflict.getConflictedName()), ListResourceType.SCHEDULE);
     }
 
     @Override
