@@ -68,7 +68,6 @@ public abstract class ResourceListPanel extends UiPart<Region> {
 
                     if (index >= 0) {
                         selectGivenIndex(index);
-                        notifyOnSelectListener(resourceList.get(index));
                     }
                 }
 

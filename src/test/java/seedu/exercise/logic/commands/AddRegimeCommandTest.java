@@ -164,9 +164,6 @@ public class AddRegimeCommandTest {
         public void setRegime(Regime regime, Regime targetedRegime) {}
 
         @Override
-        public void updateFilteredRegimeList(Predicate<Regime> predicate) {}
-
-        @Override
         public ObservableList<Exercise> getFilteredExerciseList() {
             return new FilteredList<>(exercises.getResourceList());
         }

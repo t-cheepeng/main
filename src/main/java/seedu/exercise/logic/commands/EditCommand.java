@@ -97,7 +97,6 @@ public class EditCommand extends Command implements UndoableCommand, PayloadCarr
         addToEventPayload(exerciseToEdit, editedExercise);
         model.setExercise(exerciseToEdit, editedExercise);
         EventHistory.getInstance().addCommandToUndoStack(this);
-        model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
         model.updateStatistic();
         return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise),
                 ListResourceType.EXERCISE);

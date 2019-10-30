@@ -1,7 +1,6 @@
 package seedu.exercise.logic.commands;
 
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.exercise.logic.commands.CommandTestUtil.showExerciseAtIndex;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
@@ -41,7 +40,6 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showExerciseAtIndex(model, INDEX_ONE_BASED_FIRST);
         CommandResult expectedCommandResult = new CommandResult(ListCommand.MESSAGE_SUCCESS, ListResourceType.EXERCISE);
         assertCommandSuccess(new ListCommand(), model, expectedCommandResult, expectedModel);
     }

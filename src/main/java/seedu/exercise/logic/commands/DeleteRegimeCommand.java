@@ -97,7 +97,6 @@ public class DeleteRegimeCommand extends DeleteCommand implements PayloadCarrier
 
         addToEventPayloadForEditRegime(originalRegime, editedRegime);
         model.setRegime(originalRegime, editedRegime);
-        model.updateFilteredRegimeList(PREDICATE_SHOW_ALL_REGIMES);
         return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_IN_REGIME_SUCCESS, editedRegime),
                 ListResourceType.REGIME);
     }
