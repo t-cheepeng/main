@@ -18,7 +18,7 @@
 <fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="ExerHealth App" type="javafx.stage.Stage"
          xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
-        <Image url="@/images/logo_eH.png"/>
+        <Image url="@/images/logo_no_bg_eH.png"/>
     </icons>
     <scene>
         <Scene>

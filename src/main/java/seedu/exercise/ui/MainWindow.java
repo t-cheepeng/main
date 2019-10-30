@@ -94,7 +94,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        Image imageView = new Image(getClass().getResource("/images/logo_eH.png").toExternalForm());
+        Image imageView = new Image(getClass().getResource("/images/logo_no_bg_eH.png").toExternalForm());
         logoImageView.setImage(imageView);
 
         resultDisplay = new ResultDisplay();
