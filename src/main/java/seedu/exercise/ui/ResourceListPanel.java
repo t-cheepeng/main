@@ -47,8 +47,8 @@ public abstract class ResourceListPanel extends UiPart<Region> {
             @Override
             public void changed(ObservableValue<? extends Resource> observableValue, Resource resource, Resource t1) {
                 //This is to handle mouse click events.
-                if (t1 != null) {
-                    notifyOnSelectListener(t1);
+                if (observableValue != null) {
+                    notifyOnSelectListener(observableValue.getValue());
                 }
             }
         };

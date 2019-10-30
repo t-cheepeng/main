@@ -260,8 +260,8 @@ public class ModelManager implements Model {
             UniqueResourceList<Exercise> resolvedExercises =
                 getResolvedExerciseList(indexFromSchedule, indexFromConflict);
             Schedule resolvedSchedule = getResolvedSchedule(regimeName, resolvedExercises);
-            addResolvedSchedule(resolvedSchedule);
             addCombinedRegime(resolvedSchedule.getRegime());
+            addResolvedSchedule(resolvedSchedule);
         }
     }
 
