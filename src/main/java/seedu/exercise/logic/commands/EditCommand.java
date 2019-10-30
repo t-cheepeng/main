@@ -9,7 +9,6 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
-import static seedu.exercise.logic.parser.predicate.PredicateUtil.PREDICATE_SHOW_ALL_EXERCISES;
 
 import java.util.Collections;
 import java.util.HashSet;

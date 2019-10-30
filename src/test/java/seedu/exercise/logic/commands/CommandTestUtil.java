@@ -1,7 +1,6 @@
 package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;

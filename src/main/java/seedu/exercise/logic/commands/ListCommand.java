@@ -1,7 +1,6 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.exercise.logic.parser.predicate.PredicateUtil.PREDICATE_SHOW_ALL_EXERCISES;
 
 import seedu.exercise.model.Model;
 import seedu.exercise.ui.ListResourceType;
