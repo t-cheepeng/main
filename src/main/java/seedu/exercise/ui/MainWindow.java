@@ -154,7 +154,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void displayInitialList() {
-        changeTab(regimeListTabPlaceholder);
+        changeTab(scheduleListTabPlaceholder);
         infoDisplayPanel.showDefaultMessage();
     }
 

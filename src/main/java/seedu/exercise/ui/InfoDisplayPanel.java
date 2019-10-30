@@ -13,7 +13,7 @@ import seedu.exercise.model.resource.Resource;
 import seedu.exercise.model.resource.Schedule;
 
 /**
- * Placeholder Panel for Specific Information displayed in center panel.
+ * Placeholder Panel for specific information displayed in center panel.
  */
 public class InfoDisplayPanel extends UiPart<Region> {
 
