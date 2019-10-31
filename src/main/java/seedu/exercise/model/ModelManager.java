@@ -280,6 +280,15 @@ public class ModelManager implements Model {
         this.conflict = conflict;
     }
 
+    @Override
+    public boolean isSelectedIndexesFromRegimeDuplicate(List<Index> scheduledIndex, List<Index> conflictingIndex) {
+        requireMainAppState(State.IN_CONFLICT);
+        requireAllNonNull(scheduledIndex, conflictingIndex);
+        requireNonNull(conflict);
+
+        return isIndexesForRegimeDupliate(scheduledIndex, conflictingIndex);
+    }
+
     //=========== Filtered Exercise List Accessors =============================================================
 
     /**
@@ -441,6 +450,22 @@ public class ModelManager implements Model {
         UniqueResourceList<Exercise> uniqueResolveList = new UniqueResourceList<>();
         uniqueResolveList.setAll(resolvedExercises);
         return uniqueResolveList;
+    }
+
+    private boolean isIndexesForRegimeDupliate(List<Index> scheduledIndex, List<Index> conflictingIndex) {
+        UniqueResourceList<Exercise> listToAdd = new UniqueResourceList<>();
+        List<Exercise> scheduledExercises = conflict
+                .getScheduledRegime().getRegimeExercises().getAllResourcesIndex(scheduledIndex);
+        List<Exercise> conflictExercises = conflict
+                .getConflictingRegime().getRegimeExercises().getAllResourcesIndex(conflictingIndex);
+        listToAdd.setAll(scheduledExercises);
+        for (Exercise conflicted : conflictExercises) {
+            if (listToAdd.contains(conflicted)) {
+                return true;
+            }
+            listToAdd.add(conflicted);
+        }
+        return false;
     }
 
     private Schedule getResolvedSchedule(Name regimeName, UniqueResourceList<Exercise> exerciseList) {
