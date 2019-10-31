@@ -23,6 +23,7 @@ The following sections will illustrate these additions to the application in fin
 relevant documentation that I have added into the user and developer guide.
 
 == Summary of contributions
+This section shows a summary of the contributions I have made to the codebase of ExerHealth. It also shows the overview of the documentation provided and other helpful contributions to the team project.
 
 * *Major enhancement 1*: Added the ability to `schedule` exercise regimes
 ** What it does: The `schedule` command will allow users to schedule a stored exercise regime at a particular date of their choice.
@@ -54,28 +55,17 @@ at a particular date. However, this difficulty was remedied as described in *Maj
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-2/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/90[#90], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/102[#102]
 
 == Contributions to the User Guide
-
+We had to update the User Guide that was provided by the basic application(*addressbook*) so that it will reflect the features that we have added.
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the *ExerHealth User Guide*. They show the additions I have made for the `schedule` and `resolve` features. The sections below will showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=scheduleresolve]
 
 == Contributions to the Developer Guide
-
+We had to update the Developer Guide that was provided by the basic application(*addressbook*) so it will convey to future developers the implementation details of our features.
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the *ExerHealth Developer Guide*. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=resolve]
