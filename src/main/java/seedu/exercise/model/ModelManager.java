@@ -286,7 +286,7 @@ public class ModelManager implements Model {
         requireAllNonNull(scheduledIndex, conflictingIndex);
         requireNonNull(conflict);
 
-        return isIndexesForRegimeDupliate(scheduledIndex, conflictingIndex);
+        return isIndexesForRegimeDuplicate(scheduledIndex, conflictingIndex);
     }
 
     //=========== Filtered Exercise List Accessors =============================================================
@@ -452,7 +452,10 @@ public class ModelManager implements Model {
         return uniqueResolveList;
     }
 
-    private boolean isIndexesForRegimeDupliate(List<Index> scheduledIndex, List<Index> conflictingIndex) {
+    /**
+     * Checks if the provided indexes have some duplicate exercises they are referring to
+     */
+    private boolean isIndexesForRegimeDuplicate(List<Index> scheduledIndex, List<Index> conflictingIndex) {
         UniqueResourceList<Exercise> listToAdd = new UniqueResourceList<>();
         List<Exercise> scheduledExercises = conflict
                 .getScheduledRegime().getRegimeExercises().getAllResourcesIndex(scheduledIndex);
