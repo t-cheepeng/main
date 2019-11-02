@@ -20,6 +20,7 @@ import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.commons.core.State;
 import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.logic.commands.ResolveCommand;
 import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.commands.statistic.StatsFactory;
 import seedu.exercise.logic.parser.Prefix;
@@ -247,19 +248,24 @@ public class ModelManager implements Model {
     //===================Conflicts===============================================================
 
     @Override
-    public void resolveConflict(Name regimeName, List<Index> indexFromSchedule, List<Index> indexFromConflict) {
-        requireAllNonNull(regimeName, indexFromSchedule, indexFromConflict);
+    public void resolveConflict(Name name, List<Index> indexFromSchedule, List<Index> indexFromConflict) {
+        requireAllNonNull(name, indexFromSchedule, indexFromConflict);
         requireMainAppState(State.IN_CONFLICT);
 
         removeOldSchedule();
 
         if (areListsEmpty(indexFromConflict, indexFromSchedule)) {
-            Regime regime = new Regime(regimeName, new UniqueResourceList<>());
-            addResolvedSchedule(conflict.getScheduleByRegime(regime));
+            Schedule resolved = null;
+            if (name.toString().equals(ResolveCommand.TAKE_FROM_SCHEDULED)) {
+                resolved = conflict.getScheduled();
+            } else if (name.toString().equals(ResolveCommand.TAKE_FROM_CONFLICTING)) {
+                resolved = conflict.getConflicted();
+            }
+            addResolvedSchedule(resolved);
         } else {
             UniqueResourceList<Exercise> resolvedExercises =
                 getResolvedExerciseList(indexFromSchedule, indexFromConflict);
-            Schedule resolvedSchedule = getResolvedSchedule(regimeName, resolvedExercises);
+            Schedule resolvedSchedule = getResolvedSchedule(name, resolvedExercises);
             addCombinedRegime(resolvedSchedule.getRegime());
             addResolvedSchedule(resolvedSchedule);
         }

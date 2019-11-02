@@ -356,13 +356,17 @@ Completes all the exercises that are in the schedule at index `2`. All the exerc
 
 Takes the scheduled regime or the conflicting regime completely and discarding the other. Neither regimes will be completely deleted from the user’s collection.
 
-Format: `resolve n/REGIME_TO_TAKE`
+Format: `resolve n/SCHEDULED_OR_CONFLICTING`
 
 Example:
 
-* `resolve n/cardio`
+* `resolve n/scheduled`
 
-Takes the scheduled regime named `cardio` and schedule at the conflicting date.
+Takes the already scheduled regime and schedule it at conflicting date.
+
+* `resolve n/conflicting`
+
+Takes the conflicting regime and schedule it at conflicting date.
 
 ==== Taking some exercises from some regime
 Takes some exercises from the scheduled regime and some from the conflicting regime to make a brand new regime. The new regime that is a result of the combination will be added  to the user’s collection and scheduled at the date of conflict. This new regime will also be added to the user’s collection of regimes
