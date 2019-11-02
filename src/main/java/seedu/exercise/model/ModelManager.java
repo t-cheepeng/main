@@ -9,6 +9,7 @@ import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultProper
 
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.commons.core.State;
@@ -31,7 +33,6 @@ import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
-import seedu.exercise.model.util.DateChangerUtil;
 
 /**
  * Represents the in-memory model of the exercise book data.
@@ -229,10 +230,8 @@ public class ModelManager implements Model {
     @Override
     public void completeSchedule(Schedule schedule) {
         requireNonNull(schedule);
-
         scheduleBook.removeResource(schedule);
-        Collection<Exercise> scheduledExercises = DateChangerUtil
-            .changeAllDate(schedule.getExercises(), schedule.getDate());
+        Collection<Exercise> scheduledExercises = schedule.getExercises();
         for (Exercise exercise : scheduledExercises) {
             if (!exerciseBook.hasResource(exercise)) {
                 exerciseBook.addResource(exercise);
@@ -248,27 +247,27 @@ public class ModelManager implements Model {
     //===================Conflicts===============================================================
 
     @Override
-    public void resolveConflict(Name name, List<Index> indexFromSchedule, List<Index> indexFromConflict) {
+    public Schedule resolveConflict(Name name, List<Index> indexFromSchedule, List<Index> indexFromConflict) {
         requireAllNonNull(name, indexFromSchedule, indexFromConflict);
         requireMainAppState(State.IN_CONFLICT);
 
         removeOldSchedule();
-
+        Schedule resolvedSchedule;
         if (areListsEmpty(indexFromConflict, indexFromSchedule)) {
-            Schedule resolved = null;
             if (name.toString().equals(ResolveCommand.TAKE_FROM_SCHEDULED)) {
-                resolved = conflict.getScheduled();
-            } else if (name.toString().equals(ResolveCommand.TAKE_FROM_CONFLICTING)) {
-                resolved = conflict.getConflicted();
+                resolvedSchedule = conflict.getScheduled();
+            } else {
+                resolvedSchedule = conflict.getConflicted();
             }
-            addResolvedSchedule(resolved);
+            addResolvedSchedule(resolvedSchedule);
         } else {
             UniqueResourceList<Exercise> resolvedExercises =
                 getResolvedExerciseList(indexFromSchedule, indexFromConflict);
-            Schedule resolvedSchedule = getResolvedSchedule(name, resolvedExercises);
+            resolvedSchedule = getResolvedSchedule(name, resolvedExercises);
             addCombinedRegime(resolvedSchedule.getRegime());
             addResolvedSchedule(resolvedSchedule);
         }
+        return resolvedSchedule;
     }
 
     @Override
@@ -299,11 +298,13 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Exercise} backed by the internal list of
-     * {@code exerciseBook}.
+     * {@code exerciseBook} and sorted by Date.
      */
     @Override
     public ObservableList<Exercise> getFilteredExerciseList() {
-        return filteredExercises;
+        SortedList<Exercise> sortedExercises = new SortedList<>(filteredExercises, (o1, o2)
+            -> -o1.getDate().value.compareTo(o2.getDate().value));
+        return sortedExercises;
     }
 
 
@@ -314,7 +315,10 @@ public class ModelManager implements Model {
      * {@code regimeBook}.
      */
     public ObservableList<Regime> getFilteredRegimeList() {
-        return filteredRegimes;
+        SortedList<Regime> sortedRegimes = new SortedList<>(filteredRegimes,
+                Comparator.comparing(
+                    o -> o.getRegimeName().toString()));
+        return sortedRegimes;
     }
 
 
@@ -325,7 +329,9 @@ public class ModelManager implements Model {
      * {@code scheduleBook}
      */
     public ObservableList<Schedule> getFilteredScheduleList() {
-        return filteredSchedules;
+        SortedList<Schedule> sortedSchedules = new SortedList<>(filteredSchedules,
+                Comparator.comparing(o -> o.getDate().value));
+        return sortedSchedules;
     }
 
     //=========== Property Manager Accessors =============================================================
