@@ -146,19 +146,19 @@ You can edit all the possible information for exercises except for custom proper
 * Existing values will be updated to the input values.
 ****
 
-Format: `edit t/exercise i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...`
+Format: `edit i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...`
 
 Example:
 
-* `edit t/exercise i/2 n/Running d/20/09/2019`
+* `edit i/2 n/Running d/20/09/2019`
 
 Edits the name and the date of the 2nd exercise to `Running` and `20/09/2019` respectively.
 
-* `edit t/exercise i/4 n/Swim d/21/09/2019 c/100`
+* `edit i/4 n/Swim d/21/09/2019 c/100`
 
 Edits the name, date and calories burnt of the 4th exercise to `Swim`, `21/09/2019` and `100` respectively.
 
-* `edit t/exercise i/3 n/Bench press d/22/09/2019 c/240 q/10 u/sets m/Chest`
+* `edit i/3 n/Bench press d/22/09/2019 c/240 q/10 u/sets m/Chest`
 
 Edits the name, date, calories burnt, quantity, units and muscle group trained of the 3rd exercise to `Bench press`,
 `22/09/2019`, `240`, `10`, `sets` and `Chest` respectively.
@@ -334,9 +334,9 @@ Format: `schedule n/REGIME_NAME d/DATE`
 
 Example:
 
-* `schedule n/cardio d/19/9/2019`
+* `schedule n/cardio d/12/12/2019`
 
-Schedules the regime called `cardio` on the date `19/19/2019`. If there are no other regimes scheduled on `19/19/2019` then the command is successful. Otherwise, you will be prompted to resolve the scheduling conflict.
+Schedules the regime called `cardio` on the date `12/12/2019`. If there are no other regimes scheduled on `12/12/2019` then the command is successful. Otherwise, you will be prompted to resolve the scheduling conflict.
 
 ==== Completes a schedule regime
 
