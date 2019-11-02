@@ -1,6 +1,7 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.logic.commands.events.ScheduleRegimeEvent.KEY_TO_SCHEDULE;
 
@@ -12,7 +13,7 @@ import seedu.exercise.logic.commands.events.EventHistory;
 import seedu.exercise.logic.commands.events.EventPayload;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
-import seedu.exercise.model.UniqueResourceList;
+import seedu.exercise.model.SortedUniqueResourceList;
 import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Name;
@@ -42,7 +43,7 @@ public class ScheduleRegimeCommand extends ScheduleCommand implements PayloadCar
     public ScheduleRegimeCommand(Name regimeName, Date date) {
         requireAllNonNull(regimeName, date);
 
-        this.regime = new Regime(regimeName, new UniqueResourceList<>());
+        this.regime = new Regime(regimeName, new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR));
         this.eventPayload = new EventPayload<>();
         dateToSchedule = date;
     }
@@ -128,7 +129,7 @@ public class ScheduleRegimeCommand extends ScheduleCommand implements PayloadCar
         Collection<Exercise> regimeExercises =
                 DateChangerUtil
                         .changeAllDate(regime.getRegimeExercises().asUnmodifiableObservableList(), dateToSchedule);
-        UniqueResourceList<Exercise> exercisesWithUpdatedDate = new UniqueResourceList<>();
+        SortedUniqueResourceList<Exercise> exercisesWithUpdatedDate = new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
         for (Exercise exercise : regimeExercises) {
             exercisesWithUpdatedDate.add(exercise);
         }

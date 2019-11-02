@@ -3,6 +3,9 @@ package seedu.exercise.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.SWIM;
@@ -28,8 +31,8 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new ReadOnlyResourceBook<Exercise>(),
-            new ReadOnlyResourceBook<>(modelManager.getExerciseBookData()));
+        assertEquals(new ReadOnlyResourceBook<Exercise>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+            new ReadOnlyResourceBook<>(modelManager.getExerciseBookData(), EXERCISE_DESCENDING_DATE_COMPARATOR));
     }
 
     @Test
@@ -100,11 +103,12 @@ public class ModelManagerTest {
     public void equals() {
         ReadOnlyResourceBook<Exercise> exerciseBook =
             new ExerciseBookBuilder().withExercise(WALK).withExercise(SWIM).build();
-        ReadOnlyResourceBook<Regime> regimeBook = new ReadOnlyResourceBook<>();
-        ReadOnlyResourceBook<Schedule> scheduleBook = new ReadOnlyResourceBook<>();
+        ReadOnlyResourceBook<Regime> regimeBook = new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR);
+        ReadOnlyResourceBook<Schedule> scheduleBook = new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR);
         ReadOnlyResourceBook<Exercise> databaseBook =
             new ExerciseBookBuilder().withExercise(WALK).withExercise(SWIM).build();
-        ReadOnlyResourceBook<Exercise> differentExerciseBook = new ReadOnlyResourceBook<>();
+        ReadOnlyResourceBook<Exercise> differentExerciseBook =
+                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
         UserPrefs userPrefs = new UserPrefs();
         PropertyBook propertyBook = getDefaultPropertyBook();
 

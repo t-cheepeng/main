@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -111,7 +112,7 @@ public class AddExerciseCommandTest {
 
         @Override
         public ReadOnlyResourceBook<Exercise> getExerciseBookData() {
-            return new ReadOnlyResourceBook<>();
+            return new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
         }
 
         @Override

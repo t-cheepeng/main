@@ -2,6 +2,9 @@ package seedu.exercise.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.typicalutil.TypicalCustomProperties.RATING;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
@@ -103,7 +106,7 @@ public class StorageManagerTest {
         ReadOnlyResourceBook<Exercise> original = getTypicalExerciseBook();
         storageManager.saveExerciseBook(original);
         ReadOnlyResourceBook<Exercise> retrieved = storageManager.readExerciseBook().get();
-        assertEquals(original, new ReadOnlyResourceBook<>(retrieved));
+        assertEquals(original, new ReadOnlyResourceBook<>(retrieved, EXERCISE_DESCENDING_DATE_COMPARATOR));
     }
 
     @Test
@@ -113,8 +116,8 @@ public class StorageManagerTest {
         ReadOnlyResourceBook<Exercise> retrieved = storageManager.readExerciseDatabase().get();
         ReadOnlyResourceBook<Exercise> retrievedUsingFilePath =
             storageManager.readExerciseDatabase(storageManager.getExerciseDatabaseFilePath()).get();
-        assertEquals(original, new ReadOnlyResourceBook<>(retrieved));
-        assertEquals(original, new ReadOnlyResourceBook<>(retrievedUsingFilePath));
+        assertEquals(original, new ReadOnlyResourceBook<>(retrieved, EXERCISE_DESCENDING_DATE_COMPARATOR));
+        assertEquals(original, new ReadOnlyResourceBook<>(retrievedUsingFilePath, EXERCISE_DESCENDING_DATE_COMPARATOR));
     }
 
     @Test
@@ -122,7 +125,7 @@ public class StorageManagerTest {
         ReadOnlyResourceBook<Regime> original = getTypicalRegimeBook();
         storageManager.saveRegimeBook(original);
         ReadOnlyResourceBook<Regime> retrieved = storageManager.readRegimeBook().get();
-        assertEquals(original, new ReadOnlyResourceBook<>(retrieved));
+        assertEquals(original, new ReadOnlyResourceBook<>(retrieved, REGIME_ASCENDING_NAME_COMPARATOR));
     }
 
     @Test
@@ -130,7 +133,7 @@ public class StorageManagerTest {
         ReadOnlyResourceBook<Schedule> original = getTypicalScheduleBook();
         storageManager.saveScheduleBook(original);
         ReadOnlyResourceBook<Schedule> retrieved = storageManager.readScheduleBook().get();
-        assertEquals(original, new ReadOnlyResourceBook<>(retrieved));
+        assertEquals(original, new ReadOnlyResourceBook<>(retrieved, SCHEDULE_ASCENDING_DATE_COMPARATOR));
     }
 
     @Test

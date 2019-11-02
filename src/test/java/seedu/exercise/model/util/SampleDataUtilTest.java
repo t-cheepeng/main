@@ -32,6 +32,6 @@ public class SampleDataUtilTest {
 
     private void assertSampleDataCorrect(ReadOnlyResourceBook<? extends Resource> book,
                                          List<? extends Resource> toCheck) {
-        assertEquals(book.getResourceList(), toCheck);
+        assertEquals(book.getSortedResourceList(), toCheck);
     }
 }

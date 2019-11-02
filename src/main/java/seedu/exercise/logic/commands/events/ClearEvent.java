@@ -1,5 +1,7 @@
 package seedu.exercise.logic.commands.events;
 
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
@@ -34,7 +36,7 @@ public class ClearEvent implements Event {
 
     @Override
     public void redo(Model model) {
-        model.setExerciseBook(new ReadOnlyResourceBook<>());
+        model.setExerciseBook(new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR));
     }
 
     /**

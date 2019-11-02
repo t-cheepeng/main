@@ -1,5 +1,8 @@
 package seedu.exercise.logic.commands;
 
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
@@ -25,16 +28,20 @@ public class AddExerciseCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
+        model = new ModelManager(getTypicalExerciseBook(),
+                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
+                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+            new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR), new UserPrefs(), getDefaultPropertyBook());
     }
 
     @Test
     public void execute_newExercise_success() {
         Exercise validExercise = new ExerciseBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(),
+        Model expectedModel = new ModelManager(model.getExerciseBookData(),
+                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
+                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR), new UserPrefs(),
             getDefaultPropertyBook());
         expectedModel.addExercise(validExercise);
 
@@ -47,7 +54,7 @@ public class AddExerciseCommandIntegrationTest {
 
     @Test
     public void execute_duplicateExercise_throwsCommandException() {
-        Exercise exerciseInList = model.getExerciseBookData().getResourceList().get(0);
+        Exercise exerciseInList = model.getExerciseBookData().getSortedResourceList().get(0);
         assertCommandFailure(new AddExerciseCommand(exerciseInList), model,
             AddExerciseCommand.MESSAGE_DUPLICATE_EXERCISE);
     }

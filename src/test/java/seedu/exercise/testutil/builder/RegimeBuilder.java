@@ -1,8 +1,11 @@
 package seedu.exercise.testutil.builder;
 
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
+
 import java.util.List;
 
-import seedu.exercise.model.UniqueResourceList;
+import seedu.exercise.model.SortedUniqueResourceList;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
@@ -15,11 +18,11 @@ public class RegimeBuilder {
     private static final String DEFAULT_NAME = "cardio";
 
     private Name regimeName;
-    private UniqueResourceList<Exercise> regimeExercises;
+    private SortedUniqueResourceList<Exercise> regimeExercises;
 
     public RegimeBuilder() {
         regimeName = new Name(DEFAULT_NAME);
-        regimeExercises = new UniqueResourceList<>();
+        regimeExercises = new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
     }
 
     /**
@@ -27,7 +30,7 @@ public class RegimeBuilder {
      */
     public RegimeBuilder(Regime regimeToCopy) {
         regimeName = new Name(regimeToCopy.getRegimeName().toString());
-        regimeExercises = new UniqueResourceList<>();
+        regimeExercises = new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
         regimeExercises.setAll(regimeToCopy.getRegimeExercises());
     }
 
@@ -42,7 +45,7 @@ public class RegimeBuilder {
     /**
      * Sets the exercise list of the regime we are building to {@code regimeExercises}.
      */
-    public RegimeBuilder withExerciseList(UniqueResourceList<Exercise> regimeExercises) {
+    public RegimeBuilder withExerciseList(SortedUniqueResourceList<Exercise> regimeExercises) {
         this.regimeExercises.setAll(regimeExercises); ;
         return this;
     }

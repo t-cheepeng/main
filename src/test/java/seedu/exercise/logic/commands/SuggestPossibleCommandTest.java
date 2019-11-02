@@ -2,6 +2,8 @@ package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.logic.parser.predicate.PredicateUtil.predicateShowExerciseWithCustomProperty;
 import static seedu.exercise.logic.parser.predicate.PredicateUtil.predicateShowExercisesWithMuscle;
@@ -46,11 +48,15 @@ public class SuggestPossibleCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-            getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
+        model = new ModelManager(getTypicalExerciseBook(),
+                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
+                getTypicalExerciseBook(),
+                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
             new UserPrefs(), getDefaultPropertyBook());
-        expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
-            getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
+        expectedModel = new ModelManager(model.getExerciseBookData(),
+                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
+               getTypicalExerciseBook(),
+                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
             new UserPrefs(), getDefaultPropertyBook());
 
         targetMuscles = new HashSet<>();

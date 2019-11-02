@@ -1,6 +1,7 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
 import static seedu.exercise.logic.commands.events.DeleteRegimeEvent.KEY_REGIME_TO_DELETE;
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_EDITED_REGIME;
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_IS_REGIME_EDITED;
@@ -18,7 +19,7 @@ import seedu.exercise.logic.commands.events.EventHistory;
 import seedu.exercise.logic.commands.events.EventPayload;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
-import seedu.exercise.model.UniqueResourceList;
+import seedu.exercise.model.SortedUniqueResourceList;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
@@ -55,7 +56,7 @@ public class DeleteRegimeCommand extends DeleteCommand implements PayloadCarrier
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Regime> lastShownList = model.getFilteredRegimeList();
-        Regime regime = new Regime(name, new UniqueResourceList<>());
+        Regime regime = new Regime(name, new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR));
         checkValidRegime(regime, model);
 
         int indexOfRegime = model.getRegimeIndex(regime);

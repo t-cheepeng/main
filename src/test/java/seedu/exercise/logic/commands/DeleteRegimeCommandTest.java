@@ -2,6 +2,8 @@ package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
@@ -29,8 +31,10 @@ import seedu.exercise.ui.ListResourceType;
 
 public class DeleteRegimeCommandTest {
 
-    private Model model = new ModelManager(new ReadOnlyResourceBook<>(), getTypicalRegimeBook(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
+    private Model model = new ModelManager(new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+            getTypicalRegimeBook(),
+            new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+            new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR), new UserPrefs(), getDefaultPropertyBook());
 
     @Test
     public void execute_validRegimeName_success() {
@@ -42,8 +46,10 @@ public class DeleteRegimeCommandTest {
         String expectedMessage = String.format(DeleteRegimeCommand.MESSAGE_DELETE_REGIME_SUCCESS,
                 name.toString(), regimeToDelete);
 
-        ModelManager expectedModel = new ModelManager(new ReadOnlyResourceBook<>(), model.getAllRegimeData(),
-                new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(),
+        ModelManager expectedModel = new ModelManager(new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                model.getAllRegimeData(),
+                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR), new UserPrefs(),
                 getDefaultPropertyBook());
         expectedModel.deleteRegime(regimeToDelete);
 

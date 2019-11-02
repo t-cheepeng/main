@@ -1,6 +1,7 @@
 package seedu.exercise.storage.bookstorage;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -49,7 +50,7 @@ public class JsonExerciseBookStorage implements ResourceBookStorage<Exercise> {
         }
 
         try {
-            return Optional.of(jsonExerciseBook.get().toModelType(Exercise.class));
+            return Optional.of(jsonExerciseBook.get().toModelType(Exercise.class, EXERCISE_DESCENDING_DATE_COMPARATOR));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

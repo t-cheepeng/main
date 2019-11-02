@@ -1,6 +1,9 @@
 package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -54,15 +57,15 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         ReadOnlyResourceBook<Exercise> expectedExerciseBook =
-            new ReadOnlyResourceBook<>(actualModel.getExerciseBookData());
+            new ReadOnlyResourceBook<>(actualModel.getExerciseBookData(), EXERCISE_DESCENDING_DATE_COMPARATOR);
         List<Exercise> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExerciseList());
 
         ReadOnlyResourceBook<Regime> expectedRegimeBook =
-                new ReadOnlyResourceBook<>(actualModel.getAllRegimeData());
+                new ReadOnlyResourceBook<>(actualModel.getAllRegimeData(), REGIME_ASCENDING_NAME_COMPARATOR);
         List<Regime> expectedRegimeList = new ArrayList<>(actualModel.getFilteredRegimeList());
 
         ReadOnlyResourceBook<Schedule> expectedScheduleBook =
-                new ReadOnlyResourceBook<>(actualModel.getAllScheduleData());
+                new ReadOnlyResourceBook<>(actualModel.getAllScheduleData(), SCHEDULE_ASCENDING_DATE_COMPARATOR);
         List<Schedule> expectedScheduleList = new ArrayList<>(actualModel.getFilteredScheduleList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));

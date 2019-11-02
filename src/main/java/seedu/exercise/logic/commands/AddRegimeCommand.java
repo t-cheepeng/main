@@ -1,6 +1,7 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.logic.commands.events.AddRegimeEvent.KEY_REGIME_TO_ADD;
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_EDITED_REGIME;
@@ -19,7 +20,7 @@ import seedu.exercise.logic.commands.events.EventHistory;
 import seedu.exercise.logic.commands.events.EventPayload;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
-import seedu.exercise.model.UniqueResourceList;
+import seedu.exercise.model.SortedUniqueResourceList;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
@@ -83,7 +84,7 @@ public class AddRegimeCommand extends AddCommand implements PayloadCarrierComman
      * @return feedback message of the operation result for display
      */
     private CommandResult addNewRegimeToModel(Model model) throws CommandException {
-        Regime regime = new Regime(name, new UniqueResourceList<>());
+        Regime regime = new Regime(name, new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR));
         addExercisesToRegime(regime, model);
         model.addRegime(regime);
         addToEventPayloadForAddRegime(regime);
@@ -115,7 +116,7 @@ public class AddRegimeCommand extends AddCommand implements PayloadCarrierComman
      */
     private Regime getRegimeFromModel(Model model) {
         List<Regime> regimes = model.getFilteredRegimeList();
-        int regimeIndex = model.getRegimeIndex(new Regime(name, new UniqueResourceList<>()));
+        int regimeIndex = model.getRegimeIndex(new Regime(name, new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR)));
         return regimes.get(regimeIndex);
     }
 
@@ -142,7 +143,7 @@ public class AddRegimeCommand extends AddCommand implements PayloadCarrierComman
      * @return true if a regime of the same name exists, false otherwise
      */
     private boolean isRegimeInModel(Model model) {
-        Regime regime = new Regime(name, new UniqueResourceList<>());
+        Regime regime = new Regime(name, new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR));
         return model.hasRegime(regime);
     }
 

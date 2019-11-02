@@ -1,5 +1,8 @@
 package seedu.exercise;
 
+import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 
@@ -126,10 +129,10 @@ public class MainApp extends Application {
             regimeData = regimeBookOptional.orElseGet(SampleDataUtil::getSampleRegimeBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RegimeBook");
-            regimeData = new ReadOnlyResourceBook<>();
+            regimeData = new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR);
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty RegimeBook");
-            regimeData = new ReadOnlyResourceBook<>();
+            regimeData = new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR);
 
         }
 
@@ -152,10 +155,10 @@ public class MainApp extends Application {
             exerciseData = exerciseBookOptional.orElseGet(SampleDataUtil::getSampleExerciseBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in correct format. Will be starting with an empty ExerciseBook");
-            exerciseData = new ReadOnlyResourceBook<>();
+            exerciseData = new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseBook");
-            exerciseData = new ReadOnlyResourceBook<>();
+            exerciseData = new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
         }
 
         return exerciseData;
@@ -176,10 +179,10 @@ public class MainApp extends Application {
             initialScheduleData = scheduleBookOptional.orElseGet(SampleDataUtil::getSampleScheduleBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ScheduleBook");
-            initialScheduleData = new ReadOnlyResourceBook<>();
+            initialScheduleData = new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR);
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ScheduleBook");
-            initialScheduleData = new ReadOnlyResourceBook<>();
+            initialScheduleData = new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR);
         }
 
         return initialScheduleData;

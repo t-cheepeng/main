@@ -2,6 +2,9 @@ package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
@@ -34,8 +37,11 @@ import seedu.exercise.ui.ListResourceType;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-        new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
+    private Model model = new ModelManager(getTypicalExerciseBook(),
+            new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
+            new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+            new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+            new UserPrefs(), getDefaultPropertyBook());
 
     @BeforeEach
     public void reset() {
@@ -50,10 +56,12 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new ReadOnlyResourceBook<>(model.getExerciseBookData()),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
-            new UserPrefs(), getDefaultPropertyBook());
-        expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
+        Model expectedModel = new ModelManager(
+                new ReadOnlyResourceBook<>(model.getExerciseBookData(), EXERCISE_DESCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
+                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+                new UserPrefs(), getDefaultPropertyBook());
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
@@ -75,10 +83,12 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new ReadOnlyResourceBook<>(model.getExerciseBookData()),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
-            new UserPrefs(), getDefaultPropertyBook());
-        expectedModel.setExercise(lastExercise, editedExercise);
+        Model expectedModel = new ModelManager(
+                new ReadOnlyResourceBook<>(model.getExerciseBookData(), EXERCISE_DESCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
+                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+                new UserPrefs(), getDefaultPropertyBook());
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
@@ -91,9 +101,12 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new ReadOnlyResourceBook<>(model.getExerciseBookData()),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
-            new UserPrefs(), getDefaultPropertyBook());
+        Model expectedModel = new ModelManager(
+                new ReadOnlyResourceBook<>(model.getExerciseBookData(), EXERCISE_DESCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
+                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+                new UserPrefs(), getDefaultPropertyBook());
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
@@ -110,8 +123,11 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new ReadOnlyResourceBook<>(model.getExerciseBookData()),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
+        Model expectedModel = new ModelManager(
+                new ReadOnlyResourceBook<>(model.getExerciseBookData(), EXERCISE_DESCENDING_DATE_COMPARATOR),
+                 new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
+                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
             new UserPrefs(), getDefaultPropertyBook());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
@@ -132,7 +148,7 @@ public class EditCommandTest {
     public void execute_duplicateExerciseFilteredList_failure() {
 
         // edit exercise in filtered list into a duplicate in exercise book
-        Exercise exerciseInList = model.getExerciseBookData().getResourceList()
+        Exercise exerciseInList = model.getExerciseBookData().getSortedResourceList()
             .get(INDEX_ONE_BASED_SECOND.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_ONE_BASED_FIRST,
             new EditExerciseDescriptorBuilder(exerciseInList).build());

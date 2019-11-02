@@ -1,6 +1,7 @@
 package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -42,8 +43,10 @@ public class ScheduleRegimeCommandTest {
     @BeforeEach
     public void setUp() {
         MainApp.setState(State.NORMAL);
-        model = new ModelManager(new ReadOnlyResourceBook<>(), TypicalRegime.getTypicalRegimeBook(),
-                new ReadOnlyResourceBook<>(), TypicalSchedule.getTypicalScheduleBook(), new UserPrefs(),
+        model = new ModelManager(new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                TypicalRegime.getTypicalRegimeBook(),
+                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                TypicalSchedule.getTypicalScheduleBook(), new UserPrefs(),
                 DefaultPropertyBookUtil.getDefaultPropertyBook());
     }
 
@@ -80,8 +83,10 @@ public class ScheduleRegimeCommandTest {
     public void execute_conflictingDate_successfulCommandAndAlterMainAppState() {
         String expectedMessage = ScheduleRegimeCommand.MESSAGE_CONFLICT;
 
-        Model expectedModel = new ModelManager(new ReadOnlyResourceBook<>(), model.getAllRegimeData(),
-                new ReadOnlyResourceBook<>(), model.getAllScheduleData(), new UserPrefs(),
+        Model expectedModel = new ModelManager(new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                model.getAllRegimeData(),
+                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                model.getAllScheduleData(), new UserPrefs(),
                 DefaultPropertyBookUtil.getDefaultPropertyBook());
 
         CommandTestUtil.assertCommandSuccess(scheduleRegimeCommandWithConflictingDate, model,
@@ -100,8 +105,10 @@ public class ScheduleRegimeCommandTest {
         String expectedMessage = String.format(ScheduleRegimeCommand.MESSAGE_SUCCESS,
                 TypicalRegime.VALID_REGIME_NAME_CARDIO, TypicalDates.DATE_3);
 
-        Model expectedModel = new ModelManager(new ReadOnlyResourceBook<>(), model.getAllRegimeData(),
-                new ReadOnlyResourceBook<>(), model.getAllScheduleData(), new UserPrefs(),
+        Model expectedModel = new ModelManager(
+                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR), model.getAllRegimeData(),
+                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                model.getAllScheduleData(), new UserPrefs(),
                 DefaultPropertyBookUtil.getDefaultPropertyBook());
         expectedModel.addSchedule(new Schedule(TypicalRegime.VALID_REGIME_CARDIO, TypicalDates.DATE_3));
 

@@ -176,7 +176,7 @@ public interface Model {
 
 
     /**
-     * Returns the data in the regime book
+     * Returns the data in the schedule book
      */
     ReadOnlyResourceBook<Schedule> getAllScheduleData();
 

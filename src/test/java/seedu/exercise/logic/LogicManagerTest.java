@@ -1,6 +1,9 @@
 package seedu.exercise.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
+import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX;
 import static seedu.exercise.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
@@ -164,9 +167,9 @@ public class LogicManagerTest {
 
     @Test
     public void getMethods_defaultValues_success() {
-        assertEquals(new ReadOnlyResourceBook<>(), logic.getExerciseBook());
+        assertEquals(new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR), logic.getExerciseBook());
         assertEquals(model.getFilteredExerciseList(), logic.getFilteredExerciseList());
-        assertEquals(new ReadOnlyResourceBook<>(), logic.getRegimeBook());
+        assertEquals(new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR), logic.getRegimeBook());
         assertEquals(model.getFilteredRegimeList(), logic.getFilteredRegimeList());
         assertEquals(model.getFilteredScheduleList(), logic.getFilteredScheduleList());
         assertEquals(model.getSuggestedExerciseList(), logic.getSuggestedExerciseList());
@@ -226,8 +229,11 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
+        Model expectedModel = new ModelManager(model.getExerciseBookData(),
+                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
+                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+                new UserPrefs(), getDefaultPropertyBook());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

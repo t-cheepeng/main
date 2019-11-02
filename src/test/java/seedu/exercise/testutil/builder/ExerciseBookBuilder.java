@@ -1,5 +1,7 @@
 package seedu.exercise.testutil.builder;
 
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
 
@@ -13,7 +15,7 @@ public class ExerciseBookBuilder {
     private ReadOnlyResourceBook<Exercise> exerciseBook;
 
     public ExerciseBookBuilder() {
-        exerciseBook = new ReadOnlyResourceBook<>();
+        exerciseBook = new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
     }
 
     public ExerciseBookBuilder(ReadOnlyResourceBook<Exercise> exerciseBook) {

@@ -1,6 +1,7 @@
 package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.testutil.Assert.assertThrows;
@@ -20,7 +21,7 @@ import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
-import seedu.exercise.model.UniqueResourceList;
+import seedu.exercise.model.SortedUniqueResourceList;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.Name;
@@ -62,8 +63,10 @@ public class ResolveCommandTest {
             Arrays.asList(TypicalIndexes.INDEX_VERY_LARGE_NUMBER),
             new ArrayList<>());
 
-    private Model model = new ModelManager(new ReadOnlyResourceBook<>(), TypicalRegime.getTypicalRegimeBook(),
-            new ReadOnlyResourceBook<>(), TypicalSchedule.getTypicalScheduleBook(), new UserPrefs(),
+    private Model model = new ModelManager(new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+            TypicalRegime.getTypicalRegimeBook(),
+            new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+            TypicalSchedule.getTypicalScheduleBook(), new UserPrefs(),
             DefaultPropertyBookUtil.getDefaultPropertyBook());
 
     @BeforeEach
@@ -179,8 +182,10 @@ public class ResolveCommandTest {
     }
 
     private Model deepCopyModel() {
-        return new ModelManager(new ReadOnlyResourceBook<>(), model.getAllRegimeData(),
-                new ReadOnlyResourceBook<>(), model.getAllScheduleData(), new UserPrefs(),
+        return new ModelManager(new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                model.getAllRegimeData(),
+                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+                model.getAllScheduleData(), new UserPrefs(),
                 DefaultPropertyBookUtil.getDefaultPropertyBook());
     }
 
@@ -189,7 +194,8 @@ public class ResolveCommandTest {
     }
 
     private Regime getResolvedRegime() {
-        UniqueResourceList<Exercise> resolvedExercises = new UniqueResourceList<>();
+        SortedUniqueResourceList<Exercise> resolvedExercises =
+                new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
         resolvedExercises.setAll(Arrays.asList(TypicalExercises.WALK));
         return new Regime(new Name(TypicalRegime.VALID_REGIME_NAME_CHEST), resolvedExercises);
     }
