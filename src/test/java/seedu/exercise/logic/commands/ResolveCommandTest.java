@@ -87,7 +87,8 @@ public class ResolveCommandTest {
 
     @Test
     public void execute_nullModel_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> validResolveCommandTakeFromScheduledWithEmptyIndexes.execute(null));
+        assertThrows(NullPointerException.class, () -> validResolveCommandTakeFromScheduledWithEmptyIndexes
+                .execute(null));
     }
 
     @Test

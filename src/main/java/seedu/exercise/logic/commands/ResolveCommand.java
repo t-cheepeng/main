@@ -64,7 +64,8 @@ public class ResolveCommand extends Command {
     private List<Index> indexToTakeFromSchedule;
     private List<Index> indexToTakeFromConflict;
 
-    public ResolveCommand(Name scheduledOrConflicting, List<Index> indexToTakeFromSchedule, List<Index> indexToTakeFromConflict) {
+    public ResolveCommand(Name scheduledOrConflicting, List<Index> indexToTakeFromSchedule,
+                          List<Index> indexToTakeFromConflict) {
         requireAllNonNull(scheduledOrConflicting, indexToTakeFromConflict, indexToTakeFromSchedule);
         this.scheduledOrConflicting = scheduledOrConflicting;
         this.indexToTakeFromSchedule = indexToTakeFromSchedule;
