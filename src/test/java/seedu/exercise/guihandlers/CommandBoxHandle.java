@@ -1,8 +1,8 @@
 package seedu.exercise.guihandlers;
 
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.testfx.framework.junit5.Start;
-
+/**
+ * Handler for command box gui test
+ */
 public class CommandBoxHandle {
 
 }
