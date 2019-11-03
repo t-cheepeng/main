@@ -1,6 +1,6 @@
 package seedu.exercise.storage.resource;
 
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,8 @@ public class JsonAdaptedRegime extends JsonAdaptedResource<Regime> {
      * @throws IllegalValueException if there were any data constraints violated in the adapted regime.
      */
     public Regime toModelType() throws IllegalValueException {
-        final SortedUniqueResourceList<Exercise> modelExercises = new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+        final SortedUniqueResourceList<Exercise> modelExercises =
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         for (JsonAdaptedExercise exercise : exercises) {
             modelExercises.add(exercise.toModelType());
         }

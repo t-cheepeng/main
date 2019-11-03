@@ -140,7 +140,7 @@ public class SortedUniqueResourceList<T extends Resource> implements Iterable<T>
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof SortedUniqueResourceList)// instanceof handles nulls
-            && internalList.equals(((SortedUniqueResourceList) other).internalList);
+            && internalUnmodifiableSortedList.equals(((SortedUniqueResourceList) other).internalUnmodifiableSortedList);
     }
 
     @Override

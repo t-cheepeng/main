@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
@@ -55,10 +55,10 @@ public class AddRegimeCommandTest {
 
     @Test
     public void execute_duplicateIndex_throwsCommandException() {
-        Model model = new ModelManager(new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+        Model model = new ModelManager(new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
                 getTypicalRegimeBook(),
-                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
                 new UserPrefs(), getDefaultPropertyBook());
         Name name = new Name(VALID_REGIME_NAME_CARDIO);
         DeleteRegimeCommand deleteRegimeCommand = new DeleteRegimeCommand(name, DUPLICATE_REGIME_INDEXES);
@@ -72,7 +72,7 @@ public class AddRegimeCommandTest {
         Name validName = new Name("test");
         ArrayList<Index> validIndexes = new ArrayList<>();
         Regime validRegime = new Regime(validName,
-                new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR));
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR));
 
         CommandResult commandResult = new AddRegimeCommand(validIndexes, validName).execute(modelStub);
 
@@ -170,12 +170,12 @@ public class AddRegimeCommandTest {
         public void setRegime(Regime regime, Regime targetedRegime) {}
 
         @Override
-        public ObservableList<Exercise> getFilteredExerciseList() {
+        public ObservableList<Exercise> getSortedExerciseList() {
             return new FilteredList<>(exercises.getSortedResourceList());
         }
 
         @Override
-        public ObservableList<Regime> getFilteredRegimeList() {
+        public ObservableList<Regime> getSortedRegimeList() {
             return new FilteredList<>(regimes.getSortedResourceList());
         }
     }
@@ -202,12 +202,12 @@ public class AddRegimeCommandTest {
 
         @Override
         public ReadOnlyResourceBook<Regime> getAllRegimeData() {
-            return new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR);
+            return new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR);
         }
 
         @Override
         public ReadOnlyResourceBook<Exercise> getExerciseBookData() {
-            return new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+            return new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR);
         }
 
         @Override
@@ -221,7 +221,7 @@ public class AddRegimeCommandTest {
         }
 
         @Override
-        public ObservableList<Exercise> getFilteredExerciseList() {
+        public ObservableList<Exercise> getSortedExerciseList() {
             return new FilteredList<>(exercises.getSortedResourceList());
         }
 

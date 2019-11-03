@@ -95,17 +95,17 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the filtered exercise list
      */
-    ObservableList<Exercise> getFilteredExerciseList();
+    ObservableList<Exercise> getSortedExerciseList();
 
     /**
      * Returns an unmodifiable view of the filtered regime list
      */
-    ObservableList<Regime> getFilteredRegimeList();
+    ObservableList<Regime> getSortedRegimeList();
 
     /**
      * Returns an unmodifiable view of the filtered schedule list
      */
-    ObservableList<Schedule> getFilteredScheduleList();
+    ObservableList<Schedule> getSortedScheduleList();
 
     /**
      * Returns the user prefs' regime book file path.

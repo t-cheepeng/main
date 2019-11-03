@@ -1,13 +1,13 @@
 package seedu.exercise.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
 import static seedu.exercise.commons.util.AppUtil.requireMainAppState;
 import static seedu.exercise.commons.util.CollectionUtil.append;
 import static seedu.exercise.commons.util.CollectionUtil.areListsEmpty;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 
 import java.nio.file.Path;
@@ -65,17 +65,17 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with exercise book: " + exerciseBook + " and user prefs " + userPrefs);
 
-        this.exerciseBook = new ReadOnlyResourceBook<>(exerciseBook, EXERCISE_DESCENDING_DATE_COMPARATOR);
-        this.databaseBook = new ReadOnlyResourceBook<>(databaseBook, EXERCISE_DESCENDING_DATE_COMPARATOR);
-        this.regimeBook = new ReadOnlyResourceBook<>(regimeBook, REGIME_ASCENDING_NAME_COMPARATOR);
-        this.scheduleBook = new ReadOnlyResourceBook<>(scheduleBook, SCHEDULE_ASCENDING_DATE_COMPARATOR);
+        this.exerciseBook = new ReadOnlyResourceBook<>(exerciseBook, DEFAULT_EXERCISE_COMPARATOR);
+        this.databaseBook = new ReadOnlyResourceBook<>(databaseBook, DEFAULT_EXERCISE_COMPARATOR);
+        this.regimeBook = new ReadOnlyResourceBook<>(regimeBook, DEFAULT_REGIME_COMPARATOR);
+        this.scheduleBook = new ReadOnlyResourceBook<>(scheduleBook, DEFAULT_SCHEDULE_COMPARATOR);
         this.userPrefs = new UserPrefs(userPrefs);
         sortedExercises = new SortedList<>(this.exerciseBook.getSortedResourceList(),
-                EXERCISE_DESCENDING_DATE_COMPARATOR);
+                DEFAULT_EXERCISE_COMPARATOR);
         sortedRegimes = new SortedList<>(this.regimeBook.getSortedResourceList(),
-                REGIME_ASCENDING_NAME_COMPARATOR);
+                DEFAULT_REGIME_COMPARATOR);
         sortedSchedules = new SortedList<>(this.scheduleBook.getSortedResourceList(),
-                SCHEDULE_ASCENDING_DATE_COMPARATOR);
+                DEFAULT_SCHEDULE_COMPARATOR);
         StatsFactory statsFactory = new StatsFactory(exerciseBook, "linechart", "calories", null, null);
         this.statistic = statsFactory.getDefaultStatistic();
 
@@ -86,10 +86,10 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR), new UserPrefs(), getDefaultPropertyBook());
+        this(new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs(), getDefaultPropertyBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -261,7 +261,7 @@ public class ModelManager implements Model {
         Schedule resolvedSchedule;
         if (areListsEmpty(indexFromConflict, indexFromSchedule)) {
             Regime regime = new Regime(regimeName,
-                    new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR));
+                    new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR));
             resolvedSchedule = conflict.getScheduleByRegime(regime);
             addResolvedSchedule(resolvedSchedule);
         } else {
@@ -305,7 +305,7 @@ public class ModelManager implements Model {
      * {@code exerciseBook} and sorted by Date.
      */
     @Override
-    public ObservableList<Exercise> getFilteredExerciseList() {
+    public ObservableList<Exercise> getSortedExerciseList() {
         return sortedExercises;
     }
 
@@ -316,7 +316,7 @@ public class ModelManager implements Model {
      * Returns an unmodifiable view of the list of {@code Regime} backed by the internal list of
      * {@code regimeBook}.
      */
-    public ObservableList<Regime> getFilteredRegimeList() {
+    public ObservableList<Regime> getSortedRegimeList() {
         return sortedRegimes;
     }
 
@@ -327,7 +327,7 @@ public class ModelManager implements Model {
      * Returns an unmodifiable view of the list of {@code Schedule} backed by the internal list of
      * {@code scheduleBook}
      */
-    public ObservableList<Schedule> getFilteredScheduleList() {
+    public ObservableList<Schedule> getSortedScheduleList() {
         return sortedSchedules;
     }
 
@@ -457,7 +457,7 @@ public class ModelManager implements Model {
             .getAllResourcesIndex(indexFromConflict);
         List<Exercise> resolvedExercises = append(exercisesToAddFromScheduled, exercisesToAddFromConflicted);
         SortedUniqueResourceList<Exercise> uniqueResolveList =
-                new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         uniqueResolveList.setAll(resolvedExercises);
         return uniqueResolveList;
     }
@@ -466,7 +466,7 @@ public class ModelManager implements Model {
      * Checks if the provided indexes have some duplicate exercises they are referring to
      */
     private boolean isIndexesForRegimeDuplicate(List<Index> scheduledIndex, List<Index> conflictingIndex) {
-        SortedUniqueResourceList<Exercise> listToAdd = new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+        SortedUniqueResourceList<Exercise> listToAdd = new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         List<Exercise> scheduledExercises = conflict
                 .getScheduledRegime().getRegimeExercises().getAllResourcesIndex(scheduledIndex);
         List<Exercise> conflictExercises = conflict

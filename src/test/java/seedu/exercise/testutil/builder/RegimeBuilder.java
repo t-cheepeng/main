@@ -1,7 +1,6 @@
 package seedu.exercise.testutil.builder;
 
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class RegimeBuilder {
 
     public RegimeBuilder() {
         regimeName = new Name(DEFAULT_NAME);
-        regimeExercises = new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+        regimeExercises = new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
     }
 
     /**
@@ -30,7 +29,7 @@ public class RegimeBuilder {
      */
     public RegimeBuilder(Regime regimeToCopy) {
         regimeName = new Name(regimeToCopy.getRegimeName().toString());
-        regimeExercises = new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+        regimeExercises = new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         regimeExercises.setAll(regimeToCopy.getRegimeExercises());
     }
 

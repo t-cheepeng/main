@@ -2,11 +2,11 @@ package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.CommonTestData.DESC_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.DESC_BASKETBALL;
@@ -38,9 +38,9 @@ import seedu.exercise.ui.ListResourceType;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalExerciseBook(),
-            new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-            new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-            new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
             new UserPrefs(), getDefaultPropertyBook());
 
     @BeforeEach
@@ -57,20 +57,21 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
         Model expectedModel = new ModelManager(
-                new ReadOnlyResourceBook<>(model.getExerciseBookData(), EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(model.getExerciseBookData(), DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
                 new UserPrefs(), getDefaultPropertyBook());
 
+        expectedModel.setExercise(expectedModel.getSortedExerciseList().get(0), editedExercise);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastExercise = Index.fromOneBased(model.getFilteredExerciseList().size());
-        Exercise lastExercise = model.getFilteredExerciseList().get(indexLastExercise.getZeroBased());
+        Index indexLastExercise = Index.fromOneBased(model.getSortedExerciseList().size());
+        Exercise lastExercise = model.getSortedExerciseList().get(indexLastExercise.getZeroBased());
 
         ExerciseBuilder exerciseInList = new ExerciseBuilder(lastExercise);
         Exercise editedExercise = exerciseInList.withName(VALID_NAME_BASKETBALL).withDate(VALID_DATE_BASKETBALL)
@@ -84,12 +85,13 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
         Model expectedModel = new ModelManager(
-                new ReadOnlyResourceBook<>(model.getExerciseBookData(), EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(model.getExerciseBookData(), DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
                 new UserPrefs(), getDefaultPropertyBook());
 
+        expectedModel.setExercise(lastExercise, editedExercise);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
     }
@@ -97,15 +99,15 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_ONE_BASED_FIRST, new EditCommand.EditExerciseDescriptor());
-        Exercise editedExercise = model.getFilteredExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
+        Exercise editedExercise = model.getSortedExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
         Model expectedModel = new ModelManager(
-                new ReadOnlyResourceBook<>(model.getExerciseBookData(), EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(model.getExerciseBookData(), DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
                 new UserPrefs(), getDefaultPropertyBook());
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
@@ -115,7 +117,7 @@ public class EditCommandTest {
     @Test
     public void execute_filteredList_success() {
 
-        Exercise exerciseInFilteredList = model.getFilteredExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
+        Exercise exerciseInFilteredList = model.getSortedExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
         Exercise editedExercise =
             new ExerciseBuilder(exerciseInFilteredList).withName(VALID_NAME_BASKETBALL).build();
         EditCommand editCommand = new EditCommand(INDEX_ONE_BASED_FIRST,
@@ -124,12 +126,12 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
         Model expectedModel = new ModelManager(
-                new ReadOnlyResourceBook<>(model.getExerciseBookData(), EXERCISE_DESCENDING_DATE_COMPARATOR),
-                 new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(model.getExerciseBookData(), DEFAULT_EXERCISE_COMPARATOR),
+                 new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
             new UserPrefs(), getDefaultPropertyBook());
-        expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
+        expectedModel.setExercise(model.getSortedExerciseList().get(0), editedExercise);
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
@@ -137,7 +139,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicateExerciseUnfilteredList_failure() {
-        Exercise firstExercise = model.getFilteredExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
+        Exercise firstExercise = model.getSortedExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
         EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(firstExercise).build();
         EditCommand editCommand = new EditCommand(INDEX_ONE_BASED_SECOND, descriptor);
 
@@ -158,7 +160,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_invalidExerciseIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExerciseList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getSortedExerciseList().size() + 1);
         EditExerciseDescriptor descriptor =
             new EditExerciseDescriptorBuilder().withName(VALID_NAME_BASKETBALL).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);

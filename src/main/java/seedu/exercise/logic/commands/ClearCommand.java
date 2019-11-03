@@ -1,8 +1,8 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
 import static seedu.exercise.logic.commands.events.ClearEvent.KEY_EXERCISE_BOOK_CLEARED;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 
 import seedu.exercise.logic.commands.events.EventHistory;
 import seedu.exercise.logic.commands.events.EventPayload;
@@ -25,11 +25,12 @@ public class ClearCommand extends Command implements UndoableCommand, PayloadCar
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ReadOnlyResourceBook<Exercise> exerciseBookCleared = new ReadOnlyResourceBook<>(model.getExerciseBookData(), EXERCISE_DESCENDING_DATE_COMPARATOR);
+        ReadOnlyResourceBook<Exercise> exerciseBookCleared =
+                new ReadOnlyResourceBook<>(model.getExerciseBookData(), DEFAULT_EXERCISE_COMPARATOR);
         eventPayload = new EventPayload<>();
         eventPayload.put(KEY_EXERCISE_BOOK_CLEARED, exerciseBookCleared);
         EventHistory.getInstance().addCommandToUndoStack(this);
-        model.setExerciseBook(new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR));
+        model.setExerciseBook(new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR));
         model.updateStatistic();
         return new CommandResult(MESSAGE_SUCCESS, ListResourceType.SUGGEST);
     }

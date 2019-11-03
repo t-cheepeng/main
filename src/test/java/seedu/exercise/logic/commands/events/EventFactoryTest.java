@@ -1,6 +1,5 @@
 package seedu.exercise.logic.commands.events;
 
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
 import static seedu.exercise.logic.commands.events.EventFactory.MESSAGE_COMMAND_NOT_UNDOABLE;
 import static seedu.exercise.logic.commands.events.EventTestUtil.ADD_EXERCISE_COMMAND_WITH_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.ADD_EXERCISE_EVENT_PAYLOAD;
@@ -24,6 +23,7 @@ import static seedu.exercise.logic.commands.events.EventTestUtil.assertGenerated
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertGeneratedDeleteEventEquals;
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertGeneratedEventEquals;
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertGeneratedScheduleEventEquals;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExercises;
 
@@ -44,7 +44,7 @@ public class EventFactoryTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager();
-        ReadOnlyResourceBook<Exercise> exerciseBook = new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+        ReadOnlyResourceBook<Exercise> exerciseBook = new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR);
         exerciseBook.setResources(getTypicalExercises());
         model.setExerciseBook(exerciseBook);
     }

@@ -2,12 +2,12 @@ package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.logic.commands.CustomAddCommand.MESSAGE_DUPLICATE_FULL_NAME;
 import static seedu.exercise.logic.commands.CustomAddCommand.MESSAGE_DUPLICATE_PREFIX_NAME;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_RATING;
@@ -34,9 +34,9 @@ import seedu.exercise.testutil.builder.CustomPropertyBuilder;
 class CustomAddCommandTest {
 
     private Model model = new ModelManager(getTypicalExerciseBook(),
-            new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-            new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-            new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
             new UserPrefs(), getDefaultPropertyBook());
 
     @BeforeEach
@@ -50,9 +50,9 @@ class CustomAddCommandTest {
         CustomAddCommand customAddCommand = new CustomAddCommand(customPropertyToBeCreated);
         String expectedMessage = String.format(CustomAddCommand.MESSAGE_SUCCESS, customPropertyToBeCreated);
         Model expectedModel = new ModelManager(getTypicalExerciseBook(),
-                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
                 new UserPrefs(), getDefaultPropertyBook());
         expectedModel.getPropertyBook().addCustomProperty(customPropertyToBeCreated);
         assertCommandSuccess(customAddCommand, model, expectedMessage, expectedModel);
@@ -65,9 +65,9 @@ class CustomAddCommandTest {
         CustomProperty duplicateShortName = new CustomPropertyBuilder().withPrefix(VALID_PREFIX_NAME_RATING)
                 .withFullName(VALID_FULL_NAME_REMARK).withParameterType(VALID_PARAMETER_TYPE_REMARK).build();
         Model model1 = new ModelManager(getTypicalExerciseBook(),
-                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
                 new UserPrefs(), getDefaultPropertyBook());
         model1.getPropertyBook().addCustomProperty(rating);
         CustomAddCommand customAddCommand = new CustomAddCommand(duplicateShortName);
@@ -82,9 +82,9 @@ class CustomAddCommandTest {
         CustomProperty duplicateFullName = new CustomPropertyBuilder().withPrefix(VALID_PREFIX_NAME_REMARK)
                 .withFullName(VALID_FULL_NAME_RATING).withParameterType(VALID_PARAMETER_TYPE_REMARK).build();
         Model model1 = new ModelManager(getTypicalExerciseBook(),
-                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
                 new UserPrefs(), getDefaultPropertyBook());
         model1.getPropertyBook().addCustomProperty(rating);
         CustomAddCommand customAddCommand = new CustomAddCommand(duplicateFullName);

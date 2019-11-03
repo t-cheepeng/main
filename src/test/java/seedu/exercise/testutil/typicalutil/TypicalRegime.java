@@ -1,7 +1,7 @@
 package seedu.exercise.testutil.typicalutil;
 
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
 import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
 import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_VERY_LARGE_NUMBER;
 
@@ -37,18 +37,18 @@ public class TypicalRegime {
     static {
         List<Exercise> typicalExerciseCardio = TypicalExercises.getTypicalExercises();
         SortedUniqueResourceList<Exercise> cardioList =
-                new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         cardioList.setAll(typicalExerciseCardio);
 
         List<Exercise> typicalExerciseLegs = new ArrayList<>();
         typicalExerciseLegs.add(TypicalExercises.SPRINT);
         typicalExerciseLegs.add(TypicalExercises.WALK);
         SortedUniqueResourceList<Exercise> legList =
-                new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         legList.setAll(typicalExerciseLegs);
 
         SortedUniqueResourceList<Exercise> chestList =
-                new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
 
         // 3 exercises
         VALID_REGIME_CARDIO = new RegimeBuilder()
@@ -72,7 +72,7 @@ public class TypicalRegime {
     private TypicalRegime() {}
 
     public static ReadOnlyResourceBook<Regime> getTypicalRegimeBook() {
-        ReadOnlyResourceBook<Regime> eb = new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR);
+        ReadOnlyResourceBook<Regime> eb = new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR);
         for (Regime regime : getValidRegimeList()) {
             eb.addResource(regime);
         }

@@ -1,9 +1,9 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.logic.commands.events.ScheduleRegimeEvent.KEY_TO_SCHEDULE;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 
 import java.util.Collection;
 
@@ -43,7 +43,7 @@ public class ScheduleRegimeCommand extends ScheduleCommand implements PayloadCar
     public ScheduleRegimeCommand(Name regimeName, Date date) {
         requireAllNonNull(regimeName, date);
 
-        this.regime = new Regime(regimeName, new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR));
+        this.regime = new Regime(regimeName, new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR));
         this.eventPayload = new EventPayload<>();
         dateToSchedule = date;
     }
@@ -108,7 +108,7 @@ public class ScheduleRegimeCommand extends ScheduleCommand implements PayloadCar
     private Schedule getScheduleFromModel(Model model) {
         int indexOfRegime = model.getRegimeIndex(regime);
         Regime regimeToSchedule = getRegimeWithUpdatedExerciseDate(
-                model.getFilteredRegimeList().get(indexOfRegime));
+                model.getSortedRegimeList().get(indexOfRegime));
 
         Schedule toSchedule = new Schedule(regimeToSchedule, dateToSchedule);
 
@@ -129,7 +129,8 @@ public class ScheduleRegimeCommand extends ScheduleCommand implements PayloadCar
         Collection<Exercise> regimeExercises =
                 DateChangerUtil
                         .changeAllDate(regime.getRegimeExercises().asUnmodifiableObservableList(), dateToSchedule);
-        SortedUniqueResourceList<Exercise> exercisesWithUpdatedDate = new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+        SortedUniqueResourceList<Exercise> exercisesWithUpdatedDate =
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         for (Exercise exercise : regimeExercises) {
             exercisesWithUpdatedDate.add(exercise);
         }
@@ -146,7 +147,7 @@ public class ScheduleRegimeCommand extends ScheduleCommand implements PayloadCar
 
     private Conflict buildConflict(Model model, Schedule toSchedule) {
         int indexOfScheduled = model.getAllScheduleData().getResourceIndex(toSchedule);
-        Schedule scheduled = model.getFilteredScheduleList().get(indexOfScheduled);
+        Schedule scheduled = model.getSortedScheduleList().get(indexOfScheduled);
         return new Conflict(scheduled, toSchedule);
     }
 

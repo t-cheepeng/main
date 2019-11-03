@@ -1,9 +1,9 @@
 package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_REMARK;
@@ -22,9 +22,9 @@ import seedu.exercise.model.UserPrefs;
 public class CustomRemoveCommandTest {
 
     private Model model = new ModelManager(getTypicalExerciseBook(),
-            new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-        new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-            new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR), new UserPrefs(), getDefaultPropertyBook());
+            new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+        new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs(), getDefaultPropertyBook());
 
     @BeforeEach
     public void reset() {
@@ -44,9 +44,9 @@ public class CustomRemoveCommandTest {
         // Expected result
         String expectedMessage = String.format(CustomRemoveCommand.MESSAGE_SUCCESS, VALID_FULL_NAME_REMARK);
         Model expectedModel = new ModelManager(getTypicalExerciseBook(),
-                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-            new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
             new UserPrefs(), getDefaultPropertyBook());
 
         assertEquals(commandResult, expectedMessage);

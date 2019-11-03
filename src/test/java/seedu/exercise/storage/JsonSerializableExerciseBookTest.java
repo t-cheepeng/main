@@ -1,7 +1,7 @@
 package seedu.exercise.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -28,7 +28,7 @@ public class JsonSerializableExerciseBookTest {
         JsonSerializableExerciseBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXERCISES_FILE,
             JsonSerializableExerciseBook.class).get();
         ReadOnlyResourceBook<Exercise> exerciseBookFromFile = dataFromFile
-                .toModelType(Exercise.class, EXERCISE_DESCENDING_DATE_COMPARATOR);
+                .toModelType(Exercise.class, DEFAULT_EXERCISE_COMPARATOR);
         ReadOnlyResourceBook<Exercise> typicalExerciseBook = TypicalExercises.getTypicalExerciseBook();
         assertEquals(exerciseBookFromFile, typicalExerciseBook);
     }
@@ -38,7 +38,7 @@ public class JsonSerializableExerciseBookTest {
         JsonSerializableExerciseBook dataFromFile = JsonUtil.readJsonFile(INVALID_EXERCISE_FILE,
             JsonSerializableExerciseBook.class).get();
         assertThrows(IllegalValueException.class, () -> dataFromFile
-                .toModelType(Exercise.class, EXERCISE_DESCENDING_DATE_COMPARATOR));
+                .toModelType(Exercise.class, DEFAULT_EXERCISE_COMPARATOR));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class JsonSerializableExerciseBookTest {
         JsonSerializableExerciseBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_EXERCISE_FILE,
             JsonSerializableExerciseBook.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableExerciseBook.MESSAGE_DUPLICATE_RESOURCE, ()
-            -> dataFromFile.toModelType(Exercise.class, EXERCISE_DESCENDING_DATE_COMPARATOR));
+            -> dataFromFile.toModelType(Exercise.class, DEFAULT_EXERCISE_COMPARATOR));
     }
 
 }

@@ -3,7 +3,7 @@ package seedu.exercise.model.book;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_BASKETBALL;
@@ -27,7 +27,7 @@ import seedu.exercise.testutil.builder.ExerciseBuilder;
 public class ExerciseBookTest {
 
     private final ReadOnlyResourceBook<Exercise> exerciseBook =
-            new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+            new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR);
 
     @Test
     public void constructor() {
@@ -92,7 +92,7 @@ public class ExerciseBookTest {
         private final ObservableList<Exercise> exercises = FXCollections.observableArrayList();
 
         ExerciseBookStub(Collection<Exercise> exercises) {
-            super(EXERCISE_DESCENDING_DATE_COMPARATOR);
+            super(DEFAULT_EXERCISE_COMPARATOR);
             this.exercises.setAll(exercises);
         }
 

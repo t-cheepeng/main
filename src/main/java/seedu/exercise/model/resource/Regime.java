@@ -1,6 +1,6 @@
 package seedu.exercise.model.resource;
 
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 
 import java.util.Objects;
 
@@ -43,7 +43,8 @@ public class Regime extends Resource {
      */
     public Regime deepCopy() {
         Name newName = new Name(regimeName.toString());
-        SortedUniqueResourceList<Exercise> newRegimeExercises = new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+        SortedUniqueResourceList<Exercise> newRegimeExercises =
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         newRegimeExercises.setAll(regimeExercises);
         return new Regime(newName, newRegimeExercises);
     }

@@ -1,7 +1,6 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.logic.commands.events.AddRegimeEvent.KEY_REGIME_TO_ADD;
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_EDITED_REGIME;
@@ -10,6 +9,7 @@ import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_ORIGINAL_
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 
 import java.util.HashSet;
 import java.util.List;
@@ -63,7 +63,7 @@ public class AddRegimeCommand extends AddCommand implements PayloadCarrierComman
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Exercise> lastShownList = model.getFilteredExerciseList();
+        List<Exercise> lastShownList = model.getSortedExerciseList();
         checkDuplicateIndexes(toAddIndexes);
         checkValidIndexes(toAddIndexes, lastShownList);
 
@@ -84,7 +84,7 @@ public class AddRegimeCommand extends AddCommand implements PayloadCarrierComman
      * @return feedback message of the operation result for display
      */
     private CommandResult addNewRegimeToModel(Model model) throws CommandException {
-        Regime regime = new Regime(name, new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR));
+        Regime regime = new Regime(name, new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR));
         addExercisesToRegime(regime, model);
         model.addRegime(regime);
         addToEventPayloadForAddRegime(regime);
@@ -115,8 +115,9 @@ public class AddRegimeCommand extends AddCommand implements PayloadCarrierComman
      * @return the existing regime from model
      */
     private Regime getRegimeFromModel(Model model) {
-        List<Regime> regimes = model.getFilteredRegimeList();
-        int regimeIndex = model.getRegimeIndex(new Regime(name, new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR)));
+        List<Regime> regimes = model.getSortedRegimeList();
+        int regimeIndex = model.getRegimeIndex(
+                new Regime(name, new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR)));
         return regimes.get(regimeIndex);
     }
 
@@ -128,7 +129,7 @@ public class AddRegimeCommand extends AddCommand implements PayloadCarrierComman
      * @throws CommandException If duplicate exercises are found
      */
     private void addExercisesToRegime(Regime regime, Model model) throws CommandException {
-        List<Exercise> lastShownList = model.getFilteredExerciseList();
+        List<Exercise> lastShownList = model.getSortedExerciseList();
         for (Index index : toAddIndexes) {
             Exercise exercise = lastShownList.get(index.getZeroBased());
             checkDuplicateExerciseInRegime(exercise, regime);
@@ -143,7 +144,7 @@ public class AddRegimeCommand extends AddCommand implements PayloadCarrierComman
      * @return true if a regime of the same name exists, false otherwise
      */
     private boolean isRegimeInModel(Model model) {
-        Regime regime = new Regime(name, new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR));
+        Regime regime = new Regime(name, new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR));
         return model.hasRegime(regime);
     }
 

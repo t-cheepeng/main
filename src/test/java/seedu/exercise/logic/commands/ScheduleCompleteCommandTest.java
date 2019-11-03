@@ -1,7 +1,7 @@
 package seedu.exercise.logic.commands;
 
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -34,8 +34,8 @@ public class ScheduleCompleteCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(TypicalExercises.getTypicalExerciseBook(),
-            new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
                 TypicalSchedule.getTypicalScheduleBook(),
             new UserPrefs(), DefaultPropertyBookUtil.getDefaultPropertyBook());
     }
@@ -51,10 +51,10 @@ public class ScheduleCompleteCommandTest {
         String expectedMessage = String.format(ScheduleCompleteCommand.MESSAGE_SUCCESS,
                 Integer.toString(TypicalIndexes.INDEX_ONE_BASED_FIRST.getOneBased()));
 
-        Schedule toComplete = model.getFilteredScheduleList().get(0);
+        Schedule toComplete = model.getSortedScheduleList().get(0);
         Model expectedModel = new ModelManager(model.getExerciseBookData(),
-                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-                new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR), model.getAllScheduleData(),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR), model.getAllScheduleData(),
                 new UserPrefs(), DefaultPropertyBookUtil.getDefaultPropertyBook());
         expectedModel.completeSchedule(toComplete);
 

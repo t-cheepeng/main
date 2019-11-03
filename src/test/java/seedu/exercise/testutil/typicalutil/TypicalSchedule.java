@@ -1,6 +1,6 @@
 package seedu.exercise.testutil.typicalutil;
 
-import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +38,7 @@ public class TypicalSchedule {
     private TypicalSchedule() {}
 
     public static ReadOnlyResourceBook<Schedule> getTypicalScheduleBook() {
-        ReadOnlyResourceBook<Schedule> eb = new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR);
+        ReadOnlyResourceBook<Schedule> eb = new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR);
         for (Schedule schedule : getValidScheduleList()) {
             eb.addResource(schedule);
         }

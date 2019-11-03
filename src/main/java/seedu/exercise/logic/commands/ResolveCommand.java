@@ -1,7 +1,6 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_CONTEXT;
 import static seedu.exercise.commons.util.CollectionUtil.areListsEmpty;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
@@ -10,6 +9,7 @@ import static seedu.exercise.logic.commands.events.ResolveEvent.KEY_RESOLVED_SCH
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CONFLICT_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 
 import java.util.List;
 
@@ -168,7 +168,7 @@ public class ResolveCommand extends Command implements UndoableCommand, PayloadC
      */
     private void checkNonDuplicateRegimeNameFromModel(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.hasRegime(new Regime(regimeName, new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR)))) {
+        if (model.hasRegime(new Regime(regimeName, new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR)))) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_NAME, regimeName.toString()));
         }
     }

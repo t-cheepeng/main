@@ -3,7 +3,7 @@ package seedu.exercise.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_BASKETBALL;
@@ -24,7 +24,7 @@ import seedu.exercise.testutil.builder.ExerciseBuilder;
 public class UniqueExerciseListTest {
 
     private final SortedUniqueResourceList<Exercise> uniqueExerciseList =
-            new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+            new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
 
     @Test
     public void contains_nullExercise_throwsNullPointerException() {
@@ -81,7 +81,7 @@ public class UniqueExerciseListTest {
         uniqueExerciseList.add(WALK);
         uniqueExerciseList.set(WALK, WALK);
         SortedUniqueResourceList<Exercise> expectedUniqueExerciseList =
-                new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         expectedUniqueExerciseList.add(WALK);
         assertEquals(expectedUniqueExerciseList, uniqueExerciseList);
     }
@@ -93,7 +93,7 @@ public class UniqueExerciseListTest {
             .withMuscles(VALID_MUSCLE_AEROBICS).build();
         uniqueExerciseList.set(WALK, editedWalk);
         SortedUniqueResourceList<Exercise> expectedUniqueExerciseList =
-                new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         expectedUniqueExerciseList.add(editedWalk);
         assertEquals(expectedUniqueExerciseList, uniqueExerciseList);
     }
@@ -103,7 +103,7 @@ public class UniqueExerciseListTest {
         uniqueExerciseList.add(WALK);
         uniqueExerciseList.set(WALK, BASKETBALL);
         SortedUniqueResourceList<Exercise> expectedUniqueExerciseList =
-                new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         expectedUniqueExerciseList.add(BASKETBALL);
         assertEquals(expectedUniqueExerciseList, uniqueExerciseList);
     }
@@ -130,20 +130,21 @@ public class UniqueExerciseListTest {
         uniqueExerciseList.add(WALK);
         uniqueExerciseList.remove(WALK);
         SortedUniqueResourceList<Exercise> expectedUniqueExerciseList =
-                new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         assertEquals(expectedUniqueExerciseList, uniqueExerciseList);
     }
 
     @Test
     public void setExercises_nullUniqueExerciseList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueExerciseList.setAll((SortedUniqueResourceList<Exercise>) null));
+        assertThrows(NullPointerException.class, () -> uniqueExerciseList
+                .setAll((SortedUniqueResourceList<Exercise>) null));
     }
 
     @Test
     public void setExercises_uniqueExerciseList_replacesOwnListWithProvidedUniqueExerciseList() {
         uniqueExerciseList.add(WALK);
         SortedUniqueResourceList<Exercise> expectedUniqueExerciseList =
-                new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         expectedUniqueExerciseList.add(BASKETBALL);
         uniqueExerciseList.setAll(expectedUniqueExerciseList);
         assertEquals(expectedUniqueExerciseList, uniqueExerciseList);
@@ -160,7 +161,7 @@ public class UniqueExerciseListTest {
         List<Exercise> exerciseList = Collections.singletonList(BASKETBALL);
         uniqueExerciseList.setAll(exerciseList);
         SortedUniqueResourceList<Exercise> expectedUniqueExerciseList =
-                new SortedUniqueResourceList<>(EXERCISE_DESCENDING_DATE_COMPARATOR);
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         expectedUniqueExerciseList.add(BASKETBALL);
         assertEquals(expectedUniqueExerciseList, uniqueExerciseList);
     }

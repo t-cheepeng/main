@@ -2,11 +2,11 @@ package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.exercise.commons.core.CommonComparator.EXERCISE_DESCENDING_DATE_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.REGIME_ASCENDING_NAME_COMPARATOR;
-import static seedu.exercise.commons.core.CommonComparator.SCHEDULE_ASCENDING_DATE_COMPARATOR;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
@@ -30,22 +30,22 @@ import seedu.exercise.ui.ListResourceType;
 public class DeleteExerciseCommandTest {
 
     private Model model = new ModelManager(getTypicalExerciseBook(),
-            new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-        new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-            new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR), new UserPrefs(), getDefaultPropertyBook());
+            new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+        new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs(), getDefaultPropertyBook());
 
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
+        Exercise exerciseToDelete = model.getSortedExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
         DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(INDEX_ONE_BASED_FIRST);
 
         String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getExerciseBookData(),
-                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-            new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR), new UserPrefs(),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs(),
             getDefaultPropertyBook());
         expectedModel.deleteExercise(exerciseToDelete);
 
@@ -55,7 +55,7 @@ public class DeleteExerciseCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExerciseList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getSortedExerciseList().size() + 1);
         DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteExerciseCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
@@ -63,15 +63,15 @@ public class DeleteExerciseCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
+        Exercise exerciseToDelete = model.getSortedExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
         DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(INDEX_ONE_BASED_FIRST);
 
         String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete);
 
         Model expectedModel = new ModelManager(model.getExerciseBookData(),
-                new ReadOnlyResourceBook<>(REGIME_ASCENDING_NAME_COMPARATOR),
-            new ReadOnlyResourceBook<>(EXERCISE_DESCENDING_DATE_COMPARATOR),
-                new ReadOnlyResourceBook<>(SCHEDULE_ASCENDING_DATE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
                 new UserPrefs(), getDefaultPropertyBook());
         expectedModel.deleteExercise(exerciseToDelete);
 

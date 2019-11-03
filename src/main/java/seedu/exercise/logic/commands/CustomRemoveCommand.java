@@ -102,7 +102,7 @@ public class CustomRemoveCommand extends CustomCommand {
      * Updates the custom properties of all the exercises in the given {@code model}.
      */
     private void updateCustomPropertiesOfAllExercises(Model model) {
-        List<Exercise> exerciseList = model.getFilteredExerciseList();
+        List<Exercise> exerciseList = model.getSortedExerciseList();
         for (Exercise oldExercise : exerciseList) {
             Exercise updatedExercise = updateExerciseCustomProperty(oldExercise);
             model.setExercise(oldExercise, updatedExercise);
