@@ -7,7 +7,6 @@ import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
-import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.CommonTestData.DESC_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.DESC_BASKETBALL;
 import static seedu.exercise.testutil.CommonTestData.VALID_DATE_BASKETBALL;
@@ -22,11 +21,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
-import seedu.exercise.logic.commands.EditCommand.EditExerciseDescriptor;
+import seedu.exercise.logic.commands.builder.EditExerciseBuilder;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UserPrefs;
+import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.testutil.builder.EditExerciseDescriptorBuilder;
 import seedu.exercise.testutil.builder.ExerciseBuilder;
@@ -41,17 +41,17 @@ public class EditCommandTest {
             new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
             new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
             new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
-            new UserPrefs(), getDefaultPropertyBook());
+            new UserPrefs());
 
     @BeforeEach
     public void reset() {
-        getDefaultPropertyBook().clearCustomProperties();
+        PropertyBook.getInstance().clearCustomProperties();
     }
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Exercise editedExercise = new ExerciseBuilder().build();
-        EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(editedExercise).build();
+        EditExerciseBuilder descriptor = new EditExerciseDescriptorBuilder(editedExercise).build();
         EditCommand editCommand = new EditCommand(INDEX_ONE_BASED_FIRST, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
@@ -61,7 +61,7 @@ public class EditCommandTest {
                 new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
-                new UserPrefs(), getDefaultPropertyBook());
+                new UserPrefs());
 
         expectedModel.setExercise(expectedModel.getSortedExerciseList().get(0), editedExercise);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
@@ -77,7 +77,7 @@ public class EditCommandTest {
         Exercise editedExercise = exerciseInList.withName(VALID_NAME_BASKETBALL).withDate(VALID_DATE_BASKETBALL)
             .withMuscles(VALID_MUSCLE_AEROBICS).build();
 
-        EditCommand.EditExerciseDescriptor descriptor =
+        EditExerciseBuilder descriptor =
             new EditExerciseDescriptorBuilder().withName(VALID_NAME_BASKETBALL)
                 .withDate(VALID_DATE_BASKETBALL).withMuscles(VALID_MUSCLE_AEROBICS).build();
         EditCommand editCommand = new EditCommand(indexLastExercise, descriptor);
@@ -89,8 +89,7 @@ public class EditCommandTest {
                 new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
-                new UserPrefs(), getDefaultPropertyBook());
-
+                new UserPrefs());
         expectedModel.setExercise(lastExercise, editedExercise);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
@@ -98,7 +97,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_ONE_BASED_FIRST, new EditCommand.EditExerciseDescriptor());
+        EditCommand editCommand = new EditCommand(INDEX_ONE_BASED_FIRST, new EditExerciseBuilder());
         Exercise editedExercise = model.getSortedExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
@@ -108,7 +107,7 @@ public class EditCommandTest {
                 new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
-                new UserPrefs(), getDefaultPropertyBook());
+                new UserPrefs());
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
@@ -130,7 +129,7 @@ public class EditCommandTest {
                  new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
-            new UserPrefs(), getDefaultPropertyBook());
+            new UserPrefs());
         expectedModel.setExercise(model.getSortedExerciseList().get(0), editedExercise);
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
@@ -140,7 +139,7 @@ public class EditCommandTest {
     @Test
     public void execute_duplicateExerciseUnfilteredList_failure() {
         Exercise firstExercise = model.getSortedExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
-        EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(firstExercise).build();
+        EditExerciseBuilder descriptor = new EditExerciseDescriptorBuilder(firstExercise).build();
         EditCommand editCommand = new EditCommand(INDEX_ONE_BASED_SECOND, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_EXERCISE);
@@ -161,7 +160,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidExerciseIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getSortedExerciseList().size() + 1);
-        EditExerciseDescriptor descriptor =
+        EditExerciseBuilder descriptor =
             new EditExerciseDescriptorBuilder().withName(VALID_NAME_BASKETBALL).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -173,7 +172,7 @@ public class EditCommandTest {
         final EditCommand standardCommand = new EditCommand(INDEX_ONE_BASED_FIRST, DESC_AEROBICS);
 
         // same values -> returns true
-        EditExerciseDescriptor copyDescriptor = new EditExerciseDescriptor(DESC_AEROBICS);
+        EditExerciseBuilder copyDescriptor = new EditExerciseBuilder(DESC_AEROBICS);
         EditCommand commandWithSameValues = new EditCommand(INDEX_ONE_BASED_FIRST, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

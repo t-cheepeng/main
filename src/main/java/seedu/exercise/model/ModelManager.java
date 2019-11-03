@@ -8,11 +8,11 @@ import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
-import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -23,11 +23,10 @@ import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.commons.core.State;
 import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.logic.commands.builder.EditExerciseBuilder;
 import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.commands.statistic.StatsFactory;
-import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.model.conflict.Conflict;
-import seedu.exercise.model.property.CustomProperty;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
@@ -45,7 +44,6 @@ public class ModelManager implements Model {
     private final ReadOnlyResourceBook<Exercise> databaseBook;
     private final ReadOnlyResourceBook<Schedule> scheduleBook;
     private final UserPrefs userPrefs;
-    private final PropertyBook propertyBook;
     private final SortedList<Exercise> sortedExercises;
     private final SortedList<Regime> sortedRegimes;
     private final SortedList<Schedule> sortedSchedules;
@@ -59,9 +57,9 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyResourceBook<Exercise> exerciseBook, ReadOnlyResourceBook<Regime> regimeBook,
                         ReadOnlyResourceBook<Exercise> databaseBook, ReadOnlyResourceBook<Schedule> scheduleBook,
-                        ReadOnlyUserPrefs userPrefs, PropertyBook propertyBook) {
+                        ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(exerciseBook, regimeBook, databaseBook, scheduleBook, userPrefs, propertyBook);
+        requireAllNonNull(exerciseBook, regimeBook, databaseBook, scheduleBook, userPrefs);
 
         logger.fine("Initializing with exercise book: " + exerciseBook + " and user prefs " + userPrefs);
 
@@ -72,16 +70,13 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         sortedExercises = new SortedList<>(this.exerciseBook.getSortedResourceList(),
                 DEFAULT_EXERCISE_COMPARATOR);
+        removeInvalidCustomProperties();
         sortedRegimes = new SortedList<>(this.regimeBook.getSortedResourceList(),
                 DEFAULT_REGIME_COMPARATOR);
         sortedSchedules = new SortedList<>(this.scheduleBook.getSortedResourceList(),
                 DEFAULT_SCHEDULE_COMPARATOR);
         StatsFactory statsFactory = new StatsFactory(exerciseBook, "linechart", "calories", null, null);
         this.statistic = statsFactory.getDefaultStatistic();
-
-        this.propertyBook = propertyBook;
-        this.propertyBook.updatePropertyPrefixes();
-
         conflict = null;
     }
 
@@ -89,7 +84,7 @@ public class ModelManager implements Model {
         this(new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
-                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs(), getDefaultPropertyBook());
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -331,32 +326,6 @@ public class ModelManager implements Model {
         return sortedSchedules;
     }
 
-    //=========== Property Manager Accessors =============================================================
-
-    public PropertyBook getPropertyBook() {
-        return propertyBook;
-    }
-
-    public boolean isPrefixUsed(Prefix prefix) {
-        return propertyBook.isPrefixUsed(prefix);
-    }
-
-    public boolean isFullNameUsed(String fullName) {
-        return propertyBook.isFullNameUsed(fullName);
-    }
-
-    public boolean isFullNameUsedByCustomProperty(String fullName) {
-        return propertyBook.isFullNameUsedByCustomProperty(fullName);
-    }
-
-    public void addCustomProperty(CustomProperty customProperty) {
-        propertyBook.addCustomProperty(customProperty);
-    }
-
-    public void removeCustomProperty(String fullName) {
-        propertyBook.removeCustomProperty(fullName);
-    }
-
     //=========== ExerciseDatabase ===============================================================
 
     @Override
@@ -443,8 +412,7 @@ public class ModelManager implements Model {
             && sortedRegimes.equals(other.sortedRegimes)
             && sortedSchedules.equals(other.sortedSchedules)
             && databaseBook.equals(other.databaseBook)
-            && suggestions.equals(other.suggestions)
-            && propertyBook.equals(other.propertyBook);
+            && suggestions.equals(other.suggestions);
     }
 
     private SortedUniqueResourceList<Exercise> getResolvedExerciseList(List<Index> indexFromSchedule,
@@ -498,4 +466,17 @@ public class ModelManager implements Model {
         regimeBook.addResource(regime);
     }
 
+    /**
+     * @see PropertyBook#removeInvalidCustomProperties(Map)
+     */
+    private void removeInvalidCustomProperties() {
+        PropertyBook propertyBook = PropertyBook.getInstance();
+        for (Exercise exercise : sortedExercises) {
+            Map<String, String> toCheck = exercise.getCustomPropertiesMap();
+            Map<String, String> newMap = propertyBook.removeInvalidCustomProperties(toCheck);
+            EditExerciseBuilder editor = new EditExerciseBuilder(exercise);
+            editor.setCustomProperties(newMap);
+            setExercise(exercise, editor.buildEditedExercise());
+        }
+    }
 }

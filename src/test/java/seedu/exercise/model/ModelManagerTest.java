@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
-import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.SWIM;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.WALK;
@@ -17,7 +16,6 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.commons.core.GuiSettings;
-import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
@@ -110,13 +108,12 @@ public class ModelManagerTest {
         ReadOnlyResourceBook<Exercise> differentExerciseBook =
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR);
         UserPrefs userPrefs = new UserPrefs();
-        PropertyBook propertyBook = getDefaultPropertyBook();
 
         // same values -> returns true
         modelManager = new ModelManager(exerciseBook, regimeBook, databaseBook,
-            scheduleBook, userPrefs, propertyBook);
+            scheduleBook, userPrefs);
         ModelManager modelManagerCopy = new ModelManager(exerciseBook, regimeBook, databaseBook,
-            scheduleBook, userPrefs, propertyBook);
+            scheduleBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -130,12 +127,12 @@ public class ModelManagerTest {
 
         // different exerciseBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentExerciseBook, regimeBook,
-            databaseBook, scheduleBook, userPrefs, propertyBook)));
+            databaseBook, scheduleBook, userPrefs)));
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setExerciseBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(exerciseBook, regimeBook,
-            databaseBook, scheduleBook, differentUserPrefs, propertyBook)));
+            databaseBook, scheduleBook, differentUserPrefs)));
     }
 }

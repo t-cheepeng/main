@@ -8,7 +8,6 @@ import static seedu.exercise.logic.parser.ListCommandParser.LIST_TYPE_EXERCISE;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
-import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.CommonTestData.CALORIES_DESC_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.CATEGORY_DESC_EXERCISE;
@@ -59,7 +58,7 @@ import seedu.exercise.testutil.typicalutil.TypicalConflict;
 
 public class LogicManagerTest {
 
-    private static final Path exerciseBookFilePath = Paths.get("data" , EXERCISE_BOOK_FILE_NAME);
+    private static final Path exerciseBookFilePath = Paths.get("data", EXERCISE_BOOK_FILE_NAME);
     private static final Path regimeBookFilePath = Paths.get("data", REGIME_BOOK_FILE_NAME);
 
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -83,7 +82,7 @@ public class LogicManagerTest {
         JsonScheduleBookStorage jsonScheduleBookStorage =
             new JsonScheduleBookStorage(temporaryFolder.resolve(CommonTestData.SCHEDULE_BOOK_FILE_NAME));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(
-                temporaryFolder.resolve(CommonTestData.USER_PREFS_FILE_NAME));
+            temporaryFolder.resolve(CommonTestData.USER_PREFS_FILE_NAME));
         JsonPropertyBookStorage propertyBookStorage =
             new JsonPropertyBookStorage(temporaryFolder.resolve(CommonTestData.PROPERTY_BOOK_FILE_NAME));
         storage = new StorageBook(jsonExerciseBookStorage, allJsonExerciseDatabase,
@@ -108,8 +107,8 @@ public class LogicManagerTest {
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD + " " + PREFIX_CATEGORY + LIST_TYPE_EXERCISE;
         assertCommandSuccess(listCommand,
-                String.format(ListCommand.MESSAGE_SUCCESS, LIST_TYPE_EXERCISE),
-                model);
+            String.format(ListCommand.MESSAGE_SUCCESS, LIST_TYPE_EXERCISE),
+            model);
     }
 
     @Test
@@ -151,12 +150,12 @@ public class LogicManagerTest {
     public void execute_incorrectState_throwsCommandException() {
         //Resolve command in NORMAL state
         assertThrows(CommandException.class, () -> logic.execute(ResolveCommand.COMMAND_WORD
-                + VALID_PREFIX_NAME_CARDIO));
+            + VALID_PREFIX_NAME_CARDIO));
 
         //Any non resolve command in conflict state
         MainApp.setState(State.IN_CONFLICT);
         assertThrows(CommandException.class, () -> logic.execute(ListCommand.COMMAND_WORD
-                + VALID_PREFIX_LIST_TYPE_EXERCISE));
+            + VALID_PREFIX_LIST_TYPE_EXERCISE));
         assertThrows(CommandException.class, () -> logic.execute(UndoCommand.COMMAND_WORD));
     }
 
@@ -233,7 +232,7 @@ public class LogicManagerTest {
                 new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
-                new UserPrefs(), getDefaultPropertyBook());
+                new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

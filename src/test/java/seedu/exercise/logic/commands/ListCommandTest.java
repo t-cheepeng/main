@@ -4,7 +4,6 @@ import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
-import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -28,21 +27,19 @@ public class ListCommandTest {
     public void setUp() {
         model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
-                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs(),
-            getDefaultPropertyBook());
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs());
         expectedModel = new ModelManager(model.getExerciseBookData(),
                 new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
-                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs(),
-            getDefaultPropertyBook());
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs());
     }
 
     @Test
     public void execute_exerciseListNotFiltered_showsAllExercises() {
         ListResourceType listResourceType = ListResourceType.EXERCISE;
         CommandResult expectedCommandResult = new CommandResult(
-                String.format(ListCommand.MESSAGE_SUCCESS, listResourceType.toString().toLowerCase()),
-                listResourceType);
+            String.format(ListCommand.MESSAGE_SUCCESS, listResourceType.toString().toLowerCase()),
+            listResourceType);
         assertCommandSuccess(new ListCommand(listResourceType), model, expectedCommandResult, expectedModel);
     }
 
@@ -50,8 +47,8 @@ public class ListCommandTest {
     public void execute_exerciseListFiltered_showsFilteredExercises() {
         ListResourceType listResourceType = ListResourceType.EXERCISE;
         CommandResult expectedCommandResult = new CommandResult(
-                String.format(ListCommand.MESSAGE_SUCCESS, listResourceType.toString().toLowerCase()),
-                listResourceType);
+            String.format(ListCommand.MESSAGE_SUCCESS, listResourceType.toString().toLowerCase()),
+            listResourceType);
         assertCommandSuccess(new ListCommand(listResourceType), model, expectedCommandResult, expectedModel);
     }
 }

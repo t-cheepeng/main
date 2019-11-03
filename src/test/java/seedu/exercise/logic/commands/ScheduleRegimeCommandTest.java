@@ -16,7 +16,6 @@ import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Schedule;
-import seedu.exercise.model.util.DefaultPropertyBookUtil;
 import seedu.exercise.testutil.typicalutil.TypicalConflict;
 import seedu.exercise.testutil.typicalutil.TypicalDates;
 import seedu.exercise.testutil.typicalutil.TypicalRegime;
@@ -26,17 +25,17 @@ import seedu.exercise.ui.ListResourceType;
 public class ScheduleRegimeCommandTest {
 
     private final ScheduleCommand scheduleRegimeCommandWithUnknownRegime =
-            new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_CHEST),
-                TypicalDates.DATE_3);
+        new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_CHEST),
+            TypicalDates.DATE_3);
     private final ScheduleCommand scheduleRegimeCommandWithConflictingDate =
-            new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_LEGS),
-                TypicalDates.DATE_1);
+        new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_LEGS),
+            TypicalDates.DATE_1);
     private final ScheduleCommand scheduleRegimeCommandWithEpochDate =
-            new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_CARDIO),
-                    TypicalDates.DATE_EPOCH);
+        new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_CARDIO),
+            TypicalDates.DATE_EPOCH);
     private final ScheduleCommand validScheduleRegimeCommand =
-            new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_CARDIO),
-                TypicalDates.DATE_3);
+        new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_CARDIO),
+            TypicalDates.DATE_3);
 
     private Model model;
 
@@ -46,8 +45,7 @@ public class ScheduleRegimeCommandTest {
         model = new ModelManager(new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
                 TypicalRegime.getTypicalRegimeBook(),
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
-                TypicalSchedule.getTypicalScheduleBook(), new UserPrefs(),
-                DefaultPropertyBookUtil.getDefaultPropertyBook());
+                TypicalSchedule.getTypicalScheduleBook(), new UserPrefs());
     }
 
     @Test
@@ -63,7 +61,7 @@ public class ScheduleRegimeCommandTest {
     @Test
     public void execute_nonExistentRegime_throwsCommandException() {
         String expectedMessage = String.format(ScheduleRegimeCommand.MESSAGE_REGIME_NOT_FOUND,
-                TypicalRegime.VALID_REGIME_NAME_CHEST);
+            TypicalRegime.VALID_REGIME_NAME_CHEST);
 
         CommandTestUtil.assertCommandFailure(scheduleRegimeCommandWithUnknownRegime, model, expectedMessage);
     }
@@ -71,7 +69,7 @@ public class ScheduleRegimeCommandTest {
     @Test
     public void execute_dateBeforeCurrentDate_throwsCommandException() {
         String expectedMessage = String.format(ScheduleRegimeCommand.MESSAGE_DATE_BEFORE_CURRENT_DATE,
-                Date.getToday().toString());
+            Date.getToday().toString());
 
         CommandTestUtil.assertCommandFailure(scheduleRegimeCommandWithEpochDate, model, expectedMessage);
     }
@@ -86,11 +84,10 @@ public class ScheduleRegimeCommandTest {
         Model expectedModel = new ModelManager(new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
                 model.getAllRegimeData(),
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
-                model.getAllScheduleData(), new UserPrefs(),
-                DefaultPropertyBookUtil.getDefaultPropertyBook());
+                model.getAllScheduleData(), new UserPrefs());
 
         CommandTestUtil.assertCommandSuccess(scheduleRegimeCommandWithConflictingDate, model,
-                new CommandResult(expectedMessage, false, false, true), expectedModel);
+            new CommandResult(expectedMessage, false, false, true, false), expectedModel);
 
         //Ensure state is in conflict after execution of command
         assertEquals(State.IN_CONFLICT, MainApp.getState());
@@ -103,13 +100,12 @@ public class ScheduleRegimeCommandTest {
     @Test
     public void execute_validScheduleRegimeCommand_success() {
         String expectedMessage = String.format(ScheduleRegimeCommand.MESSAGE_SUCCESS,
-                TypicalRegime.VALID_REGIME_NAME_CARDIO, TypicalDates.DATE_3);
+            TypicalRegime.VALID_REGIME_NAME_CARDIO, TypicalDates.DATE_3);
 
         Model expectedModel = new ModelManager(
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR), model.getAllRegimeData(),
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
-                model.getAllScheduleData(), new UserPrefs(),
-                DefaultPropertyBookUtil.getDefaultPropertyBook());
+                model.getAllScheduleData(), new UserPrefs());
         expectedModel.addSchedule(new Schedule(TypicalRegime.VALID_REGIME_CARDIO, TypicalDates.DATE_3));
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SCHEDULE);

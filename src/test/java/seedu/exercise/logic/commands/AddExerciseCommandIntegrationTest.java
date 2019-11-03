@@ -5,7 +5,6 @@ import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
-import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +30,7 @@ public class AddExerciseCommandIntegrationTest {
         model = new ModelManager(getTypicalExerciseBook(),
                 new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
-            new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs(), getDefaultPropertyBook());
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs());
     }
 
     @Test
@@ -41,13 +40,12 @@ public class AddExerciseCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getExerciseBookData(),
                 new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
                 new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
-                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs(),
-            getDefaultPropertyBook());
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs());
         expectedModel.addExercise(validExercise);
 
         CommandResult expectedCommandResult = new CommandResult(
-                String.format(AddExerciseCommand.MESSAGE_SUCCESS, validExercise),
-                ListResourceType.EXERCISE);
+            String.format(AddExerciseCommand.MESSAGE_SUCCESS, validExercise),
+            ListResourceType.EXERCISE);
         assertCommandSuccess(new AddExerciseCommand(validExercise), model, expectedCommandResult, expectedModel);
 
     }
