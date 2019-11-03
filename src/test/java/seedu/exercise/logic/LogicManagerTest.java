@@ -143,7 +143,7 @@ public class LogicManagerTest {
 
     @Test
     public void getFilteredExerciseList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredExerciseList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> logic.getSortedExerciseList().remove(0));
     }
 
     @Test
@@ -167,10 +167,10 @@ public class LogicManagerTest {
     @Test
     public void getMethods_defaultValues_success() {
         assertEquals(new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR), logic.getExerciseBook());
-        assertEquals(model.getSortedExerciseList(), logic.getFilteredExerciseList());
+        assertEquals(model.getSortedExerciseList(), logic.getSortedExerciseList());
         assertEquals(new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR), logic.getRegimeBook());
-        assertEquals(model.getSortedRegimeList(), logic.getFilteredRegimeList());
-        assertEquals(model.getSortedScheduleList(), logic.getFilteredScheduleList());
+        assertEquals(model.getSortedRegimeList(), logic.getSortedRegimeList());
+        assertEquals(model.getSortedScheduleList(), logic.getSortedScheduleList());
         assertEquals(model.getSuggestedExerciseList(), logic.getSuggestedExerciseList());
         assertEquals(model.getGuiSettings(), logic.getGuiSettings());
 

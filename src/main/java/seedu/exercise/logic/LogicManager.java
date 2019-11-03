@@ -71,7 +71,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Exercise> getFilteredExerciseList() {
+    public ObservableList<Exercise> getSortedExerciseList() {
         return model.getSortedExerciseList();
     }
 
@@ -81,11 +81,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Regime> getFilteredRegimeList() {
+    public ObservableList<Regime> getSortedRegimeList() {
         return model.getSortedRegimeList();
     }
 
-    public ObservableList<Schedule> getFilteredScheduleList() {
+    @Override
+    public ObservableList<Schedule> getSortedScheduleList() {
         return model.getSortedScheduleList();
     }
 

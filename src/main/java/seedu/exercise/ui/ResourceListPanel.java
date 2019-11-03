@@ -65,7 +65,6 @@ public abstract class ResourceListPanel extends UiPart<Region> {
                         selectGivenIndex(index);
                     }
                 }
-
             }
         });
     }
