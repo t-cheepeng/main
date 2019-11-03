@@ -73,6 +73,7 @@ public class ReadOnlyResourceBook<T extends Resource> {
         resources.remove(key);
     }
 
+
     /**
      * Retrieves the index of {@code toGet} from the sorted list.
      * Returns -1 if the item is not present in the sorted list.
