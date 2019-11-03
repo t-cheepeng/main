@@ -48,8 +48,7 @@
                     <right>
                         <BorderPane minWidth="300" styleClass="pane-with-border">
                             <center>
-                                <StackPane minWidth="300" fx:id="chartPlaceholder" BorderPane.alignment="CENTER"
-                                           styleClass="chartBox"/>
+                                <StackPane minWidth="300" fx:id="chartPlaceholder" BorderPane.alignment="CENTER" styleClass="chartBox"/>
                             </center>
 
                             <bottom>
