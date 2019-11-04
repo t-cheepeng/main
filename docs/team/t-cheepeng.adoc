@@ -41,7 +41,7 @@ at a particular date. However, this difficulty was remedied as described in *Maj
 
 * *Minor enhancement 1*: Added the display panel in the center of our UI to display more information on the selected resource on the left panel of our UI.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=t-cheepeng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional Code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=t-cheepeng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
 
 * *Other contributions*:
 
