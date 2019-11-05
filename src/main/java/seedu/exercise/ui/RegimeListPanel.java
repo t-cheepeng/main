@@ -9,6 +9,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.model.resource.Regime;
+import seedu.exercise.model.resource.Resource;
 
 /**
  * Panel containing list of regimes.
@@ -27,10 +28,6 @@ public class RegimeListPanel extends ResourceListPanel {
         regimeListView.getFocusModel().focusedItemProperty().addListener(getDefaultListViewListener());
     }
 
-    public ListView<Regime> getRegimeListView() {
-        return regimeListView;
-    }
-
     @Override
     protected void selectGivenIndex(int index) {
         if (index >= 0) {
@@ -44,6 +41,16 @@ public class RegimeListPanel extends ResourceListPanel {
              */
             Platform.runLater(() -> selectFocusAndScrollTo(regimeListView, index));
         }
+    }
+
+    @Override
+    protected void resetListSelection() {
+        regimeListView.getSelectionModel().clearSelection();
+    }
+
+    @Override
+    protected ListView<Regime> getResourceListView() {
+        return regimeListView;
     }
 
     /**

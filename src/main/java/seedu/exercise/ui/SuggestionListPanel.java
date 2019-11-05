@@ -9,6 +9,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.model.resource.Resource;
 
 /**
  * Panel containing the list of suggested exercises.
@@ -44,6 +45,16 @@ public class SuggestionListPanel extends ResourceListPanel {
              */
             Platform.runLater(() -> selectFocusAndScrollTo(suggestionListView, index));
         }
+    }
+
+    @Override
+    protected void resetListSelection() {
+        suggestionListView.getSelectionModel().clearSelection();
+    }
+
+    @Override
+    protected ListView<Exercise> getResourceListView() {
+        return suggestionListView;
     }
 
     /**
