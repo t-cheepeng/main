@@ -9,7 +9,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.model.resource.Exercise;
-import seedu.exercise.model.resource.Resource;
 
 /**
  * Panel containing the list of suggested exercises.

@@ -236,6 +236,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Resets the selection models of the resource list panels on the left of the GUI.
+     */
     private void resetResourceListTabs() {
         exerciseListPanel.resetListSelection();
         regimeListPanel.resetListSelection();
