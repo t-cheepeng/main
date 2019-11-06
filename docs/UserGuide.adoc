@@ -333,16 +333,6 @@ image::ScheduleRegimeCardioConflict.png[]
 
 If the resolve window pops up for you, please refer to <<resolve>> for details on resolving a scheduling conflict.
 
-*Example 2:*
-
-* `schedule n/cardio d/02/03/2010`
-
-Assuming that your system clock is after the date `02/03/2010`, `ExerHealth` will not allow the regime `cardio` to be scheduled on the inputted date of `02/03/2010`.
-
-Expected Result:
-
-image::ScheduleBeforeTodayDate.png[]
-
 ==== Completes a schedule regime
 
 Once a scheduled regime is completed, you can add that completed schedule to the exercise tracker. The schedule is then deleted from the scheduling list.
@@ -372,6 +362,8 @@ image::ScheduleCompleteExerciseTracker.png[]
 In your schedule tracker after completing execution of `schedule i/2`
 
 image::ScheduleCompleteScheduleTracker.png[]
+
+// end::scheduleresolve[]
 
 [[resolve]]
 === Resolving scheduling conflicts: `resolve`
@@ -444,7 +436,6 @@ The `new cardio` regime is now added to your collection of regimes
 
 image::ResolveRegimeTracker.png[]
 
-// end::scheduleresolve[]
 
 // tag::suggest[]
 
