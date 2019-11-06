@@ -69,6 +69,11 @@ can be used as `{nbsp}` (i.e. 0 times), `m/glutes`, `m/glutes m/chest` etc.
 ====
 
 === Viewing help : `help`
+Views the help dialog box which will bring you to this UserGuide. You can expect to see a window as shown below.
+
+image::HelpDialogBox.png[]
+
+Clicking on the `Copy URL` button will copy the link to your clipboard and you can open any browser of your choice to access the UserGuide for `ExerHealth`.
 
 Format: `help`
 
@@ -121,6 +126,7 @@ Adds the 1st, 2nd and 3rd exercise in the list to the regime named `power sets`.
 
 Adds the 4th exercise in the list to the regime named `cardio`.
 
+[[list]]
 === Listing information : `list`
 
 Retrieves a list of information - Exercise, Regime, Scheduled Regime or Suggestion - from ExerHealth.
@@ -301,27 +307,72 @@ Format: `redo`
 
 ==== Schedules a regime
 
-Schedules an exercise regime for a certain date. If regime clashes with another scheduled regime, users will be prompted to resolve the conflict via a popup window. Refer to <<resolve>> for details on resolving scheduling conflicts.
+Schedules an exercise regime for a certain date. If the regime clashes with another scheduled regime, you will be prompted to resolve the conflict via a popup window. Refer to <<resolve>> for details on resolving scheduling conflicts.
 
 Format: `schedule n/REGIME_NAME d/DATE`
 
-Example:
+****
+* To schedule a regime, `REGIME_NAME` must exist in your regime list. You can use <<list, `list t/regime`>> command to view the regimes that you currently have.
+* The format of `DATE` must be of the form `dd/MM/YYYY`. For example, `12/12/2019` or `01/01/2020`. Even if the number has only one digit, please ensure you include a 0 at the front to ensure that it adheres to the format required.
+* Note that you will not be allowed to schedule a regime before the date displayed on your system clock
+* Note that you are allowed to schedule a regime of the same name on the same date. The resolve window will pop up for you as per normal.
+****
+Example 1:
 
 * `schedule n/cardio d/12/12/2019`
 
 Schedules the regime called `cardio` on the date `12/12/2019`. If there are no other regimes scheduled on `12/12/2019` then the command is successful. Otherwise, you will be prompted to resolve the scheduling conflict.
 
+Expected Result:
+
+image::ScheduleRegimeCardio.png[]
+
+Expected Result (if other schedule exist on `12/12/2019`):
+
+image::ScheduleRegimeCardioConflict.png[]
+
+If the resolve window pops up for you, please refer to <<resolve>> for details on resolving a scheduling conflict.
+
+Example 2:
+
+* `schedule n/cardio d/02/03/2010`
+
+Assuming that your system clock is after the date `02/03/2010`, `ExerHealth` will not allow the regime `cardio` to be scheduled on the inputted date of `02/03/2010`.
+
+Expected Result:
+
+image::ScheduleBeforeTodayDate.png[]
+
 ==== Completes a schedule regime
 
-Once a scheduled regime is completed, users can add that regime to the exercise tracker. The schedule is then deleted from the scheduling list.
+Once a scheduled regime is completed, you can add that completed schedule to the exercise tracker. The schedule is then deleted from the scheduling list.
 
-Format: `schedule i/INDEX_OF_REGIME_IN_SCHEDULE`
+Format: `schedule i/INDEX_OF_SCHEDULE`
+
+
+[TIP]
+The `INDEX_OF_SCHEDULE` provided must be a valid index from your schedule list. Please use <<list, `list t/schedule`>> to view you index of the schedule you wish to complete.
 
 Example:
 
 * `schedule i/2`
 
-Completes all the exercises that are in the schedule at index `2`. All the exercises will be added to the exercise list and the schedule at index `2` is deleted.
+Completes all the exercises that are in the schedule at index `2`. All the exercises scheduled will be added to the exercise list and the schedule at index `2` is deleted.
+
+Expected Result:
+
+Before execution of `schedule i/2`
+
+image::ScheduleCompleteBefore.png[]
+
+In your exercise tracker
+
+image::ScheduleCompleteExerciseTracker.png[]
+
+In your schedule tracker after completing execution of `schedule i/2`
+
+image::ScheduleCompleteScheduleTracker.png[]
+
 [[resolve]]
 === Resolving scheduling conflicts: `resolve`
 
