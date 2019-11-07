@@ -4,7 +4,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 
-//@@ t-cheepeng
+//@@author t-cheepeng
 /**
  * Schedules a regime or completes a schedule on a certain date
  */
