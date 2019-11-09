@@ -9,7 +9,6 @@ import seedu.exercise.ui.ResultDisplay;
  */
 public class ResultDisplayHandle extends NodeHandle<TextArea> {
 
-    public static final String RESULT_DISPLAY_FIELD_ID = "#resultDisplay";
 
     public ResultDisplayHandle(TextArea rootNode) {
         super(rootNode);

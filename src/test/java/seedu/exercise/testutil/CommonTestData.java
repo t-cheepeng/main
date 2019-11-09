@@ -286,4 +286,10 @@ public class CommonTestData {
     //=====================For invalid list type=========================================================
     public static final String INVALID_LIST_TYPE_ADDRESS = "address";
     public static final String INVALID_PREFIX_LIST_TYPE_ADDRESS = " " + PREFIX_CATEGORY + INVALID_LIST_TYPE_ADDRESS;
+
+    //=====================For GUI id's=========================================================
+    public static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
+    public static final String EXERCISE_LIST_VIEW_ID = "#exerciseListView";
+    public static final String EXERCISE_LABEL_ID = "#exerciseTitle";
+    public static final String RESULT_DISPLAY_FIELD_ID = "#resultDisplay";
 }

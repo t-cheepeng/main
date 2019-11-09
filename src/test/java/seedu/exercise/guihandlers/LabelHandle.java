@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
  */
 public class LabelHandle extends NodeHandle<Label> {
 
-    public static final String LABEL_ID = "#exerciseTitle";
 
     public LabelHandle(Label rootNode) {
         super(rootNode);

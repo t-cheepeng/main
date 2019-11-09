@@ -1,6 +1,7 @@
 package seedu.exercise.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.exercise.testutil.CommonTestData.RESULT_DISPLAY_FIELD_ID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ public class ResultDisplayTest extends GuiUnitTest {
     private void setUp() {
         resultDisplay = new ResultDisplay();
         displayHandle = new ResultDisplayHandle(
-                getChildNode(resultDisplay.getRoot(), ResultDisplayHandle.RESULT_DISPLAY_FIELD_ID));
+                getChildNode(resultDisplay.getRoot(), RESULT_DISPLAY_FIELD_ID));
         uiPartExtension.setUiPart(resultDisplay);
     }
 

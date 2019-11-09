@@ -1,8 +1,8 @@
 package seedu.exercise.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.exercise.guihandlers.ExerciseListViewHandle.LIST_VIEW_ID;
-import static seedu.exercise.guihandlers.LabelHandle.LABEL_ID;
+import static seedu.exercise.testutil.CommonTestData.EXERCISE_LABEL_ID;
+import static seedu.exercise.testutil.CommonTestData.EXERCISE_LIST_VIEW_ID;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExercises;
 import static seedu.exercise.ui.testutil.GuiAssert.assertSelectionModelNonSelected;
 
@@ -32,9 +32,9 @@ public class ExerciseListPanelTest extends GuiUnitTest {
         testExercises = FXCollections.observableList(getTypicalExercises());
         exerciseListPanel = new ExerciseListPanel(testExercises);
         exerciseListViewHandle = new ExerciseListViewHandle(
-                getChildNode(exerciseListPanel.getRoot(), LIST_VIEW_ID));
+                getChildNode(exerciseListPanel.getRoot(), EXERCISE_LIST_VIEW_ID));
         labelHandle = new LabelHandle(
-                getChildNode(exerciseListPanel.getRoot(), LABEL_ID));
+                getChildNode(exerciseListPanel.getRoot(), EXERCISE_LABEL_ID));
         uiPartExtension.setUiPart(exerciseListPanel);
     }
 

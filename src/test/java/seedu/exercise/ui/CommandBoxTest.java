@@ -2,6 +2,7 @@ package seedu.exercise.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.exercise.testutil.CommonTestData.COMMAND_INPUT_FIELD_ID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ public class CommandBoxTest extends GuiUnitTest {
     private void setUp() {
         commandBox = new CommandBox(new BasicCommandExecutor());
         commandBoxHandle = new CommandBoxHandle(getChildNode(commandBox.getRoot(),
-                CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
+                COMMAND_INPUT_FIELD_ID));
         uiPartExtension.setUiPart(commandBox);
     }
 

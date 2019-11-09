@@ -9,7 +9,6 @@ import javafx.scene.input.KeyCode;
  */
 public class CommandBoxHandle extends NodeHandle<TextField> {
 
-    public static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
     public CommandBoxHandle(TextField commandBoxNode) {
         super(commandBoxNode);

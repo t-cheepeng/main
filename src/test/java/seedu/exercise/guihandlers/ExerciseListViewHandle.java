@@ -13,7 +13,6 @@ import seedu.exercise.model.resource.Exercise;
  */
 public class ExerciseListViewHandle extends NodeHandle<ListView<Exercise>> {
 
-    public static final String LIST_VIEW_ID = "#exerciseListView";
 
     public ExerciseListViewHandle(ListView<Exercise> rootNode) {
         super(rootNode);
