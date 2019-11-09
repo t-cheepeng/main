@@ -1,12 +1,9 @@
 package seedu.exercise.ui;
 
-import java.util.logging.Logger;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.model.resource.Schedule;
 
 /**
@@ -14,7 +11,6 @@ import seedu.exercise.model.resource.Schedule;
  */
 public class ScheduleListPanel extends ResourceListPanel {
     private static final String FXML = "ScheduleListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(ScheduleListPanel.class);
 
     @FXML
     private ListView<Schedule> scheduleListView;

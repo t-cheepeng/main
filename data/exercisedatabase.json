@@ -1,107 +1,51 @@
 {
   "jsonResources" : [ {
-    "name" : "Bench Press",
-    "date" : "07/11/2019",
-    "calories" : "150",
-    "quantity" : "40",
-    "unit" : "counts",
-    "muscles" : [ "Chest", "Triceps" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Bicep Curl",
-    "date" : "07/11/2019",
-    "calories" : "20",
-    "quantity" : "10",
-    "unit" : "kg",
-    "muscles" : [ "Biceps" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Crunches",
-    "date" : "07/11/2019",
-    "calories" : "20",
-    "quantity" : "10",
-    "unit" : "counts",
-    "muscles" : [ "Abs" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Deadlift",
-    "date" : "07/11/2019",
-    "calories" : "100",
-    "quantity" : "100",
-    "unit" : "kg",
-    "muscles" : [ "Legs", "Back", "Hamstring", "Butt" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Farmer Walk",
-    "date" : "07/11/2019",
-    "calories" : "50",
-    "quantity" : "20",
-    "unit" : "kg",
-    "muscles" : [ "Shoulders", "Forearms" ],
-    "customProperties" : { }
-  }, {
-    "name" : "High Jumper",
-    "date" : "07/11/2019",
-    "calories" : "20",
+    "name" : "Rope Skipping",
+    "date" : "11/11/2019",
+    "calories" : "330",
     "quantity" : "10",
     "unit" : "counts",
     "muscles" : [ "Legs" ],
     "customProperties" : { }
   }, {
-    "name" : "Jumping jacks",
-    "date" : "07/11/2019",
-    "calories" : "20",
-    "quantity" : "100",
-    "unit" : "counts",
-    "muscles" : [ "Legs" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Pull Ups",
-    "date" : "07/11/2019",
-    "calories" : "20",
-    "quantity" : "100",
-    "unit" : "counts",
-    "muscles" : [ "Back" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Push Ups",
-    "date" : "07/11/2019",
-    "calories" : "20",
-    "quantity" : "100",
-    "unit" : "counts",
-    "muscles" : [ "Chest", "Triceps" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Run",
-    "date" : "07/11/2019",
-    "calories" : "200",
-    "quantity" : "10",
+    "name" : "Cycling",
+    "date" : "10/11/2019",
+    "calories" : "284",
+    "quantity" : "5",
     "unit" : "km",
     "muscles" : [ "Legs" ],
     "customProperties" : { }
   }, {
-    "name" : "Sit ups",
-    "date" : "07/11/2019",
-    "calories" : "20",
-    "quantity" : "100",
+    "name" : "Strength Training",
+    "date" : "09/11/2019",
+    "calories" : "341",
+    "quantity" : "20",
     "unit" : "counts",
-    "muscles" : [ "Abs" ],
+    "muscles" : [ "Chest" ],
     "customProperties" : { }
   }, {
-    "name" : "Squat Bender",
+    "name" : "Swimming",
+    "date" : "08/11/2019",
+    "calories" : "354",
+    "quantity" : "10",
+    "unit" : "laps",
+    "muscles" : [ "Calves" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Bench Press",
     "date" : "07/11/2019",
-    "calories" : "20",
-    "quantity" : "100",
+    "calories" : "222",
+    "quantity" : "30",
     "unit" : "counts",
+    "muscles" : [ "Triceps" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Running",
+    "date" : "06/11/2019",
+    "calories" : "431",
+    "quantity" : "2.4",
+    "unit" : "km",
     "muscles" : [ "Legs" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Squats",
-    "date" : "07/11/2019",
-    "calories" : "100",
-    "quantity" : "100",
-    "unit" : "counts",
-    "muscles" : [ "Quads", "Legs", "Butt" ],
     "customProperties" : { }
   } ]
 }
