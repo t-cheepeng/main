@@ -187,6 +187,8 @@ public class MainWindow extends UiPart<Stage> {
         regimeListPanel.setOnItemSelectListener(getListener());
         scheduleListPanel.setOnItemSelectListener(getListener());
         suggestionListPanel.setOnItemSelectListener(getListener());
+
+        logger.info("Listeners for resource list panels set");
     }
 
     private ResourceListPanel.OnItemSelectListener getListener() {
@@ -344,6 +346,7 @@ public class MainWindow extends UiPart<Stage> {
      * Checks if a the resource list has to change based on the {@code CommandResult}
      */
     private void updateResourceListTab(CommandResult commandResult, int index) {
+        logger.info("Changing resource list panel to show " + commandResult.getShowListResourceType());
         switch (commandResult.getShowListResourceType()) {
         case NULL:
             //no change to GUI

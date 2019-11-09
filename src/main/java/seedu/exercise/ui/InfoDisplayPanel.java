@@ -35,10 +35,13 @@ public class InfoDisplayPanel extends UiPart<Region> {
         infoPanelPlaceholder.getChildren().clear();
         if (resource instanceof Exercise) {
             infoPanelPlaceholder.getChildren().add(new ExerciseInfoPanel((Exercise) resource).getRoot());
+            logCurrentInfoShown("exercise");
         } else if (resource instanceof Regime) {
             infoPanelPlaceholder.getChildren().add(new RegimeInfoPanel((Regime) resource).getRoot());
+            logCurrentInfoShown("regime");
         } else if (resource instanceof Schedule) {
             infoPanelPlaceholder.getChildren().add(new ScheduleInfoPanel((Schedule) resource).getRoot());
+            logCurrentInfoShown("schedule");
         }
     }
 
@@ -48,5 +51,10 @@ public class InfoDisplayPanel extends UiPart<Region> {
     public void showDefaultMessage() {
         infoPanelPlaceholder.getChildren().clear();
         infoPanelPlaceholder.getChildren().add(new Label(DEFAULT_MESSAGE));
+        logCurrentInfoShown("default message");
+    }
+
+    private void logCurrentInfoShown(String infoShown) {
+        logger.info("Info panel displaying " + infoShown);
     }
 }
