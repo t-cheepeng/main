@@ -37,6 +37,12 @@ public abstract class ResourceListPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Selects, focus and scrolls to the {@code index} in {@code resources} list on left panel.
+     * <p>
+     *     Method will additionally inform the {@link OnItemSelectListener} of this selection event
+     * </p>
+     */
     void selectFocusAndScrollTo(ListView<? extends Resource> resources, int index) {
         resources.getSelectionModel().select(index);
         resources.getFocusModel().focus(index);
