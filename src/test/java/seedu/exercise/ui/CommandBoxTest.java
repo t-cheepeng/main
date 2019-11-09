@@ -1,6 +1,7 @@
 package seedu.exercise.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,12 +17,14 @@ public class CommandBoxTest extends GuiUnitTest {
     private static final String COMMAND_FAILURE_MESSAGE = "Command failed";
     private static final String COMMAND_SUCCESS_MESSAGE = "Command successful";
     private static final String COMMAND_SUCCESS_INPUT = "success command";
+    private static final String COMMAND_FAILURE_INPUT = "failure command";
 
     private CommandBoxHandle commandBoxHandle;
+    private CommandBox commandBox;
 
     @BeforeEach
     private void setUp() {
-        CommandBox commandBox = new CommandBox(new BasicCommandExecutor());
+        commandBox = new CommandBox(new BasicCommandExecutor());
         commandBoxHandle = new CommandBoxHandle(getChildNode(commandBox.getRoot(),
                 CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         uiPartExtension.setUiPart(commandBox);
@@ -31,6 +34,18 @@ public class CommandBoxTest extends GuiUnitTest {
     public void commandBox_commandEntered_textFieldCleared() {
         commandBoxHandle.run(COMMAND_SUCCESS_INPUT);
         assertEquals("", commandBoxHandle.getInput());
+    }
+
+    @Test
+    public void commandBox_invalidCommand_styleClassChange() {
+        commandBoxHandle.run(COMMAND_FAILURE_INPUT);
+        assertTrue(commandBoxHandle.getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS));
+    }
+
+    @Test
+    public void commandBox_requestFocus_focused() {
+        commandBox.requestFocus();
+        assertTrue(commandBoxHandle.isFocused());
     }
 
     private class BasicCommandExecutor implements CommandBox.CommandExecutor {
