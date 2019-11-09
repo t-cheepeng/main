@@ -2,7 +2,6 @@ package seedu.exercise.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

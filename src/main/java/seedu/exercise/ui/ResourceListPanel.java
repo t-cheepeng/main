@@ -116,6 +116,16 @@ public abstract class ResourceListPanel extends UiPart<Region> {
         });
     }
 
+    /**
+     * Selects the {@code index} in the resource list view on the left panel.
+     * <p>
+     *     This method will cause the selected {@code index} to propagate to {@link OnItemSelectListener}
+     *     so that any class listening out for selection changes can be informed of the selection.
+     *     Classes interested in listening out for selection events should implement the
+     *     {@link OnItemSelectListener#onItemSelect(Resource)} to be informed of the resource
+     *     that has been selected.
+     * </p>
+     */
     protected void selectGivenIndex(int index) {
         ListView<? extends Resource> resourceListView = getResourceListView();
         if (index >= 0) {

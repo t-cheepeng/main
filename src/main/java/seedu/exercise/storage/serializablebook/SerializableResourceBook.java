@@ -19,9 +19,9 @@ import seedu.exercise.storage.resource.JsonAdaptedResource;
  */
 public abstract class SerializableResourceBook<T extends JsonAdaptedResource<U>, U extends Resource> {
 
-    private static final Logger logger = LogsCenter.getLogger(SerializableResourceBook.class);
-
     public static final String MESSAGE_DUPLICATE_RESOURCE = "The list has duplicate exercises/regimes/schedules.";
+
+    private static final Logger logger = LogsCenter.getLogger(SerializableResourceBook.class);
 
     private final List<T> jsonResources = new ArrayList<>();
 
