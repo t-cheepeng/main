@@ -322,7 +322,6 @@ public class MainWindow extends UiPart<Stage> {
     private void handleSelectResource(CommandResult commandResult) {
         Index selectedIndex = commandResult.getSelectedIndex().get();
         updateResourceListTab(commandResult, selectedIndex.getZeroBased());
-
     }
 
     void show() {

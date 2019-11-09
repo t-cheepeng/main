@@ -41,6 +41,7 @@ public abstract class ResourceListPanel extends UiPart<Region> {
         resources.getSelectionModel().select(index);
         resources.getFocusModel().focus(index);
         resources.scrollTo(index);
+        notifyOnSelectListener(resources.getSelectionModel().getSelectedItem());
     }
 
     ChangeListener<Resource> getDefaultListViewListener() {
