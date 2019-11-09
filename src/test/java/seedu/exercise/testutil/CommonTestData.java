@@ -292,4 +292,7 @@ public class CommonTestData {
     public static final String EXERCISE_LIST_VIEW_ID = "#exerciseListView";
     public static final String EXERCISE_LABEL_ID = "#exerciseTitle";
     public static final String RESULT_DISPLAY_FIELD_ID = "#resultDisplay";
+    public static final String HELP_WINDOW_BUTTON_ID = "#copyButton";
+    public static final String HELP_WINDOW_LABEL_ID = "#helpMessage";
+    public static final String HELP_WINDOW_STAGE_TITLE = "Help";
 }

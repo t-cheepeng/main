@@ -11,5 +11,11 @@ public class ButtonHandle extends NodeHandle<Button> {
         super(rootNode);
     }
 
-
+    /**
+     * Clicks on the the root button node and pauses.
+     */
+    public void click() {
+        guiRobot.interact(() -> getRootNode().fire());
+        guiRobot.pauseForHuman();
+    }
 }
