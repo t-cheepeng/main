@@ -29,10 +29,6 @@ import seedu.exercise.commons.util.StringUtil;
 import seedu.exercise.logic.commands.SuggestCommand;
 import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.parser.exceptions.ParseException;
-import seedu.exercise.logic.parser.predicate.BasePropertyPredicate;
-import seedu.exercise.logic.parser.predicate.ExerciseCustomPropertyPredicate;
-import seedu.exercise.logic.parser.predicate.ExerciseMusclePredicate;
-import seedu.exercise.logic.parser.predicate.ExercisePredicate;
 import seedu.exercise.logic.parser.predicate.PredicateUtil;
 import seedu.exercise.model.property.Calories;
 import seedu.exercise.model.property.Date;
@@ -340,9 +336,9 @@ public class ParserUtil {
     /**
      * Parses a {@code String operationType} into a boolean.
      *
-     * @param operationType the intended operation type
-     * @return a {@code boolean} representing the whether the operation type is "and" or "or".
-     * @throws ParseException if the intended operation type is invalid
+     * @param   operationType the intended operation type
+     * @return  a {@code boolean} representing the whether the operation type is "and" or "or".
+     * @throws  ParseException if the intended operation type is invalid
      */
     public static boolean parseOperationType(String operationType) throws ParseException {
         requireNonNull(operationType);
@@ -372,21 +368,9 @@ public class ParserUtil {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SuggestCommand.MESSAGE_USAGE));
         }
 
-        BasePropertyPredicate musclePredicate = new ExerciseMusclePredicate(muscles, isStrict);
-        BasePropertyPredicate customPropertiesPredicate =
-            new ExerciseCustomPropertyPredicate(customProperties, isStrict);
-
-        if (muscles.isEmpty()) {
-            return new ExercisePredicate(isStrict, customPropertiesPredicate);
-        }
-
-        if (customProperties.isEmpty()) {
-            return new ExercisePredicate(isStrict, musclePredicate);
-        }
-
-        Predicate<Exercise> predicate = new ExercisePredicate(isStrict, musclePredicate, customPropertiesPredicate);
-        return predicate;
+        return PredicateUtil.getExercisePredicate(muscles, customProperties, isStrict);
     }
+
 
     /**
      * Formats a single word by capitalising the first letter and setting the remaining

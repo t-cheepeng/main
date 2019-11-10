@@ -22,6 +22,7 @@ import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.property.custom.CustomProperty;
 import seedu.exercise.model.resource.Exercise;
 
+//@@author kwekke
 /**
  * Parses input arguments and creates a new SuggestCommand object
  */
@@ -62,6 +63,7 @@ public class SuggestCommandParser implements Parser<SuggestCommand> {
         prefixes.add(PREFIX_OPERATION_TYPE);
         prefixes.add(PREFIX_SUGGEST_TYPE);
         prefixes.add(PREFIX_MUSCLE);
+        logger.info("Retrieving custom properties");
         Set<CustomProperty> customProperties = PropertyBook.getInstance().getCustomProperties();
         for (CustomProperty cp : customProperties) {
             prefixes.add(cp.getPrefix());
@@ -76,6 +78,7 @@ public class SuggestCommandParser implements Parser<SuggestCommand> {
         Set<Muscle> muscles = ParserUtil.parseMuscles(argMultimap.getAllValues(PREFIX_MUSCLE));
         Map<String, String> customPropertiesMap =
             ParserUtil.parseCustomProperties(argMultimap.getAllCustomProperties());
+        boolean isStrict = true;
         int numberOfPredicateTags = getNumberOfPredicateTags(muscles, customPropertiesMap);
 
         if (numberOfPredicateTags == 0) {
@@ -85,18 +88,15 @@ public class SuggestCommandParser implements Parser<SuggestCommand> {
 
         if (numberOfPredicateTags > 1) {
             if ((!argMultimap.arePrefixesPresent(PREFIX_OPERATION_TYPE) || !argMultimap.getPreamble().isEmpty())) {
-                logger.info("Invalid suggest possible command - no operation type");
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SuggestCommand.MESSAGE_USAGE));
             }
         }
 
         if (argMultimap.arePrefixesPresent(PREFIX_OPERATION_TYPE)) {
-            boolean operationType = ParserUtil.parseOperationType(argMultimap.getValue(PREFIX_OPERATION_TYPE).get());
-            Predicate<Exercise> predicate = parsePredicate(muscles, customPropertiesMap, operationType);
-            return new SuggestPossibleCommand(predicate);
+            isStrict = ParserUtil.parseOperationType(argMultimap.getValue(PREFIX_OPERATION_TYPE).get());
         }
 
-        Predicate<Exercise> predicate = parsePredicate(muscles, customPropertiesMap, true);
+        Predicate<Exercise> predicate = parsePredicate(muscles, customPropertiesMap, isStrict);
         return new SuggestPossibleCommand(predicate);
     }
 
