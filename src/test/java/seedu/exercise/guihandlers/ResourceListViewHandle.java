@@ -6,7 +6,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionModel;
-import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Resource;
 
 /**

@@ -49,6 +49,9 @@ public class GuiAssert {
         assertFalse(new GuiRobot().isWindowShown(windowTitle));
     }
 
+    /**
+     * Asserts that the resource {@code r} is added to the {@code actualListView} correctly.
+     */
     public static <T extends Resource> void assertResourceAddedToListView(ResourceListViewHandle<T> listView,
                                                                            T r, ResourceListPanel actualListView) {
         GuiRobot guiRobot = new GuiRobot();
@@ -57,6 +60,9 @@ public class GuiAssert {
         assertEquals(listView.getListView(), actualListView.getResourceListView());
     }
 
+    /**
+     * Asserts that {@code actualPanel}'s selection model is resetted after a selection.
+     */
     public static <T extends Resource> void assertListSelectionReset(ResourceListViewHandle<T> listViewHandle,
                                                                       ResourceListPanel actualPanel) {
         listViewHandle.select(0);
