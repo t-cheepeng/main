@@ -148,9 +148,9 @@ public abstract class ResourceListPanel extends UiPart<Region> {
         }
     }
 
-    protected abstract void resetListSelection();
+    public abstract void resetListSelection();
 
-    protected abstract ListView<? extends Resource> getResourceListView();
+    public abstract ListView<? extends Resource> getResourceListView();
 
     /**
      * Listener for item selection events in this {@code ResourceListPanel}.

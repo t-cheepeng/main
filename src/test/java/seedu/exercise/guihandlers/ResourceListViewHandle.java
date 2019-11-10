@@ -7,14 +7,14 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionModel;
 import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.model.resource.Resource;
 
 /**
  * Handle for exercise list views
  */
-public class ExerciseListViewHandle extends NodeHandle<ListView<Exercise>> {
+public class ResourceListViewHandle<T extends Resource> extends NodeHandle<ListView<T>> {
 
-
-    public ExerciseListViewHandle(ListView<Exercise> rootNode) {
+    public ResourceListViewHandle(ListView<T> rootNode) {
         super(rootNode);
     }
 
@@ -32,21 +32,21 @@ public class ExerciseListViewHandle extends NodeHandle<ListView<Exercise>> {
         return getRootNode().getItems().size();
     }
 
-    public SelectionModel<Exercise> getSelectionModel() {
+    public SelectionModel<T> getSelectionModel() {
         return getRootNode().getSelectionModel();
     }
 
-    public ListView<Exercise> getListView() {
+    public ListView<T> getListView() {
         return getRootNode();
     }
 
     /**
-     * Adds an exercise to the underlying list view
+     * Adds a resource to the underlying list view
      */
-    public void addExercise(Exercise e) {
-        List<Exercise> current = getRootNode().getItems();
-        List<Exercise> added = new ArrayList<>(current);
-        added.add(e);
+    public void addResource(T r) {
+        List<T> current = getRootNode().getItems();
+        List<T> added = new ArrayList<>(current);
+        added.add(r);
         getRootNode().setItems(FXCollections.observableList(added));
     }
 }

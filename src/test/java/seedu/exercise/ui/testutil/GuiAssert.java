@@ -9,6 +9,9 @@ import java.util.stream.IntStream;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.input.Clipboard;
 import seedu.exercise.guihandlers.GuiRobot;
+import seedu.exercise.guihandlers.ResourceListViewHandle;
+import seedu.exercise.model.resource.Resource;
+import seedu.exercise.ui.ResourceListPanel;
 
 /**
  * Utility methods for assertions of GUI tests.
@@ -46,4 +49,18 @@ public class GuiAssert {
         assertFalse(new GuiRobot().isWindowShown(windowTitle));
     }
 
+    public static <T extends Resource> void assertResourceAddedToListView(ResourceListViewHandle<T> listView,
+                                                                           T r, ResourceListPanel actualListView) {
+        GuiRobot guiRobot = new GuiRobot();
+        guiRobot.interact(() -> listView.addResource(r));
+        guiRobot.pauseForHuman();
+        assertEquals(listView.getListView(), actualListView.getResourceListView());
+    }
+
+    public static <T extends Resource> void assertListSelectionReset(ResourceListViewHandle<T> listViewHandle,
+                                                                      ResourceListPanel actualPanel) {
+        listViewHandle.select(0);
+        actualPanel.resetListSelection();
+        assertSelectionModelNonSelected(listViewHandle.getSelectionModel(), listViewHandle.getListSize());
+    }
 }
