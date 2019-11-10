@@ -298,6 +298,7 @@ public class CommonTestData {
     public static final String SCHEDULE_LIST_PANEL_LIST_VIEW_ID = "#scheduleListView";
     public static final String REGIME_LIST_PANEL_LIST_VIEW_ID = "#regimeListView";
     public static final String SUGGESTION_LIST_PANEL_LIST_VIEW_ID = "#suggestionListView";
+    public static final String INFO_PANEL_STACK_PANE_ID = "#infoPanelPlaceholder";
 
     //=====================For GUI tests=========================================================
     public static final String GUI_TITLE_TEXT = "test title";

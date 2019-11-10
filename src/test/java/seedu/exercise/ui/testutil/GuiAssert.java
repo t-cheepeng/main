@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.stream.IntStream;
 
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.input.Clipboard;
@@ -83,5 +84,12 @@ public class GuiAssert {
      */
     public static <T extends Resource> void assertItemFocused(ListView<T> listView, int index) {
         assertTrue(listView.getFocusModel().isFocused(index));
+    }
+
+    /**
+     * Asserts that {@code node} is of the type {@code clazz}.
+     */
+    public static void assertNodeType(Class clazz, Node node) {
+        assertTrue(clazz.isInstance(node));
     }
 }
