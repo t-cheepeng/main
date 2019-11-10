@@ -688,8 +688,8 @@ Format: `resolve n/NEW_REGIME_NAME [i/INDEX_OF_EXERCISE_IN_SCHEDULED] [r/INDEX_O
 * `NEW_REGIME_NAME` must be a new name that does not exist in your collection of regimes
 * The index refers to the index number shown in the displayed resolve window
 * The index *must be a positive integer* 1, 2, 3, ...
-* i/ is for index of the scheduled regime
-* r/ is for index of the conflicting regime
+* `i/` is for index of the scheduled regime
+* `r/` is for index of the conflicting regime
 * At least one `i/` or `r/` must exist in your input for this command to succeed. Otherwise, ExerHealth will think you are trying to take one regime completely as stated in the <<resolvetakeone, previous section>>.
 ****
 
