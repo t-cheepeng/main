@@ -992,6 +992,69 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
+=== Scheduling a regime
+
+. Scheduling an exercise regime
+
+.. Prerequisites: Have an exercise regime of name `cardio`.
+
+.. Test case: `schedule n/cardio d/12/12/2019` with no other schedule on `12/12/2019` +
+   Expected: Regime `cardio` is now scheduled on `12/12/2019`. Details of schedule should be shown in the center information panel and the left panel should switch to show schedule list.
+
+.. Test case: `schedule n/cardio d/12/12/2019` with a conflicting schedule on `12/12/2019` +
+   Expected: Scheduling conflict exist and the resolve window should pop up showing the already scheduled regime on the left panel and the conflicting `cardio` schedule on the right panel.
+
+=== Resolving scheduling conflict
+
+. Resolves a scheduling conflict by taking one whole regime
+
+.. Prerequisites: Resolve window should be shown on scheduling conflict
+
+.. Test case: `resolve n/conflicting` +
+   Expected: The conflicting schedule on the right panel should be taken as the resolved schedule and the resolve window should close. The conflicting schedule should now be scheduled on the conflicting date. Details of the schedule is shown on the center information panel.
+
+. Resolves a scheduling conflict by taking some exercise from both regime
+
+.. Prerequisites: Resolve window should be shown on scheduling conflict and `new cardio` should not exist in the user's regime list
+
+.. Test case: `resolve n/new cardio i/1 r/2` +
+   Expected: A new regime is created called `new cardio` with the exercises from scheduled regime's first index and conflicting regime's second index. Resolve window should close. The newly made regime is now scheduled on conflicting date. Details of the schedule shown on the center information panel.
+
+=== Suggest
+. Suggest basic exercises
+.. Test case: `suggest s/basic`
+   Expected: A list of basic exercises displayed on the
+. Suggest possible exercises
+.. Prerequisites: There is at least an exercise being tracked or in the database tagged with a `muscle`. +
+For example, `add t/exercise n/Run d/03/11/2019 c/200 q/10 u/km m/Legs`.
+
+... Test case: `suggest s/possible m/Legs` +
+   Expected: This exercise, along with database's exercises tagged with `Legs` are displayed.
+... Test case: `suggest s/possible o/and m/Legs` +
+   Expected: Similar to previous.
+... Test case: `suggest s/possible o/or m/Legs` +
+   Expected: Similar to previous.
+
+.. Prerequisites: A `CustomProperty` is created and there are exercises being tracked with `CustomProperty`. +
+For example,
+1. `custom s/r f/Rating p/Number`
+
+2. `add t/exercise n/Run d/03/11/2019 c/200 q/10 u/km m/Legs r/8`
+
+3. `add t/exercise n/Bench Press d/05/11/2019 c/150 q/40 u/kg m/Chest r/8`
+
+... Test case: `suggest s/possible o/and m/Chest r/8` +
+   Expected: The previously added exercise `Bench Press` is displayed.
+... Test case: `suggest s/possible o/or m/Chest r/8` +
+   Expected: The previously added exercises `Bench Press` and `Run` are displayed. In addition,
+exercises from database that are tagged `Chest` are also displayed.
+
+.. Test case: `suggest s/possible m/Chest m/Legs` +
+   Expected: Error details shown in the status message.
+.. Test case: `suggest s/possible o/or` +
+   Expected: Similar to previous.
+
+
 === Saving data
 
 . Dealing with missing/corrupted data files
