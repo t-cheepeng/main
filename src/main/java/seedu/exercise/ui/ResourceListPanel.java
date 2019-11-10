@@ -133,7 +133,7 @@ public abstract class ResourceListPanel extends UiPart<Region> {
      *     that has been selected.
      * </p>
      */
-    protected void selectGivenIndex(int index) {
+    public void selectGivenIndex(int index) {
         ListView<? extends Resource> resourceListView = getResourceListView();
         if (index >= 0) {
             /*

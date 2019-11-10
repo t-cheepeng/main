@@ -6,6 +6,8 @@ import static seedu.exercise.testutil.CommonTestData.EXERCISE_LIST_PANEL_LIST_VI
 import static seedu.exercise.testutil.CommonTestData.GUI_TITLE_TEXT;
 import static seedu.exercise.testutil.CommonTestData.SUGGESTION_LIST_PANEL_LIST_VIEW_ID;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExercises;
+import static seedu.exercise.ui.testutil.GuiAssert.assertItemFocused;
+import static seedu.exercise.ui.testutil.GuiAssert.assertItemSelected;
 import static seedu.exercise.ui.testutil.GuiAssert.assertListSelectionReset;
 import static seedu.exercise.ui.testutil.GuiAssert.assertResourceAddedToListView;
 
@@ -18,6 +20,7 @@ import seedu.exercise.guihandlers.LabelHandle;
 import seedu.exercise.guihandlers.ResourceListViewHandle;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
+import seedu.exercise.model.resource.Resource;
 import seedu.exercise.model.resource.Schedule;
 import seedu.exercise.testutil.CommonTestData;
 import seedu.exercise.testutil.typicalutil.TypicalExercises;
@@ -119,7 +122,33 @@ public class ResourceListPanelTest extends GuiUnitTest {
         assertEquals(GUI_TITLE_TEXT, exerciseListPanelLabelHandle.getLabelText());
     }
 
+    @Test
+    public void selectGivenIndex_selectFirstIndex_selected() {
+        assertResourceItemSelectedAndFocused(scheduleListPanel, scheduleListViewHandle, 0);
+        assertResourceItemSelectedAndFocused(regimeListPanel, regimeListViewHandle, 0);
+        assertResourceItemSelectedAndFocused(exerciseListPanel, exerciseListViewHandle, 0);
+        assertResourceItemSelectedAndFocused(suggestionListPanel, suggestListViewHandle, 0);
+    }
+
+    @Test
+    public void onListViewChanged_itemSelected() {
+        scheduleListViewHandle.addResource(TypicalSchedule.VALID_SCHEDULE_CARDIO_DATE);
+        assertResourceItemSelectedAndFocused(scheduleListPanel, scheduleListViewHandle, 0);
+    }
+
     private void initUi(UiPart<? extends Parent> uiPart) {
         uiPartExtension.setUiPart(uiPart);
+    }
+
+    /**
+     * Asserts that the resource at {@code index} is selected and focused.
+     */
+    private void assertResourceItemSelectedAndFocused(ResourceListPanel actualPanel,
+                                                      ResourceListViewHandle<? extends Resource> handle, int index) {
+        initUi(actualPanel);
+        guiRobot.interact(() -> actualPanel.selectGivenIndex(0));
+        guiRobot.pauseForHuman();
+        assertItemSelected(handle.getListView(), 0);
+        assertItemFocused(handle.getListView(), 0);
     }
 }

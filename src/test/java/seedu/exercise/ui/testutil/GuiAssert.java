@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.stream.IntStream;
 
+import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.input.Clipboard;
 import seedu.exercise.guihandlers.GuiRobot;
@@ -68,5 +69,19 @@ public class GuiAssert {
         listViewHandle.select(0);
         actualPanel.resetListSelection();
         assertSelectionModelNonSelected(listViewHandle.getSelectionModel(), listViewHandle.getListSize());
+    }
+
+    /**
+     * Asserts that item at {@code index} is selected from {@codee listView}.
+     */
+    public static <T extends Resource> void assertItemSelected(ListView<T> listView, int index) {
+        assertTrue(listView.getSelectionModel().isSelected(index));
+    }
+
+    /**
+     * Asserts that item at {@code index} is focused
+     */
+    public static <T extends Resource> void assertItemFocused(ListView<T> listView, int index) {
+        assertTrue(listView.getFocusModel().isFocused(index));
     }
 }
